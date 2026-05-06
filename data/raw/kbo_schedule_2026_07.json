@@ -1,0 +1,2656 @@
+{
+  "ok": true,
+  "data": {
+    "season": 2026,
+    "month": "07",
+    "game_count": 110,
+    "games": [
+      {
+        "game_id": null,
+        "date": "2026-07-01",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "롯데",
+          "home": "두산",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-01",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "삼성",
+          "home": "NC",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "창원",
+          "name": "창원 NC파크",
+          "city": "창원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-01",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "SSG",
+          "home": "KIA",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "광주",
+          "name": "광주 기아챔피언스필드",
+          "city": "광주",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-01",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "LG",
+          "home": "키움",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "고척",
+          "name": "고척스카이돔",
+          "city": "서울",
+          "is_dome": true
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-01",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KT",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-02",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "롯데",
+          "home": "두산",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-02",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "삼성",
+          "home": "NC",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "창원",
+          "name": "창원 NC파크",
+          "city": "창원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-02",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "SSG",
+          "home": "KIA",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "광주",
+          "name": "광주 기아챔피언스필드",
+          "city": "광주",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-02",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "LG",
+          "home": "키움",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "고척",
+          "name": "고척스카이돔",
+          "city": "서울",
+          "is_dome": true
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-02",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KT",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-03",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "한화",
+          "home": "LG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-03",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "삼성",
+          "home": "SSG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-03",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "롯데",
+          "home": "KT",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "수원",
+          "name": "수원 KT위즈파크",
+          "city": "수원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-03",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "NC",
+          "home": "KIA",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "광주",
+          "name": "광주 기아챔피언스필드",
+          "city": "광주",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-03",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "두산",
+          "home": "키움",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "고척",
+          "name": "고척스카이돔",
+          "city": "서울",
+          "is_dome": true
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-04",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "한화",
+          "home": "LG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-04",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "삼성",
+          "home": "SSG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-04",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "롯데",
+          "home": "KT",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "수원",
+          "name": "수원 KT위즈파크",
+          "city": "수원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-04",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "NC",
+          "home": "KIA",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "광주",
+          "name": "광주 기아챔피언스필드",
+          "city": "광주",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-04",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "두산",
+          "home": "키움",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "고척",
+          "name": "고척스카이돔",
+          "city": "서울",
+          "is_dome": true
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-05",
+        "time": "14:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "두산",
+          "home": "키움",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "고척",
+          "name": "고척스카이돔",
+          "city": "서울",
+          "is_dome": true
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-05",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "한화",
+          "home": "LG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-05",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "삼성",
+          "home": "SSG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-05",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "롯데",
+          "home": "KT",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "수원",
+          "name": "수원 KT위즈파크",
+          "city": "수원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-05",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "NC",
+          "home": "KIA",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "광주",
+          "name": "광주 기아챔피언스필드",
+          "city": "광주",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-07",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "SSG",
+          "home": "두산",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-07",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KIA",
+          "home": "롯데",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "사직",
+          "name": "부산 사직야구장",
+          "city": "부산",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-07",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "LG",
+          "home": "삼성",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대구",
+          "name": "대구 삼성라이온즈파크",
+          "city": "대구",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-07",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "키움",
+          "home": "KT",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "수원",
+          "name": "수원 KT위즈파크",
+          "city": "수원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-07",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "NC",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-08",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "SSG",
+          "home": "두산",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-08",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KIA",
+          "home": "롯데",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "사직",
+          "name": "부산 사직야구장",
+          "city": "부산",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-08",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "LG",
+          "home": "삼성",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대구",
+          "name": "대구 삼성라이온즈파크",
+          "city": "대구",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-08",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "키움",
+          "home": "KT",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "수원",
+          "name": "수원 KT위즈파크",
+          "city": "수원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-08",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "NC",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-09",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "SSG",
+          "home": "두산",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-09",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KIA",
+          "home": "롯데",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "사직",
+          "name": "부산 사직야구장",
+          "city": "부산",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-09",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "LG",
+          "home": "삼성",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대구",
+          "name": "대구 삼성라이온즈파크",
+          "city": "대구",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-09",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "키움",
+          "home": "KT",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "수원",
+          "name": "수원 KT위즈파크",
+          "city": "수원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-09",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "NC",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-16",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KT",
+          "home": "LG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-16",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KIA",
+          "home": "SSG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-16",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "롯데",
+          "home": "삼성",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대구",
+          "name": "대구 삼성라이온즈파크",
+          "city": "대구",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-16",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "두산",
+          "home": "NC",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "창원",
+          "name": "창원 NC파크",
+          "city": "창원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-16",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "키움",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-17",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KT",
+          "home": "LG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-17",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KIA",
+          "home": "SSG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-17",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "롯데",
+          "home": "삼성",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대구",
+          "name": "대구 삼성라이온즈파크",
+          "city": "대구",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-17",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "두산",
+          "home": "NC",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "창원",
+          "name": "창원 NC파크",
+          "city": "창원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-17",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "키움",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-18",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KT",
+          "home": "LG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-18",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KIA",
+          "home": "SSG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-18",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "롯데",
+          "home": "삼성",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대구",
+          "name": "대구 삼성라이온즈파크",
+          "city": "대구",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-18",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "두산",
+          "home": "NC",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "창원",
+          "name": "창원 NC파크",
+          "city": "창원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-18",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "키움",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-19",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KT",
+          "home": "LG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-19",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KIA",
+          "home": "SSG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-19",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "롯데",
+          "home": "삼성",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대구",
+          "name": "대구 삼성라이온즈파크",
+          "city": "대구",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-19",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "두산",
+          "home": "NC",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "창원",
+          "name": "창원 NC파크",
+          "city": "창원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-19",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "키움",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-21",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "NC",
+          "home": "LG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-21",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "SSG",
+          "home": "롯데",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "사직",
+          "name": "부산 사직야구장",
+          "city": "부산",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-21",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "두산",
+          "home": "KT",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "수원",
+          "name": "수원 KT위즈파크",
+          "city": "수원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-21",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "한화",
+          "home": "KIA",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "광주",
+          "name": "광주 기아챔피언스필드",
+          "city": "광주",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-21",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "삼성",
+          "home": "키움",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "고척",
+          "name": "고척스카이돔",
+          "city": "서울",
+          "is_dome": true
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-22",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "NC",
+          "home": "LG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-22",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "SSG",
+          "home": "롯데",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "사직",
+          "name": "부산 사직야구장",
+          "city": "부산",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-22",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "두산",
+          "home": "KT",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "수원",
+          "name": "수원 KT위즈파크",
+          "city": "수원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-22",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "한화",
+          "home": "KIA",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "광주",
+          "name": "광주 기아챔피언스필드",
+          "city": "광주",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-22",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "삼성",
+          "home": "키움",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "고척",
+          "name": "고척스카이돔",
+          "city": "서울",
+          "is_dome": true
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-23",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "NC",
+          "home": "LG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-23",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "SSG",
+          "home": "롯데",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "사직",
+          "name": "부산 사직야구장",
+          "city": "부산",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-23",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "두산",
+          "home": "KT",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "수원",
+          "name": "수원 KT위즈파크",
+          "city": "수원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-23",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "한화",
+          "home": "KIA",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "광주",
+          "name": "광주 기아챔피언스필드",
+          "city": "광주",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-23",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "삼성",
+          "home": "키움",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "고척",
+          "name": "고척스카이돔",
+          "city": "서울",
+          "is_dome": true
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-24",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "삼성",
+          "home": "두산",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-24",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "NC",
+          "home": "SSG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-24",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KT",
+          "home": "롯데",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "사직",
+          "name": "부산 사직야구장",
+          "city": "부산",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-24",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "키움",
+          "home": "KIA",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "광주",
+          "name": "광주 기아챔피언스필드",
+          "city": "광주",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-24",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "LG",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-25",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "삼성",
+          "home": "두산",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-25",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "NC",
+          "home": "SSG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-25",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KT",
+          "home": "롯데",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "사직",
+          "name": "부산 사직야구장",
+          "city": "부산",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-25",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "키움",
+          "home": "KIA",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "광주",
+          "name": "광주 기아챔피언스필드",
+          "city": "광주",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-25",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "LG",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-26",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "삼성",
+          "home": "두산",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-26",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "NC",
+          "home": "SSG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-26",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KT",
+          "home": "롯데",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "사직",
+          "name": "부산 사직야구장",
+          "city": "부산",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-26",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "키움",
+          "home": "KIA",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "광주",
+          "name": "광주 기아챔피언스필드",
+          "city": "광주",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-26",
+        "time": "18:00",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "LG",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-28",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "키움",
+          "home": "LG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-28",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "두산",
+          "home": "SSG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-28",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KIA",
+          "home": "삼성",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대구",
+          "name": "대구 삼성라이온즈파크",
+          "city": "대구",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-28",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KT",
+          "home": "NC",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "창원",
+          "name": "창원 NC파크",
+          "city": "창원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-28",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "롯데",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-29",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "키움",
+          "home": "LG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-29",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "두산",
+          "home": "SSG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-29",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KIA",
+          "home": "삼성",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대구",
+          "name": "대구 삼성라이온즈파크",
+          "city": "대구",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-29",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KT",
+          "home": "NC",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "창원",
+          "name": "창원 NC파크",
+          "city": "창원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-29",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "롯데",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-30",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "키움",
+          "home": "LG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-30",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "두산",
+          "home": "SSG",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-30",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KIA",
+          "home": "삼성",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대구",
+          "name": "대구 삼성라이온즈파크",
+          "city": "대구",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-30",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KT",
+          "home": "NC",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "창원",
+          "name": "창원 NC파크",
+          "city": "창원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-30",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "롯데",
+          "home": "한화",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-31",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "LG",
+          "home": "두산",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-31",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "삼성",
+          "home": "롯데",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "사직",
+          "name": "부산 사직야구장",
+          "city": "부산",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-31",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "KIA",
+          "home": "NC",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "창원",
+          "name": "창원 NC파크",
+          "city": "창원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-31",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "한화",
+          "home": "KT",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "수원",
+          "name": "수원 KT위즈파크",
+          "city": "수원",
+          "is_dome": false
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": null,
+        "date": "2026-07-31",
+        "time": "18:30",
+        "status": "SCHEDULED",
+        "teams": {
+          "away": "SSG",
+          "home": "키움",
+          "away_score": null,
+          "home_score": null
+        },
+        "stadium": {
+          "short_name": "고척",
+          "name": "고척스카이돔",
+          "city": "서울",
+          "is_dome": true
+        },
+        "broadcast": "",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "kbo_official_ajax",
+    "fetched_at": "2026-05-06T13:43:43.589699+00:00",
+    "fallback_used": false
+  }
+}

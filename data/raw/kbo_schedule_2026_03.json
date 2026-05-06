@@ -1,0 +1,376 @@
+{
+  "ok": true,
+  "data": {
+    "season": 2026,
+    "month": "03",
+    "game_count": 15,
+    "games": [
+      {
+        "game_id": "20260328KTLG0",
+        "date": "2026-03-28",
+        "time": "14:00",
+        "status": "FINAL",
+        "teams": {
+          "away": "KT",
+          "home": "LG",
+          "away_score": 11,
+          "home_score": 7
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "S-T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260328HTSK0",
+        "date": "2026-03-28",
+        "time": "14:00",
+        "status": "FINAL",
+        "teams": {
+          "away": "KIA",
+          "home": "SSG",
+          "away_score": 6,
+          "home_score": 7
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "M-T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260328LTSS0",
+        "date": "2026-03-28",
+        "time": "14:00",
+        "status": "FINAL",
+        "teams": {
+          "away": "롯데",
+          "home": "삼성",
+          "away_score": 6,
+          "home_score": 3
+        },
+        "stadium": {
+          "short_name": "대구",
+          "name": "대구 삼성라이온즈파크",
+          "city": "대구",
+          "is_dome": false
+        },
+        "broadcast": "K-2T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260328OBNC0",
+        "date": "2026-03-28",
+        "time": "14:00",
+        "status": "FINAL",
+        "teams": {
+          "away": "두산",
+          "home": "NC",
+          "away_score": 0,
+          "home_score": 6
+        },
+        "stadium": {
+          "short_name": "창원",
+          "name": "창원 NC파크",
+          "city": "창원",
+          "is_dome": false
+        },
+        "broadcast": "SPO-T KN-T SS-T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260328WOHH0",
+        "date": "2026-03-28",
+        "time": "14:00",
+        "status": "FINAL",
+        "teams": {
+          "away": "키움",
+          "home": "한화",
+          "away_score": 9,
+          "home_score": 10
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "SPO-2T MS-T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260329KTLG0",
+        "date": "2026-03-29",
+        "time": "14:00",
+        "status": "FINAL",
+        "teams": {
+          "away": "KT",
+          "home": "LG",
+          "away_score": 6,
+          "home_score": 5
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "SS-T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260329HTSK0",
+        "date": "2026-03-29",
+        "time": "14:00",
+        "status": "FINAL",
+        "teams": {
+          "away": "KIA",
+          "home": "SSG",
+          "away_score": 6,
+          "home_score": 11
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "SPO-T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260329LTSS0",
+        "date": "2026-03-29",
+        "time": "14:00",
+        "status": "FINAL",
+        "teams": {
+          "away": "롯데",
+          "home": "삼성",
+          "away_score": 6,
+          "home_score": 2
+        },
+        "stadium": {
+          "short_name": "대구",
+          "name": "대구 삼성라이온즈파크",
+          "city": "대구",
+          "is_dome": false
+        },
+        "broadcast": "MS-T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260329OBNC0",
+        "date": "2026-03-29",
+        "time": "14:00",
+        "status": "FINAL",
+        "teams": {
+          "away": "두산",
+          "home": "NC",
+          "away_score": 9,
+          "home_score": 6
+        },
+        "stadium": {
+          "short_name": "창원",
+          "name": "창원 NC파크",
+          "city": "창원",
+          "is_dome": false
+        },
+        "broadcast": "KN-T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260329WOHH0",
+        "date": "2026-03-29",
+        "time": "14:00",
+        "status": "FINAL",
+        "teams": {
+          "away": "키움",
+          "home": "한화",
+          "away_score": 4,
+          "home_score": 10
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "SPO-2T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260331HTLG0",
+        "date": "2026-03-31",
+        "time": "18:30",
+        "status": "FINAL",
+        "teams": {
+          "away": "KIA",
+          "home": "LG",
+          "away_score": 7,
+          "home_score": 2
+        },
+        "stadium": {
+          "short_name": "잠실",
+          "name": "잠실야구장",
+          "city": "서울",
+          "is_dome": false
+        },
+        "broadcast": "KN-T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260331WOSK0",
+        "date": "2026-03-31",
+        "time": "18:30",
+        "status": "FINAL",
+        "teams": {
+          "away": "키움",
+          "home": "SSG",
+          "away_score": 3,
+          "home_score": 9
+        },
+        "stadium": {
+          "short_name": "문학",
+          "name": "인천 SSG 랜더스필드",
+          "city": "인천",
+          "is_dome": false
+        },
+        "broadcast": "SPO-T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260331OBSS0",
+        "date": "2026-03-31",
+        "time": "18:30",
+        "status": "FINAL",
+        "teams": {
+          "away": "두산",
+          "home": "삼성",
+          "away_score": 5,
+          "home_score": 5
+        },
+        "stadium": {
+          "short_name": "대구",
+          "name": "대구 삼성라이온즈파크",
+          "city": "대구",
+          "is_dome": false
+        },
+        "broadcast": "SPO-2T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260331LTNC0",
+        "date": "2026-03-31",
+        "time": "18:30",
+        "status": "FINAL",
+        "teams": {
+          "away": "롯데",
+          "home": "NC",
+          "away_score": 2,
+          "home_score": 9
+        },
+        "stadium": {
+          "short_name": "창원",
+          "name": "창원 NC파크",
+          "city": "창원",
+          "is_dome": false
+        },
+        "broadcast": "SS-T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      },
+      {
+        "game_id": "20260331KTHH0",
+        "date": "2026-03-31",
+        "time": "18:30",
+        "status": "FINAL",
+        "teams": {
+          "away": "KT",
+          "home": "한화",
+          "away_score": 9,
+          "home_score": 4
+        },
+        "stadium": {
+          "short_name": "대전",
+          "name": "대전 한화생명 볼파크",
+          "city": "대전",
+          "is_dome": false
+        },
+        "broadcast": "MS-T",
+        "note": "-",
+        "source": {
+          "name": "KBO Official Schedule",
+          "url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "kbo_official_ajax",
+    "fetched_at": "2026-05-06T13:43:29.257659+00:00",
+    "fallback_used": false
+  }
+}
