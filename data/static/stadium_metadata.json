@@ -1,0 +1,295 @@
+{
+  "ok": true,
+  "data": {
+    "stadium_count": 9,
+    "stadiums": [
+      {
+        "id": "jamsil",
+        "short_name": "잠실",
+        "name": "잠실야구장",
+        "city": "서울",
+        "home_teams": [
+          "LG 트윈스",
+          "두산 베어스"
+        ],
+        "is_dome": false,
+        "address": "서울특별시 송파구 올림픽로 25",
+        "coordinates": {
+          "lat": 37.5122,
+          "lng": 127.0719
+        },
+        "weather_grid": {
+          "nx": 61,
+          "ny": 126
+        },
+        "capacity": 23750,
+        "ticketing": {
+          "platforms": [
+            "티켓링크",
+            "인터파크"
+          ],
+          "note": "LG 홈경기는 티켓링크, 두산 홈경기는 인터파크 예매를 기본값으로 사용한다."
+        },
+        "source": {
+          "data_type": "manual_static_seed",
+          "coordinate_type": "manual_static_wgs84",
+          "weather_grid_type": "computed_from_coordinate"
+        }
+      },
+      {
+        "id": "gocheok",
+        "short_name": "고척",
+        "name": "고척스카이돔",
+        "city": "서울",
+        "home_teams": [
+          "키움 히어로즈"
+        ],
+        "is_dome": true,
+        "address": "서울특별시 구로구 경인로 430",
+        "coordinates": {
+          "lat": 37.4982,
+          "lng": 126.8671
+        },
+        "weather_grid": {
+          "nx": 58,
+          "ny": 125
+        },
+        "capacity": 16744,
+        "ticketing": {
+          "platforms": [
+            "인터파크"
+          ],
+          "note": "돔구장이므로 우천 리스크를 낮게 본다."
+        },
+        "source": {
+          "data_type": "manual_static_seed",
+          "coordinate_type": "manual_static_wgs84",
+          "weather_grid_type": "computed_from_coordinate"
+        }
+      },
+      {
+        "id": "incheon",
+        "short_name": "문학",
+        "name": "인천 SSG 랜더스필드",
+        "city": "인천",
+        "home_teams": [
+          "SSG 랜더스"
+        ],
+        "is_dome": false,
+        "address": "인천광역시 미추홀구 매소홀로 618",
+        "coordinates": {
+          "lat": 37.4369,
+          "lng": 126.6933
+        },
+        "weather_grid": {
+          "nx": 55,
+          "ny": 124
+        },
+        "capacity": 23000,
+        "ticketing": {
+          "platforms": [
+            "SSG 자체예매"
+          ],
+          "note": "KBO 티켓 안내 기준 SSG 자체 예매처를 사용한다."
+        },
+        "source": {
+          "data_type": "manual_static_seed",
+          "coordinate_type": "manual_static_wgs84",
+          "weather_grid_type": "computed_from_coordinate"
+        }
+      },
+      {
+        "id": "suwon",
+        "short_name": "수원",
+        "name": "수원 KT위즈파크",
+        "city": "수원",
+        "home_teams": [
+          "KT 위즈"
+        ],
+        "is_dome": false,
+        "address": "경기도 수원시 장안구 경수대로 893",
+        "coordinates": {
+          "lat": 37.2998,
+          "lng": 127.0097
+        },
+        "weather_grid": {
+          "nx": 60,
+          "ny": 121
+        },
+        "capacity": 20000,
+        "ticketing": {
+          "platforms": [
+            "티켓링크"
+          ],
+          "note": "KBO 티켓 안내 기준 티켓링크 예매처를 사용한다."
+        },
+        "source": {
+          "data_type": "manual_static_seed",
+          "coordinate_type": "manual_static_wgs84",
+          "weather_grid_type": "computed_from_coordinate"
+        }
+      },
+      {
+        "id": "daejeon",
+        "short_name": "대전",
+        "name": "대전 한화생명 볼파크",
+        "city": "대전",
+        "home_teams": [
+          "한화 이글스"
+        ],
+        "is_dome": false,
+        "address": "대전광역시 중구 대종로 373",
+        "coordinates": {
+          "lat": 36.3171,
+          "lng": 127.4291
+        },
+        "weather_grid": {
+          "nx": 68,
+          "ny": 100
+        },
+        "capacity": 20000,
+        "ticketing": {
+          "platforms": [
+            "티켓링크"
+          ],
+          "note": "2025년 이후 한화 홈구장 기준으로 사용한다."
+        },
+        "source": {
+          "data_type": "manual_static_seed",
+          "coordinate_type": "manual_static_wgs84",
+          "weather_grid_type": "computed_from_coordinate"
+        }
+      },
+      {
+        "id": "daegu",
+        "short_name": "대구",
+        "name": "대구 삼성라이온즈파크",
+        "city": "대구",
+        "home_teams": [
+          "삼성 라이온즈"
+        ],
+        "is_dome": false,
+        "address": "대구광역시 수성구 야구전설로 1",
+        "coordinates": {
+          "lat": 35.841,
+          "lng": 128.6815
+        },
+        "weather_grid": {
+          "nx": 90,
+          "ny": 90
+        },
+        "capacity": 24000,
+        "ticketing": {
+          "platforms": [
+            "티켓링크"
+          ],
+          "note": "KBO 티켓 안내 기준 티켓링크 예매처를 사용한다."
+        },
+        "source": {
+          "data_type": "manual_static_seed",
+          "coordinate_type": "manual_static_wgs84",
+          "weather_grid_type": "computed_from_coordinate"
+        }
+      },
+      {
+        "id": "gwangju",
+        "short_name": "광주",
+        "name": "광주-기아 챔피언스 필드",
+        "city": "광주",
+        "home_teams": [
+          "KIA 타이거즈"
+        ],
+        "is_dome": false,
+        "address": "광주광역시 북구 서림로 10",
+        "coordinates": {
+          "lat": 35.1682,
+          "lng": 126.8891
+        },
+        "weather_grid": {
+          "nx": 59,
+          "ny": 75
+        },
+        "capacity": 20500,
+        "ticketing": {
+          "platforms": [
+            "티켓링크"
+          ],
+          "note": "KBO 티켓 안내 기준 티켓링크 예매처를 사용한다."
+        },
+        "source": {
+          "data_type": "manual_static_seed",
+          "coordinate_type": "manual_static_wgs84",
+          "weather_grid_type": "computed_from_coordinate"
+        }
+      },
+      {
+        "id": "changwon",
+        "short_name": "창원",
+        "name": "창원NC파크",
+        "city": "창원",
+        "home_teams": [
+          "NC 다이노스"
+        ],
+        "is_dome": false,
+        "address": "경상남도 창원시 마산회원구 삼호로 63",
+        "coordinates": {
+          "lat": 35.2225,
+          "lng": 128.5824
+        },
+        "weather_grid": {
+          "nx": 89,
+          "ny": 76
+        },
+        "capacity": 22000,
+        "ticketing": {
+          "platforms": [
+            "NC 자체예매"
+          ],
+          "note": "KBO 티켓 안내 기준 NC 자체 예매처를 사용한다."
+        },
+        "source": {
+          "data_type": "manual_static_seed",
+          "coordinate_type": "manual_static_wgs84",
+          "weather_grid_type": "computed_from_coordinate"
+        }
+      },
+      {
+        "id": "sajik",
+        "short_name": "사직",
+        "name": "부산 사직야구장",
+        "city": "부산",
+        "home_teams": [
+          "롯데 자이언츠"
+        ],
+        "is_dome": false,
+        "address": "부산광역시 동래구 사직로 45",
+        "coordinates": {
+          "lat": 35.194,
+          "lng": 129.0615
+        },
+        "weather_grid": {
+          "nx": 98,
+          "ny": 76
+        },
+        "capacity": 22758,
+        "ticketing": {
+          "platforms": [
+            "롯데 자체예매"
+          ],
+          "note": "KBO 티켓 안내 기준 롯데 자체 예매처를 사용한다."
+        },
+        "source": {
+          "data_type": "manual_static_seed",
+          "coordinate_type": "manual_static_wgs84",
+          "weather_grid_type": "computed_from_coordinate"
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "manual_static_stadium_metadata",
+    "updated_at": "2026-05-06T00:00:00+09:00",
+    "fallback_used": false
+  }
+}

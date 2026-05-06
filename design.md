@@ -295,9 +295,43 @@ Workflow/RAG 처리 또는 Agent 판단 루프
 
 - **목적:** 구장별 좌석 특징, 실시간 기상 상황, 구장 내 맛집 정보를 통합 조회합니다.
 - **입력 스키마:** `{ "stadium_name": "string", "date": "string", "weather_needed": "boolean", "food_preference": "string (optional)" }`
-- **출력 스키마:** `{ "weather": { "temp": "number", "condition": "string" }, "seat_recommendations": "array", "food_list": "array", "tips": "string" }`
+- **출력 스키마:** `{ "weather_policy": { "forecast_level": "short_term | mid_term | unavailable", "recommendation_mode": "weather_based | weather_risk_based | preference_based" }, "weather": { "temp": "number", "condition": "string" }, "seat_recommendations": "array", "food_list": "array", "tips": "string" }`
 - **실패 시 반환:** `{ "error": "DATA_INCOMPLETE", "detail": "구장 정보 또는 날씨 데이터를 가져오는 데 실패했습니다." }`
 - **사용 조건:** 좌석 추천, 날씨 기반 가이드, 구장 먹거리 추천 시 사용.
+
+#### Tool 2 날씨 예보 범위별 정책
+
+경기 날짜가 오늘 기준 어느 범위에 있는지에 따라 날씨 데이터 사용 방식과 좌석 추천 기준을 다르게 적용합니다. 날씨 API가 제공하지 않는 먼 미래의 경기는 실패로 처리하지 않고, 성향 기반 좌석 추천으로 전환합니다.
+
+| **경기 날짜 범위** | **사용 데이터** | **추천 모드** | **Agent 판단** |
+| --- | --- | --- | --- |
+| 오늘 ~ 3일 뒤 | 기상청 단기예보/초단기예보 | `weather_based` | 경기 시간대 기온, 강수확률, 강수형태, 습도, 풍속을 바탕으로 우천/폭염/바람 리스크를 판단하고 좌석을 추천합니다. |
+| 4일 뒤 ~ 10일 뒤 | 기상청 중기예보 | `weather_risk_based` | 오전/오후 단위의 날씨 경향만 참고합니다. 정확한 경기 시간대 예보가 아니므로 리스크 완화 좌석을 우선 추천하고 불확실성을 안내합니다. |
+| 11일 이후 | 날씨 예보 미사용 | `preference_based` | 날씨 기반 판단을 하지 않고 사용자의 성향(응원 열기, 시야, 가격, 원정팬, 음식 접근성, 초보자 편의)에 따라 좌석을 추천합니다. |
+
+응답에는 반드시 `forecast_level`, `forecast_reliability`, `recommendation_mode`를 포함하여 Agent가 다음 행동을 결정할 수 있게 합니다.
+
+```jsx
+{
+  "weather_policy": {
+    "forecast_level": "mid_term",
+    "forecast_reliability": "medium",
+    "recommendation_mode": "weather_risk_based"
+  },
+  "weather": {
+    "period": "afternoon",
+    "sky": "흐림",
+    "precipitation_probability": 40
+  },
+  "seat_recommendations": [
+    {
+      "zone": "상단 내야석",
+      "reason": "중기예보상 비 가능성이 있어 이동 동선과 지붕 접근성이 좋은 좌석을 우선 추천"
+    }
+  ],
+  "tips": "중기예보는 경기 시간대 예보가 아니므로 경기 3일 전 다시 확인하는 것이 좋습니다."
+}
+```
 
 ### **Tool 3: `logistics_planner`**
 
@@ -385,12 +419,25 @@ JSON
 **(1) 데이터 출처**
 
 - **API:** [기상청 단기예보 API](https://www.data.go.kr/data/15084084/openapi.do) (초단기실황 및 예보)
+- **API:** 기상청 중기예보 API (경기일이 4~10일 뒤인 경우 날씨 경향 참고용)
 - **크롤링:** 망고플레이트 구장 키워드 검색, 야구 커뮤니티(엠팍, 디시) 좌석 리뷰
+- **정적 데이터 (Local JSON):** `data/static/stadium_metadata.json`, `data/static/stadium_seat_guides.json`
+
+**(1-1) 날씨 예보 적용 정책**
+
+- **오늘 ~ 3일 뒤 경기:** 단기예보 또는 초단기예보를 사용해 경기 시간대의 기온, 강수확률, 강수형태, 습도, 풍속을 조회합니다. 이 범위에서는 우천/폭염/바람 리스크를 직접 좌석 추천에 반영합니다.
+- **4일 뒤 ~ 10일 뒤 경기:** 중기예보를 사용합니다. 중기예보는 오전/오후 단위의 경향 정보이므로 정확한 경기 시간대 날씨처럼 단정하지 않습니다. 비 가능성이 있으면 지붕 접근성, 이동 편의, 취소 가능성 안내 등 리스크 완화 중심으로 추천합니다.
+- **11일 이후 경기:** 날씨 예보를 사용하지 않습니다. 이 경우 날씨 Tool 실패가 아니라 `forecast_level: "unavailable"` 상태로 반환하고, Agent는 성향 기반 좌석 추천으로 전환합니다.
 
 **(2) 실제 응답 샘플 (Mock)**
 
 ```jsx
 {
+  "weather_policy": {
+    "forecast_level": "short_term",
+    "forecast_reliability": "high",
+    "recommendation_mode": "weather_based"
+  },
   "weather": {
     "current_temp": 24,
     "precipitation_type": "None",

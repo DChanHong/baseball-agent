@@ -101,3 +101,117 @@ KBO 공식 경기 일정 크롤링 결과를 Agent가 안정적으로 조회할 
 - `stadium.is_dome` 값이 boolean으로 저장된다.
 - 경기 취소 데이터는 `status: "CANCELLED"`로 구분된다.
 - Agent가 일정 조회 후 날씨 Tool 호출 여부를 판단할 수 있다.
+
+## 2. 구장 정적 메타데이터 저장 프롬프트
+
+### 목적
+
+KBO 경기 일정 데이터에 포함된 구장 약칭을 Agent가 실제 판단에 사용할 수 있는 표준 구장 정보로 확장한다. 이 데이터는 크롤링 데이터가 아니라, MVP 구현을 위해 수동으로 정리한 정적 데이터이며 `stadium_metadata_provider`, `weather_provider`, `seat_recommender`의 공통 참조 데이터로 사용한다.
+
+### 입력 데이터
+
+- 데이터 성격: 수동 정리한 static seed
+- 저장 위치: `data/static/stadium_metadata.json`
+- 대상 구장: KBO 1군 경기에서 사용하는 9개 구장
+- 포함 범위: 구장명, 홈팀, 돔 여부, 주소, 위도/경도, 기상청 격자, 수용인원, 예매처 기본값
+
+### 저장 원칙
+
+1. 이 파일에는 크롤링으로 가져온 구단 사무실 주소나 홈페이지 정보를 저장하지 않는다.
+2. Agent 판단에 필요한 구장 단위 정보만 저장한다.
+3. `id`는 코드에서 안정적으로 참조할 수 있는 영문 slug로 저장한다.
+4. `short_name`은 KBO 일정 크롤링 결과의 구장 약칭과 매칭할 수 있어야 한다.
+5. `is_dome`은 우천/폭염 판단 분기의 핵심 필드이므로 반드시 boolean으로 저장한다.
+6. `coordinates`는 카카오 API를 호출하지 않고 고정 위도/경도 값을 수동 저장한다.
+7. `weather_grid`는 기상청 단기예보 API 호출에 바로 사용할 수 있도록 `nx`, `ny`로 저장한다.
+8. `ticketing`은 MVP에서 예매처 안내용 기본값으로만 사용하고, 실시간 예매 오픈 일시는 이 파일에 저장하지 않는다.
+
+### 정규화 스키마
+
+```json
+{
+  "ok": true,
+  "data": {
+    "stadium_count": 9,
+    "stadiums": [
+      {
+        "id": "jamsil",
+        "short_name": "잠실",
+        "name": "잠실야구장",
+        "city": "서울",
+        "home_teams": ["LG 트윈스", "두산 베어스"],
+        "is_dome": false,
+        "address": "서울특별시 송파구 올림픽로 25",
+        "coordinates": {
+          "lat": 37.5122,
+          "lng": 127.0719
+        },
+        "weather_grid": {
+          "nx": 61,
+          "ny": 126
+        },
+        "capacity": 23750,
+        "ticketing": {
+          "platforms": ["티켓링크", "인터파크"],
+          "note": "LG 홈경기는 티켓링크, 두산 홈경기는 인터파크 예매를 기본값으로 사용한다."
+        },
+        "source": {
+          "data_type": "manual_static_seed",
+          "coordinate_type": "manual_static_wgs84",
+          "weather_grid_type": "computed_from_coordinate"
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "manual_static_stadium_metadata",
+    "updated_at": "2026-05-06T00:00:00+09:00",
+    "fallback_used": false
+  }
+}
+```
+
+### 필수 필드
+
+| 필드 | 설명 | MVP 사용처 |
+| --- | --- | --- |
+| `id` | 내부 참조용 구장 ID | Tool 간 공통 key |
+| `short_name` | 경기 일정 데이터의 구장 약칭 | KBO 일정과 구장 메타데이터 매칭 |
+| `name` | 표준 구장명 | 사용자 응답 및 Tool 입력 |
+| `home_teams` | 해당 구장을 홈으로 쓰는 팀 | 예매처/응원석 기준 판단 |
+| `is_dome` | 돔구장 여부 | 우천/폭염 영향 판단 |
+| `coordinates.lat` | 위도 | 기상청 격자 산출 근거 |
+| `coordinates.lng` | 경도 | 기상청 격자 산출 근거 |
+| `weather_grid.nx` | 기상청 X 격자 | 날씨 API 필수 입력 |
+| `weather_grid.ny` | 기상청 Y 격자 | 날씨 API 필수 입력 |
+| `ticketing.platforms` | 기본 예매처 | 예매처 안내 |
+
+### Agent 사용 규칙
+
+- 경기 일정 Tool이 반환한 `stadium.short_name` 또는 `stadium.name`으로 이 파일의 구장 데이터를 찾는다.
+- 매칭 성공 시 `is_dome`, `weather_grid`, `ticketing`을 다음 Tool 호출에 전달한다.
+- `is_dome`이 `true`이면 우천 취소 가능성을 낮게 보고 좌석 추천은 시야/응원/가격 중심으로 전환한다.
+- `is_dome`이 `false`이면 날짜 범위별 날씨 정책에 따라 우천/폭염/바람 리스크를 좌석 추천에 반영한다.
+- `weather_grid`가 없으면 날씨 API를 호출하지 않고 정적 좌석 추천으로 fallback한다.
+
+### 실패 처리
+
+```json
+{
+  "ok": false,
+  "data": null,
+  "error": {
+    "code": "STADIUM_METADATA_NOT_FOUND",
+    "message": "경기 일정의 구장명을 정적 구장 메타데이터와 매칭하지 못했습니다."
+  }
+}
+```
+
+### 검증 기준
+
+- `stadium_count`가 9인지 확인한다.
+- 모든 구장 객체에 `id`, `short_name`, `name`, `is_dome`, `weather_grid`가 존재한다.
+- `is_dome`은 boolean 값이어야 한다.
+- `weather_grid.nx`, `weather_grid.ny`는 정수여야 한다.
+- 크롤링 기반 필드인 `office_address`, `homepage`, `kbo_team_refs`는 포함하지 않는다.
