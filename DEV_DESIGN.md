@@ -29,6 +29,30 @@ MVP에서 제외하거나 2차로 미루는 항목:
 - 관전 포인트/응원가/선수 기록 분석
 - 맛집/먹거리 RAG
 
+### 2.1 6주차 설계와의 연결
+
+6주차 `design.md`의 문제 정의와 사용자 시나리오는 유지한다.
+
+유지하는 설계:
+
+- KBO 직관 초심자와 원정 팬을 대상으로 한다.
+- 사용자는 자연어로 경기, 좌석, 예매, 이동 관련 요청을 한다.
+- Agent는 단순 조회와 상황 판단을 분리한다.
+- 우천, 폭염, 돔구장 여부, 막차 부족, 정보 부족처럼 판단이 필요한 상황은 Agent가 Tool 결과를 관찰한 뒤 다음 행동을 결정한다.
+
+MVP에서 변경하거나 축소한 설계:
+
+- 6주차 Must-have 4개 중 `관전 포인트 및 응원 가이드`는 MVP 이후로 미룬다.
+- 선수/라인업 분석, 응원가, 맛집 추천은 2차 기능으로 둔다.
+- 교통 실시간 API와 예매처 실시간 크롤링은 MVP에서 사용하지 않고 static/mock 또는 RAG 기반 안내로 처리한다.
+- 구장 좌석/예매/동선 정보는 크롤링/정적 JSON을 FAISS에 인덱싱한 RAG로 검색한다.
+
+변경 이유:
+
+- 7주차 과제의 핵심 조건인 Tool 2개 이상, LLM의 Tool 선택, observation 기반 판단, 종료 조건, 실패 처리를 먼저 확실히 검증하기 위해 범위를 줄인다.
+- 이미 확보한 KBO 일정, 전구단 좌석 데이터, 구장 메타데이터를 MVP의 핵심 근거 데이터로 사용한다.
+- 실시간 교통/예매 데이터는 변동성과 실패 가능성이 높으므로 Agent 구조가 안정화된 뒤 2차로 연동한다.
+
 ## 3. 프레임워크 선택
 
 ### 서버
@@ -449,6 +473,60 @@ Agent 후속 행동:
 
 - `data/static/stadium_metadata.json`
 
+계약:
+
+```text
+언제 호출:
+- 경기 일정이 확정된 뒤 구장 정보를 확인할 때 호출한다.
+- 날씨 판단, 좌석 추천, 원정 동선 설계 전에 stadium_id 또는 stadium_name을 정규화해야 할 때 호출한다.
+
+필수 입력:
+- stadium_id 또는 stadium_name
+
+선택 입력:
+- home_team
+```
+
+성공 출력:
+
+```json
+{
+  "ok": true,
+  "status": "found",
+  "data": {
+    "stadium_id": "jamsil",
+    "stadium_name": "잠실야구장",
+    "city": "서울",
+    "is_dome": false,
+    "home_teams": ["LG 트윈스", "두산 베어스"],
+    "weather_grid": {"nx": 61, "ny": 126},
+    "ticketing": {
+      "platforms": ["티켓링크", "인터파크"]
+    }
+  },
+  "error": null
+}
+```
+
+실패 출력:
+
+```json
+{
+  "ok": false,
+  "status": "not_found",
+  "data": null,
+  "error": {
+    "code": "STADIUM_NOT_FOUND",
+    "message": "지원하는 구장 정보에서 찾지 못했습니다."
+  }
+}
+```
+
+Agent 후속 행동:
+
+- `STADIUM_NOT_FOUND`: 사용자에게 구장명 또는 홈팀을 다시 확인한다.
+- `AMBIGUOUS_STADIUM`: 후보 구장 목록을 제시하고 선택을 요청한다.
+
 ### 6.3 `get_weather_context`
 
 역할:
@@ -468,6 +546,77 @@ MVP 구현:
 
 - 1차: mock/rule 기반
 - 2차: 기상청 API 연동
+
+계약:
+
+```text
+언제 호출:
+- 경기 날짜, 시간, 구장 정보가 확정된 뒤 좌석 추천 전에 호출한다.
+- 우천/폭염/돔구장 여부에 따라 추천 모드를 결정해야 할 때 호출한다.
+
+필수 입력:
+- game_date
+- game_time
+- stadium_id
+- is_dome
+
+선택 입력:
+- weather_grid
+```
+
+성공 출력:
+
+```json
+{
+  "ok": true,
+  "status": "weather_based",
+  "data": {
+    "recommendation_mode": "weather_based",
+    "forecast_level": "short_term",
+    "forecast_reliability": "high",
+    "risk_flags": ["heat"],
+    "weather_summary": "낮 경기 기준 기온이 높아 햇빛과 탈수 리스크가 있습니다."
+  },
+  "error": null
+}
+```
+
+예보 범위 초과 정상 출력:
+
+```json
+{
+  "ok": true,
+  "status": "forecast_unavailable_by_policy",
+  "data": {
+    "recommendation_mode": "preference_based",
+    "forecast_level": "unavailable",
+    "forecast_reliability": "none",
+    "risk_flags": [],
+    "weather_summary": "11일 이후 경기라 날씨 예보를 사용하지 않고 성향 기반으로 추천합니다."
+  },
+  "error": null
+}
+```
+
+실패 출력:
+
+```json
+{
+  "ok": false,
+  "status": "external_api_failed",
+  "data": null,
+  "error": {
+    "code": "WEATHER_PROVIDER_FAILED",
+    "message": "날씨 데이터 조회에 실패했습니다."
+  }
+}
+```
+
+Agent 후속 행동:
+
+- `forecast_unavailable_by_policy`: 실패로 보지 않고 `preference_based` 좌석 추천으로 진행한다.
+- `WEATHER_PROVIDER_FAILED`: mock/static weather context 또는 `preference_based` fallback을 사용한다.
+- `is_dome=true`: 우천 리스크를 낮게 보고 좌석 추천에서 비 회피보다 시야/응원/가격을 우선한다.
 
 ### 6.4 `search_baseball_knowledge`
 
@@ -564,6 +713,61 @@ MVP 구현:
 - 정적 데이터 기반
 - 예매 오픈 일시는 정확 실시간 크롤링이 아니라 일반 rule/안내 수준
 
+계약:
+
+```text
+언제 호출:
+- 사용자가 예매처, 예매 오픈, 티켓팅 난이도, 티켓팅 팁을 묻는 경우 호출한다.
+- 좌석 추천 후 예매 행동까지 안내해야 하는 경우 호출한다.
+
+필수 입력:
+- team 또는 stadium_id
+
+선택 입력:
+- game_date
+- opponent
+- popularity_hint
+```
+
+성공 출력:
+
+```json
+{
+  "ok": true,
+  "status": "found",
+  "data": {
+    "team": "한화 이글스",
+    "stadium_id": "daejeon",
+    "platform": "티켓링크",
+    "official_url": "https://www.ticketlink.co.kr/sports/137/63",
+    "difficulty": "high",
+    "open_rule": "일반적으로 경기 D-7 전후 오픈 여부를 확인합니다.",
+    "tips": ["로그인과 본인인증을 미리 완료하세요.", "인기 경기는 오픈 직후 접속하세요."]
+  },
+  "error": null
+}
+```
+
+실패 출력:
+
+```json
+{
+  "ok": false,
+  "status": "not_found",
+  "data": null,
+  "error": {
+    "code": "TICKETING_GUIDE_NOT_FOUND",
+    "message": "해당 팀 또는 구장의 예매 가이드를 찾지 못했습니다."
+  }
+}
+```
+
+Agent 후속 행동:
+
+- `TICKETING_GUIDE_NOT_FOUND`: RAG 검색으로 예매처 관련 문서를 다시 찾는다.
+- `team`이 없으면 사용자의 응원 팀 또는 홈팀을 되묻는다.
+- 정확한 예매 오픈 일시가 없는 경우 일반 rule과 공식 예매처 확인 안내로 답한다.
+
 ### 6.7 `get_logistics_guide`
 
 역할:
@@ -580,6 +784,70 @@ MVP 구현:
 - static/mock rule
 - 기차/버스/자차/숙박 대안 안내
 - 실시간 막차 API는 2차 고도화
+
+계약:
+
+```text
+언제 호출:
+- 사용자가 원정 동선, 출발 시간, 이동 수단, 막차 가능성, 숙박 대안을 묻는 경우 호출한다.
+- 좌석/예매 안내와 함께 원정 플랜을 묶어 달라는 요청이 있을 때 호출한다.
+
+필수 입력:
+- origin
+- stadium_id 또는 stadium_name
+- game_date
+- game_time
+
+선택 입력:
+- preferred_transport
+- return_same_day
+```
+
+성공 출력:
+
+```json
+{
+  "ok": true,
+  "status": "planned",
+  "data": {
+    "origin": "부산",
+    "stadium_id": "jamsil",
+    "recommended_routes": [
+      {
+        "mode": "KTX+지하철",
+        "summary": "부산역에서 서울역 이동 후 지하철로 잠실 이동",
+        "estimated_duration_minutes": 210,
+        "risk": "medium"
+      }
+    ],
+    "return_plan": {
+      "same_day_possible": "conditional",
+      "note": "연장전 또는 늦은 종료 시 당일 복귀가 어려울 수 있습니다."
+    }
+  },
+  "error": null
+}
+```
+
+실패 출력:
+
+```json
+{
+  "ok": false,
+  "status": "missing_required_input",
+  "data": null,
+  "error": {
+    "code": "MISSING_ORIGIN",
+    "message": "원정 동선을 계산하려면 출발지가 필요합니다."
+  }
+}
+```
+
+Agent 후속 행동:
+
+- `MISSING_ORIGIN`: 출발지를 되묻는다.
+- `LOGISTICS_GUIDE_NOT_FOUND`: 일반 원정 준비 가이드와 숙박 fallback을 제공한다.
+- `same_day_possible=conditional`: 경기 종료 지연 리스크와 숙박 대안을 함께 안내한다.
 
 ## 7. 데이터 준비 계획
 
@@ -658,10 +926,119 @@ Tool 실패 시:
 
 종료 조건:
 
-- `max_iterations`
-- `max_execution_time`
-- 같은 Tool/argument 반복 감지
-- Tool 실패 횟수 제한
+- `max_iterations=6`
+- `max_execution_time=30`초
+- `tool_failure_limit=2`
+- `same_tool_same_args_limit=2`
+- `handle_parsing_errors=true`
+- `early_stopping_method="generate"`
+
+종료 상태값:
+
+| stop_reason | 의미 | Agent 응답 |
+| --- | --- | --- |
+| `final_answer` | 정상 최종 답변 생성 | 답변과 사용한 Tool metadata 반환 |
+| `missing_required_input` | 필수 입력 부족 | 사용자에게 필요한 입력을 되묻기 |
+| `max_iterations_exceeded` | 최대 반복 횟수 초과 | 현재까지 확인한 정보와 한계를 설명 |
+| `max_execution_time_exceeded` | 시간 제한 초과 | 시간 초과 안내와 재시도 제안 |
+| `tool_failure_limit_exceeded` | Tool 실패 횟수 초과 | fallback 가능 여부와 실패 원인 설명 |
+| `repeated_tool_call_detected` | 같은 Tool/argument 반복 | 반복 중단 후 현재 정보 기준으로 답변 |
+
+같은 Tool 반복 감지 기준:
+
+- 직전 Tool 이름과 argument JSON이 동일한 호출이 2회 연속 발생하면 반복으로 본다.
+- 반복 감지 시 Agent는 같은 Tool을 다시 호출하지 않고 `repeated_tool_call_detected`로 종료한다.
+
+Tool 실패 횟수 기준:
+
+- `ok=false` 결과가 전체 실행 중 2회 발생하면 `tool_failure_limit_exceeded`로 종료한다.
+- 단, `forecast_unavailable_by_policy`처럼 `ok=true`인 정책 fallback은 실패 횟수에 포함하지 않는다.
+
+### 8.1 Observation 및 로그 metadata
+
+과제 검증을 위해 `/chat` 응답에는 Agent 실행 흐름을 확인할 수 있는 metadata를 포함한다.
+
+`/chat` metadata 구조:
+
+```json
+{
+  "intent": "seat_recommendation",
+  "agent_mode": "langchain_agent_executor",
+  "model": {
+    "chat": "gemini",
+    "embedding": "openai"
+  },
+  "tools_used": ["find_kbo_game", "search_baseball_knowledge"],
+  "observations": [
+    {
+      "step": 1,
+      "tool": "find_kbo_game",
+      "arguments": {
+        "date": "2026-05-16",
+        "team_query": "롯데"
+      },
+      "result": {
+        "ok": true,
+        "status": "found"
+      }
+    }
+  ],
+  "stop_reason": "final_answer",
+  "iterations": 3,
+  "elapsed_ms": 1840,
+  "fallback_used": false
+}
+```
+
+metadata 필수 필드:
+
+- `intent`
+- `agent_mode`
+- `tools_used`
+- `observations`
+- `stop_reason`
+- `iterations`
+- `elapsed_ms`
+- `fallback_used`
+
+Observation 필수 필드:
+
+- `step`
+- `tool`
+- `arguments`
+- `result.ok`
+- `result.status`
+- `result.error.code`
+
+파일 로그:
+
+- MVP에서는 별도 로그 파일 저장은 필수가 아니다.
+- 우선 `/chat` 응답 metadata로 실행 흐름을 확인한다.
+- README의 실행 로그 분석은 이 metadata를 복사해 작성한다.
+
+### 8.2 성공 판정 기준과 테스트 매핑
+
+과제 제출 시 최소 3개 성공 판정 기준을 실제 실행 결과로 확인한다.
+
+| 기준 | 테스트 입력 | 확인할 것 |
+| --- | --- | --- |
+| 정상 Tool 조합 | "2026년 5월 16일 잠실 롯데전 자리 추천해줘" | `find_kbo_game -> get_stadium_info -> get_weather_context -> search_baseball_knowledge -> score_seat_candidates` 흐름이 metadata에 남는지 확인 |
+| RAG 검색 동작 | "잠실 롯데 원정 응원석이랑 가격 근거 찾아줘" | `search_baseball_knowledge`가 FAISS 문서를 반환하고 `source_url` metadata가 포함되는지 확인 |
+| Tool 실패/fallback | "잠실 롯데전 자리 추천해줘" | 날짜가 없어 Tool을 무리하게 호출하지 않고 `missing_required_input`으로 되묻는지 확인 |
+| 예보 범위 정책 | "2026년 9월 20일 사직 롯데전 자리 추천해줘" | 11일 이후 경기면 `forecast_unavailable_by_policy`, `preference_based`로 처리되는지 확인 |
+| 종료 조건 | FAISS index를 임시로 비활성화하거나 실패 Tool을 2회 발생시키는 테스트 | `tool_failure_limit_exceeded` 또는 `index_not_ready` fallback이 metadata에 남는지 확인 |
+
+README에 기록할 최소 성공 판정 3개:
+
+1. 정상 Tool 조합으로 좌석 추천 생성
+2. Tool 실패 또는 정보 부족 시 fallback/되묻기
+3. 종료 조건 또는 실패 횟수 제한 동작
+
+가능하면 추가로 기록할 항목:
+
+- FAISS RAG 검색 결과와 source_url
+- 날씨 예보 범위 정책 동작
+- 예매 가이드 또는 원정 동선 Tool 호출 흐름
 
 ## 9. 구현 순서
 
