@@ -1,0 +1,749 @@
+{
+  "ok": true,
+  "data": {
+    "stadium_id": "incheon",
+    "stadium_name": "인천 SSG 랜더스필드",
+    "team": "SSG 랜더스",
+    "season": 2026,
+    "seat_zone_count": 30,
+    "seat_zones": [
+      {
+        "seat_name": "4층 SKY뷰석",
+        "category": "일반석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 13000,
+          "weekend": 15000
+        },
+        "tags": [
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "4층 SKY뷰석",
+        "category": "일반석",
+        "audience": "청소년",
+        "side": null,
+        "price_krw": {
+          "weekday": 9000,
+          "weekend": 10500
+        },
+        "tags": [
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "4층 SKY뷰석",
+        "category": "일반석",
+        "audience": "어린이,경로,중증장애인,국가유공자,군인",
+        "side": null,
+        "price_krw": {
+          "weekday": 6500,
+          "weekend": 7500
+        },
+        "tags": [
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "외야 필드석",
+        "category": "일반석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 15000,
+          "weekend": 18000
+        },
+        "tags": [
+          "close_to_field",
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "immersion"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "외야 필드석",
+        "category": "일반석",
+        "audience": "청소년",
+        "side": null,
+        "price_krw": {
+          "weekday": 10500,
+          "weekend": 12500
+        },
+        "tags": [
+          "close_to_field",
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "immersion"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "외야 필드석",
+        "category": "일반석",
+        "audience": "어린이,경로,중증장애인,국가유공자,군인",
+        "side": null,
+        "price_krw": {
+          "weekday": 7500,
+          "weekend": 9000
+        },
+        "tags": [
+          "close_to_field",
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "immersion"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "내야 필드석",
+        "category": "일반석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 16000,
+          "weekend": 19000
+        },
+        "tags": [
+          "close_to_field"
+        ],
+        "recommendation_use_cases": [
+          "immersion"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "내야 필드석",
+        "category": "일반석",
+        "audience": "청소년",
+        "side": null,
+        "price_krw": {
+          "weekday": 11000,
+          "weekend": 13000
+        },
+        "tags": [
+          "close_to_field"
+        ],
+        "recommendation_use_cases": [
+          "immersion"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "내야 필드석",
+        "category": "일반석",
+        "audience": "어린이,경로,중증장애인,국가유공자,군인",
+        "side": null,
+        "price_krw": {
+          "weekday": 8000,
+          "weekend": 9500
+        },
+        "tags": [
+          "close_to_field"
+        ],
+        "recommendation_use_cases": [
+          "immersion"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "몰리스 그린존",
+        "category": "일반석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 20000,
+          "weekend": 28000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "몰리스 그린존",
+        "category": "일반석",
+        "audience": "청소년",
+        "side": null,
+        "price_krw": {
+          "weekday": 14000,
+          "weekend": 19500
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "몰리스 그린존",
+        "category": "일반석",
+        "audience": "어린이",
+        "side": null,
+        "price_krw": {
+          "weekday": 10000,
+          "weekend": 14000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "최정 400홈런 기념존",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 400,
+          "weekend": 400
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "휠체어 장애인석",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 5000,
+          "weekend": 5000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "으쓱이존",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 19000,
+          "weekend": 22000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "원정응원석",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 19000,
+          "weekend": 22000
+        },
+        "tags": [
+          "cheering"
+        ],
+        "recommendation_use_cases": [
+          "cheering"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "덕아웃 상단석",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 21000,
+          "weekend": 25000
+        },
+        "tags": [
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "초가정자",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 23000,
+          "weekend": 31000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "로케트배터리 외야파티덱",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 25000,
+          "weekend": 31000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "SKY탁자석",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 26000,
+          "weekend": 36000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "외야패밀리존",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 27000,
+          "weekend": 37000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "홈런커플존",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 32000,
+          "weekend": 41000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "이마트 프렌들리존",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 34000,
+          "weekend": 41000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "이마트 바비큐존/도드람한돈 바비큐존",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 37000,
+          "weekend": 48000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "요기요 내야패밀리존",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 40000,
+          "weekend": 53000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "노브랜드 테이블석(2층)",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 47000,
+          "weekend": 55000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "피코크 테이블석(1층)",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 53000,
+          "weekend": 64000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "랜더스 라이브존",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 60000,
+          "weekend": 75000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "미니스카이박스",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 67000,
+          "weekend": 86000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "스카이박스",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 83000,
+          "weekend": 97000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      }
+    ],
+    "official_tables": [
+      {
+        "heading": "SSG 랜더스 티켓 가격 안내",
+        "summary": "SSG Landers official ticket price image: https://www.ssglanders.com/img/game/price_2026.png",
+        "rows": [
+          [
+            "좌석",
+            "대상",
+            "주중(월-목)",
+            "주말(금-일 및 공휴일)"
+          ],
+          [
+            "4층 SKY뷰석",
+            "일반",
+            "13000",
+            "15000"
+          ],
+          [
+            "4층 SKY뷰석",
+            "청소년",
+            "9000",
+            "10500"
+          ],
+          [
+            "4층 SKY뷰석",
+            "어린이,경로,중증장애인,국가유공자,군인",
+            "6500",
+            "7500"
+          ],
+          [
+            "외야 필드석",
+            "일반",
+            "15000",
+            "18000"
+          ],
+          [
+            "외야 필드석",
+            "청소년",
+            "10500",
+            "12500"
+          ],
+          [
+            "외야 필드석",
+            "어린이,경로,중증장애인,국가유공자,군인",
+            "7500",
+            "9000"
+          ],
+          [
+            "내야 필드석",
+            "일반",
+            "16000",
+            "19000"
+          ],
+          [
+            "내야 필드석",
+            "청소년",
+            "11000",
+            "13000"
+          ],
+          [
+            "내야 필드석",
+            "어린이,경로,중증장애인,국가유공자,군인",
+            "8000",
+            "9500"
+          ],
+          [
+            "몰리스 그린존",
+            "일반",
+            "20000",
+            "28000"
+          ],
+          [
+            "몰리스 그린존",
+            "청소년",
+            "14000",
+            "19500"
+          ],
+          [
+            "몰리스 그린존",
+            "어린이",
+            "10000",
+            "14000"
+          ],
+          [
+            "최정 400홈런 기념존",
+            "all",
+            "400",
+            "400"
+          ],
+          [
+            "휠체어 장애인석",
+            "all",
+            "5000",
+            "5000"
+          ],
+          [
+            "으쓱이존",
+            "all",
+            "19000",
+            "22000"
+          ],
+          [
+            "원정응원석",
+            "all",
+            "19000",
+            "22000"
+          ],
+          [
+            "덕아웃 상단석",
+            "all",
+            "21000",
+            "25000"
+          ],
+          [
+            "초가정자",
+            "all",
+            "23000",
+            "31000"
+          ],
+          [
+            "로케트배터리 외야파티덱",
+            "all",
+            "25000",
+            "31000"
+          ],
+          [
+            "SKY탁자석",
+            "all",
+            "26000",
+            "36000"
+          ],
+          [
+            "외야패밀리존",
+            "all",
+            "27000",
+            "37000"
+          ],
+          [
+            "홈런커플존",
+            "all",
+            "32000",
+            "41000"
+          ],
+          [
+            "이마트 프렌들리존",
+            "all",
+            "34000",
+            "41000"
+          ],
+          [
+            "이마트 바비큐존/도드람한돈 바비큐존",
+            "all",
+            "37000",
+            "48000"
+          ],
+          [
+            "요기요 내야패밀리존",
+            "all",
+            "40000",
+            "53000"
+          ],
+          [
+            "노브랜드 테이블석(2층)",
+            "all",
+            "47000",
+            "55000"
+          ],
+          [
+            "피코크 테이블석(1층)",
+            "all",
+            "53000",
+            "64000"
+          ],
+          [
+            "랜더스 라이브존",
+            "all",
+            "60000",
+            "75000"
+          ],
+          [
+            "미니스카이박스",
+            "all",
+            "67000",
+            "86000"
+          ],
+          [
+            "스카이박스",
+            "all",
+            "83000",
+            "97000"
+          ]
+        ]
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "SSG Landers Official Ticket Guide",
+    "source_url": "https://www.ssglanders.com/game/ticket",
+    "fetched_at": "2026-05-07T12:32:52.317622+00:00",
+    "fallback_used": false
+  }
+}

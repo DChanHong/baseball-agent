@@ -1,0 +1,731 @@
+{
+  "ok": true,
+  "data": {
+    "stadium_id": "daejeon",
+    "stadium_name": "대전 한화생명 볼파크",
+    "team": "한화 이글스",
+    "season": 2026,
+    "seat_zone_count": 22,
+    "seat_zones": [
+      {
+        "seat_name": "포수후면석",
+        "category": "중앙",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 52500,
+          "section_2": 58000,
+          "section_3": 71000,
+          "section_4": 81500,
+          "special": 86500
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "중앙지정석",
+        "category": "중앙",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 44500,
+          "section_2": 44500,
+          "section_3": 48000,
+          "section_4": 54500,
+          "special": 58000
+        },
+        "tags": [
+          "central_view"
+        ],
+        "recommendation_use_cases": [
+          "view"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "중앙탁자석",
+        "category": "중앙",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 52000,
+          "section_2": 52000,
+          "section_3": 56500,
+          "section_4": 64500,
+          "special": 68000
+        },
+        "tags": [
+          "central_view",
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort",
+          "view"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "중앙휠체어석",
+        "category": "중앙",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 22500,
+          "section_2": 22500,
+          "section_3": 24000,
+          "section_4": 27500,
+          "special": 29000
+        },
+        "tags": [
+          "central_view"
+        ],
+        "recommendation_use_cases": [
+          "view"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "내야지정석 A",
+        "category": "내야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 18000,
+          "section_2": 18000,
+          "section_3": 21500,
+          "section_4": 25500,
+          "special": 28500
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "응원단석",
+        "category": "내야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 20000,
+          "section_2": 20000,
+          "section_3": 25000,
+          "section_4": 29000,
+          "special": 32000
+        },
+        "tags": [
+          "cheering"
+        ],
+        "recommendation_use_cases": [
+          "cheering"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "내야지정석 B",
+        "category": "내야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 15500,
+          "section_2": 17500,
+          "section_3": 19000,
+          "section_4": 21500,
+          "special": 24000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "내야박스석",
+        "category": "내야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 34000,
+          "section_2": 34000,
+          "section_3": 40500,
+          "section_4": 46000,
+          "special": 49000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화",
+          "6인"
+        ]
+      },
+      {
+        "seat_name": "내야탁자석(1층)",
+        "category": "내야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 38500,
+          "section_2": 38500,
+          "section_3": 46500,
+          "section_4": 52500,
+          "special": 56000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "내야탁자석(4층)",
+        "category": "내야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 27000,
+          "section_2": 27000,
+          "section_3": 35500,
+          "section_4": 40000,
+          "special": 44000
+        },
+        "tags": [
+          "table",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "comfort",
+          "view"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "내야휠체어석",
+        "category": "내야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 9000,
+          "section_2": 9000,
+          "section_3": 11000,
+          "section_4": 13000,
+          "special": 14500
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "이닝스 VIP 라운지",
+        "category": "내야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 152000,
+          "section_2": 152000,
+          "section_3": 156500,
+          "section_4": 164500,
+          "special": 168000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "이닝스 VIP 테라스",
+        "category": "내야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 116000,
+          "section_2": 116000,
+          "section_3": 122000,
+          "section_4": 127500,
+          "special": 130000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "스플래쉬 자쿠지",
+        "category": "내야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 65500,
+          "section_2": 67500,
+          "section_3": 69000,
+          "section_4": 71500,
+          "special": 74000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "스플래쉬 일반",
+        "category": "내야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 45500,
+          "section_2": 47500,
+          "section_3": 49000,
+          "section_4": 51500,
+          "special": 54000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "스플래쉬 탁자",
+        "category": "내야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 57000,
+          "section_2": 57000,
+          "section_3": 65500,
+          "section_4": 70000,
+          "special": 74000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "외야지정석",
+        "category": "외야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 12000,
+          "section_2": 13000,
+          "section_3": 14500,
+          "section_4": 16000,
+          "special": 18000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "잔디석",
+        "category": "외야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 23000,
+          "section_2": 23000,
+          "section_3": 27000,
+          "section_4": 31000,
+          "special": 34000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화",
+          "3인, 4인"
+        ]
+      },
+      {
+        "seat_name": "외야커플석",
+        "category": "외야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 34000,
+          "section_2": 34000,
+          "section_3": 40500,
+          "section_4": 46000,
+          "special": 49000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화",
+          "2인, 6인"
+        ]
+      },
+      {
+        "seat_name": "외야탁자석",
+        "category": "외야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 29000,
+          "section_2": 29000,
+          "section_3": 36500,
+          "section_4": 41000,
+          "special": 45000
+        },
+        "tags": [
+          "outfield",
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "comfort"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "외야휠체어석",
+        "category": "외야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 6000,
+          "section_2": 6500,
+          "section_3": 7500,
+          "section_4": 8000,
+          "special": 9000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "스카이박스",
+        "category": "외야",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "section_1": 100000,
+          "section_2": 100000,
+          "section_3": 110000,
+          "section_4": 116500,
+          "special": 122000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화",
+          "12인, 15인"
+        ]
+      }
+    ],
+    "official_tables": [
+      {
+        "heading": "2026 한화 이글스 입장권 가격",
+        "summary": "Hanwha Eagles official Ticketlink guide image: https://image.toast.com/aaaaab/ticketlink/TKL_1/260506.png",
+        "rows": [
+          [
+            "구분",
+            "좌석",
+            "대상",
+            "1구간",
+            "2구간",
+            "3구간",
+            "4구간",
+            "스페셜",
+            "비고"
+          ],
+          [
+            "중앙",
+            "포수후면석",
+            "all",
+            "52500",
+            "58000",
+            "71000",
+            "81500",
+            "86500",
+            ""
+          ],
+          [
+            "중앙",
+            "중앙지정석",
+            "all",
+            "44500",
+            "44500",
+            "48000",
+            "54500",
+            "58000",
+            ""
+          ],
+          [
+            "중앙",
+            "중앙탁자석",
+            "all",
+            "52000",
+            "52000",
+            "56500",
+            "64500",
+            "68000",
+            ""
+          ],
+          [
+            "중앙",
+            "중앙휠체어석",
+            "all",
+            "22500",
+            "22500",
+            "24000",
+            "27500",
+            "29000",
+            ""
+          ],
+          [
+            "내야",
+            "내야지정석 A",
+            "all",
+            "18000",
+            "18000",
+            "21500",
+            "25500",
+            "28500",
+            ""
+          ],
+          [
+            "내야",
+            "응원단석",
+            "all",
+            "20000",
+            "20000",
+            "25000",
+            "29000",
+            "32000",
+            ""
+          ],
+          [
+            "내야",
+            "내야지정석 B",
+            "all",
+            "15500",
+            "17500",
+            "19000",
+            "21500",
+            "24000",
+            ""
+          ],
+          [
+            "내야",
+            "내야박스석",
+            "all",
+            "34000",
+            "34000",
+            "40500",
+            "46000",
+            "49000",
+            "6인"
+          ],
+          [
+            "내야",
+            "내야탁자석(1층)",
+            "all",
+            "38500",
+            "38500",
+            "46500",
+            "52500",
+            "56000",
+            ""
+          ],
+          [
+            "내야",
+            "내야탁자석(4층)",
+            "all",
+            "27000",
+            "27000",
+            "35500",
+            "40000",
+            "44000",
+            ""
+          ],
+          [
+            "내야",
+            "내야휠체어석",
+            "all",
+            "9000",
+            "9000",
+            "11000",
+            "13000",
+            "14500",
+            ""
+          ],
+          [
+            "내야",
+            "이닝스 VIP 라운지",
+            "all",
+            "152000",
+            "152000",
+            "156500",
+            "164500",
+            "168000",
+            ""
+          ],
+          [
+            "내야",
+            "이닝스 VIP 테라스",
+            "all",
+            "116000",
+            "116000",
+            "122000",
+            "127500",
+            "130000",
+            ""
+          ],
+          [
+            "내야",
+            "스플래쉬 자쿠지",
+            "all",
+            "65500",
+            "67500",
+            "69000",
+            "71500",
+            "74000",
+            ""
+          ],
+          [
+            "내야",
+            "스플래쉬 일반",
+            "all",
+            "45500",
+            "47500",
+            "49000",
+            "51500",
+            "54000",
+            ""
+          ],
+          [
+            "내야",
+            "스플래쉬 탁자",
+            "all",
+            "57000",
+            "57000",
+            "65500",
+            "70000",
+            "74000",
+            ""
+          ],
+          [
+            "외야",
+            "외야지정석",
+            "all",
+            "12000",
+            "13000",
+            "14500",
+            "16000",
+            "18000",
+            ""
+          ],
+          [
+            "외야",
+            "잔디석",
+            "all",
+            "23000",
+            "23000",
+            "27000",
+            "31000",
+            "34000",
+            "3인, 4인"
+          ],
+          [
+            "외야",
+            "외야커플석",
+            "all",
+            "34000",
+            "34000",
+            "40500",
+            "46000",
+            "49000",
+            "2인, 6인"
+          ],
+          [
+            "외야",
+            "외야탁자석",
+            "all",
+            "29000",
+            "29000",
+            "36500",
+            "41000",
+            "45000",
+            ""
+          ],
+          [
+            "외야",
+            "외야휠체어석",
+            "all",
+            "6000",
+            "6500",
+            "7500",
+            "8000",
+            "9000",
+            ""
+          ],
+          [
+            "외야",
+            "스카이박스",
+            "all",
+            "100000",
+            "100000",
+            "110000",
+            "116500",
+            "122000",
+            "12인, 15인"
+          ]
+        ]
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "Hanwha Eagles Official Ticketlink Guide",
+    "source_url": "https://www.ticketlink.co.kr/sports/137/63",
+    "fetched_at": "2026-05-07T12:32:52.637171+00:00",
+    "fallback_used": false
+  }
+}

@@ -1,0 +1,585 @@
+{
+  "ok": true,
+  "data": {
+    "stadium_id": "jamsil",
+    "stadium_name": "잠실야구장",
+    "team": "LG 트윈스",
+    "season": 2026,
+    "seat_zone_count": 25,
+    "seat_zones": [
+      {
+        "seat_name": "프리미엄",
+        "category": "일반석",
+        "audience": "일반 가격",
+        "side": null,
+        "price_krw": {
+          "weekday": 100000,
+          "weekend": 100000
+        },
+        "tags": [
+          "close_to_field"
+        ],
+        "recommendation_use_cases": [
+          "immersion"
+        ],
+        "notes": []
+      },
+      {
+        "seat_name": "프리미엄",
+        "category": "일반석",
+        "audience": "성인 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 100000,
+          "weekend": 100000
+        },
+        "tags": [
+          "close_to_field"
+        ],
+        "recommendation_use_cases": [
+          "immersion"
+        ],
+        "notes": []
+      },
+      {
+        "seat_name": "프리미엄",
+        "category": "일반석",
+        "audience": "엘린이 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 100000,
+          "weekend": 100000
+        },
+        "tags": [
+          "close_to_field"
+        ],
+        "recommendation_use_cases": [
+          "immersion"
+        ],
+        "notes": []
+      },
+      {
+        "seat_name": "테이블",
+        "category": "일반석",
+        "audience": "일반 가격",
+        "side": null,
+        "price_krw": {
+          "weekday": 56000,
+          "weekend": 62000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": []
+      },
+      {
+        "seat_name": "테이블",
+        "category": "일반석",
+        "audience": "성인 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 56000,
+          "weekend": 62000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": []
+      },
+      {
+        "seat_name": "테이블",
+        "category": "일반석",
+        "audience": "엘린이 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 56000,
+          "weekend": 62000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": []
+      },
+      {
+        "seat_name": "익사이팅존",
+        "category": "일반석",
+        "audience": "일반 가격",
+        "side": null,
+        "price_krw": {
+          "weekday": 30000,
+          "weekend": 35000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": []
+      },
+      {
+        "seat_name": "익사이팅존",
+        "category": "일반석",
+        "audience": "성인 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 30000,
+          "weekend": 35000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": []
+      },
+      {
+        "seat_name": "블루",
+        "category": "일반석",
+        "audience": "일반 가격",
+        "side": null,
+        "price_krw": {
+          "weekday": 24000,
+          "weekend": 26000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": []
+      },
+      {
+        "seat_name": "블루",
+        "category": "일반석",
+        "audience": "성인 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 23000,
+          "weekend": 25000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": []
+      },
+      {
+        "seat_name": "블루",
+        "category": "일반석",
+        "audience": "엘린이 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 12000,
+          "weekend": 13000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": []
+      },
+      {
+        "seat_name": "오렌지",
+        "category": "일반석",
+        "audience": "일반 가격",
+        "side": null,
+        "price_krw": {
+          "weekday": 22000,
+          "weekend": 24000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": []
+      },
+      {
+        "seat_name": "오렌지",
+        "category": "일반석",
+        "audience": "성인 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 21000,
+          "weekend": 23000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": []
+      },
+      {
+        "seat_name": "오렌지",
+        "category": "일반석",
+        "audience": "엘린이 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 11000,
+          "weekend": 12000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": []
+      },
+      {
+        "seat_name": "레드",
+        "category": "일반석",
+        "audience": "일반 가격",
+        "side": null,
+        "price_krw": {
+          "weekday": 19000,
+          "weekend": 21000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": []
+      },
+      {
+        "seat_name": "레드",
+        "category": "일반석",
+        "audience": "성인 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 18000,
+          "weekend": 20000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": []
+      },
+      {
+        "seat_name": "레드",
+        "category": "일반석",
+        "audience": "엘린이 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 9500,
+          "weekend": 10500
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": []
+      },
+      {
+        "seat_name": "네이비",
+        "category": "일반석",
+        "audience": "일반 가격",
+        "side": null,
+        "price_krw": {
+          "weekday": 16000,
+          "weekend": 18000
+        },
+        "tags": [
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": []
+      },
+      {
+        "seat_name": "네이비",
+        "category": "일반석",
+        "audience": "성인 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 15000,
+          "weekend": 17000
+        },
+        "tags": [
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": []
+      },
+      {
+        "seat_name": "네이비",
+        "category": "일반석",
+        "audience": "엘린이 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 8000,
+          "weekend": 9000
+        },
+        "tags": [
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": []
+      },
+      {
+        "seat_name": "그린응원(외야)",
+        "category": "일반석",
+        "audience": "일반 가격",
+        "side": null,
+        "price_krw": {
+          "weekday": 11000,
+          "weekend": 12000
+        },
+        "tags": [
+          "cheering",
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "cheering"
+        ],
+        "notes": []
+      },
+      {
+        "seat_name": "그린응원(외야)",
+        "category": "일반석",
+        "audience": "성인 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 10000,
+          "weekend": 11000
+        },
+        "tags": [
+          "cheering",
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "cheering"
+        ],
+        "notes": []
+      },
+      {
+        "seat_name": "그린응원(외야)",
+        "category": "일반석",
+        "audience": "엘린이 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 5500,
+          "weekend": 6000
+        },
+        "tags": [
+          "cheering",
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "cheering"
+        ],
+        "notes": []
+      },
+      {
+        "seat_name": "그린(외야)",
+        "category": "일반석",
+        "audience": "일반 가격",
+        "side": null,
+        "price_krw": {
+          "weekday": 10000,
+          "weekend": 11000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": []
+      },
+      {
+        "seat_name": "그린(외야)",
+        "category": "일반석",
+        "audience": "성인 회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 9000,
+          "weekend": 10000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": []
+      }
+    ],
+    "official_tables": [
+      {
+        "heading": "티켓 안내",
+        "summary": null,
+        "rows": [
+          [
+            "좌석등급",
+            "좌석등급",
+            "주중(화/수/목)",
+            "주말(금/토/일/공휴일)"
+          ],
+          [
+            "프리미엄",
+            "일반 가격",
+            "100,000원",
+            "100,000원"
+          ],
+          [
+            "프리미엄",
+            "성인 회원",
+            "100,000원",
+            "100,000원"
+          ],
+          [
+            "프리미엄",
+            "엘린이 회원",
+            "100,000원",
+            "100,000원"
+          ],
+          [
+            "테이블",
+            "일반 가격",
+            "56,000원",
+            "62,000원"
+          ],
+          [
+            "테이블",
+            "성인 회원",
+            "56,000원",
+            "62,000원"
+          ],
+          [
+            "테이블",
+            "엘린이 회원",
+            "56,000원",
+            "62,000원"
+          ],
+          [
+            "익사이팅존",
+            "일반 가격",
+            "30,000원",
+            "35,000원"
+          ],
+          [
+            "익사이팅존",
+            "성인 회원",
+            "30,000원",
+            "35,000원"
+          ],
+          [
+            "익사이팅존",
+            "※ 익사이팅존은 현장 매표소에서만 티켓으로 교환 가능합니다. ※ 안전한 관람을 위해 초등학생 이하 어린이의 입장은 제한됩니다. (보호자 동반 시에도 입장 불가하며, 이로 인한 예매 취소 및 교환은 불가합니다.)",
+            "※ 익사이팅존은 현장 매표소에서만 티켓으로 교환 가능합니다. ※ 안전한 관람을 위해 초등학생 이하 어린이의 입장은 제한됩니다. (보호자 동반 시에도 입장 불가하며, 이로 인한 예매 취소 및 교환은 불가합니다.)",
+            "※ 익사이팅존은 현장 매표소에서만 티켓으로 교환 가능합니다. ※ 안전한 관람을 위해 초등학생 이하 어린이의 입장은 제한됩니다. (보호자 동반 시에도 입장 불가하며, 이로 인한 예매 취소 및 교환은 불가합니다.)"
+          ],
+          [
+            "블루",
+            "일반 가격",
+            "24,000원",
+            "26,000원"
+          ],
+          [
+            "블루",
+            "성인 회원",
+            "23,000원",
+            "25,000원"
+          ],
+          [
+            "블루",
+            "엘린이 회원",
+            "12,000원",
+            "13,000원"
+          ],
+          [
+            "오렌지",
+            "일반 가격",
+            "22,000원",
+            "24,000원"
+          ],
+          [
+            "오렌지",
+            "성인 회원",
+            "21,000원",
+            "23,000원"
+          ],
+          [
+            "오렌지",
+            "엘린이 회원",
+            "11,000원",
+            "12,000원"
+          ],
+          [
+            "레드",
+            "일반 가격",
+            "19,000원",
+            "21,000원"
+          ],
+          [
+            "레드",
+            "성인 회원",
+            "18,000원",
+            "20,000원"
+          ],
+          [
+            "레드",
+            "엘린이 회원",
+            "9,500원",
+            "10,500원"
+          ],
+          [
+            "네이비",
+            "일반 가격",
+            "16,000원",
+            "18,000원"
+          ],
+          [
+            "네이비",
+            "성인 회원",
+            "15,000원",
+            "17,000원"
+          ],
+          [
+            "네이비",
+            "엘린이 회원",
+            "8,000원",
+            "9,000원"
+          ],
+          [
+            "그린응원(외야)",
+            "일반 가격",
+            "11,000원",
+            "12,000원"
+          ],
+          [
+            "그린응원(외야)",
+            "성인 회원",
+            "10,000원",
+            "11,000원"
+          ],
+          [
+            "그린응원(외야)",
+            "엘린이 회원",
+            "5,500원",
+            "6,000원"
+          ],
+          [
+            "그린(외야)",
+            "일반 가격",
+            "10,000원",
+            "11,000원"
+          ],
+          [
+            "그린(외야)",
+            "성인 회원",
+            "9,000원",
+            "10,000원"
+          ],
+          [
+            "그린(외야)",
+            "엘린이 회원",
+            "무료입장",
+            "무료입장"
+          ]
+        ]
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "LG Twins Official Ticket Guide",
+    "source_url": "https://www.lgtwins.com/ticket/general",
+    "fetched_at": "2026-05-07T12:32:51.233695+00:00",
+    "fallback_used": false
+  }
+}

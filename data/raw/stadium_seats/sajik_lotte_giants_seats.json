@@ -1,0 +1,1322 @@
+{
+  "ok": true,
+  "data": {
+    "stadium_id": "sajik",
+    "stadium_name": "부산 사직야구장",
+    "team": "롯데 자이언츠",
+    "season": 2026,
+    "seat_zone_count": 35,
+    "seat_zones": [
+      {
+        "seat_name": "1루내야상단석",
+        "category": "일반석",
+        "audience": "일반",
+        "side": "home",
+        "price_krw": {
+          "ivory_plus": 10400,
+          "ivory": 11700,
+          "weekday": 13000,
+          "weekend": 17000,
+          "blue": 18700,
+          "navy": 20400
+        },
+        "tags": [
+          "home_side",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "1루내야상단석",
+        "category": "일반석",
+        "audience": "청소년",
+        "side": "home",
+        "price_krw": {
+          "ivory_plus": 8000,
+          "ivory": 9000,
+          "weekday": 10000,
+          "weekend": 14000,
+          "blue": 15400,
+          "navy": 16800
+        },
+        "tags": [
+          "home_side",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "1루내야상단석",
+        "category": "일반석",
+        "audience": "초등생",
+        "side": "home",
+        "price_krw": {
+          "ivory_plus": 7200,
+          "ivory": 8100,
+          "weekday": 9000,
+          "weekend": 12000,
+          "blue": 13200,
+          "navy": 14400
+        },
+        "tags": [
+          "home_side",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "3루내야상단석A",
+        "category": "일반석",
+        "audience": "일반",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 9100,
+          "ivory": 11700,
+          "weekday": 13000,
+          "weekend": 17000,
+          "blue": 18700,
+          "navy": 20400
+        },
+        "tags": [
+          "away_side",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "3루내야상단석A",
+        "category": "일반석",
+        "audience": "청소년",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 7000,
+          "ivory": 9000,
+          "weekday": 10000,
+          "weekend": 14000,
+          "blue": 15400,
+          "navy": 16800
+        },
+        "tags": [
+          "away_side",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "3루내야상단석A",
+        "category": "일반석",
+        "audience": "초등생",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 6300,
+          "ivory": 8100,
+          "weekday": 9000,
+          "weekend": 12000,
+          "blue": 13200,
+          "navy": 14400
+        },
+        "tags": [
+          "away_side",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "3루내야상단석B",
+        "category": "일반석",
+        "audience": "일반",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 6500,
+          "ivory": 11700,
+          "weekday": 13000,
+          "weekend": 17000,
+          "blue": 18700,
+          "navy": 20400
+        },
+        "tags": [
+          "away_side",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "3루내야상단석B",
+        "category": "일반석",
+        "audience": "청소년",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 5000,
+          "ivory": 9000,
+          "weekday": 10000,
+          "weekend": 14000,
+          "blue": 15400,
+          "navy": 16800
+        },
+        "tags": [
+          "away_side",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "3루내야상단석B",
+        "category": "일반석",
+        "audience": "초등생",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 4500,
+          "ivory": 8100,
+          "weekday": 9000,
+          "weekend": 12000,
+          "blue": 13200,
+          "navy": 14400
+        },
+        "tags": [
+          "away_side",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "중앙상단석",
+        "category": "일반석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 7000,
+          "ivory": 9000,
+          "weekday": 10000,
+          "weekend": 12000,
+          "blue": 13200,
+          "navy": 14400
+        },
+        "tags": [
+          "central_view",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "중앙상단석",
+        "category": "일반석",
+        "audience": "청소년",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 4900,
+          "ivory": 6300,
+          "weekday": 7000,
+          "weekend": 9000,
+          "blue": 9900,
+          "navy": 10800
+        },
+        "tags": [
+          "central_view",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "중앙상단석",
+        "category": "일반석",
+        "audience": "초등생",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 3500,
+          "ivory": 4500,
+          "weekday": 5000,
+          "weekend": 7000,
+          "blue": 7700,
+          "navy": 8400
+        },
+        "tags": [
+          "central_view",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "1루외야석",
+        "category": "일반석",
+        "audience": "일반",
+        "side": "home",
+        "price_krw": {
+          "ivory_plus": 6400,
+          "ivory": 7200,
+          "weekday": 8000,
+          "weekend": 10000,
+          "blue": 11000,
+          "navy": 12000
+        },
+        "tags": [
+          "home_side",
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "1루외야석",
+        "category": "일반석",
+        "audience": "청소년",
+        "side": "home",
+        "price_krw": {
+          "ivory_plus": 4000,
+          "ivory": 4500,
+          "weekday": 5000,
+          "weekend": 7000,
+          "blue": 7700,
+          "navy": 8400
+        },
+        "tags": [
+          "home_side",
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "1루외야석",
+        "category": "일반석",
+        "audience": "초등생",
+        "side": "home",
+        "price_krw": {
+          "ivory_plus": 2400,
+          "ivory": 2700,
+          "weekday": 3000,
+          "weekend": 5000,
+          "blue": 5500,
+          "navy": 6000
+        },
+        "tags": [
+          "home_side",
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "3루외야석",
+        "category": "일반석",
+        "audience": "일반",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 4000,
+          "ivory": 7200,
+          "weekday": 8000,
+          "weekend": 10000,
+          "blue": 11000,
+          "navy": 12000
+        },
+        "tags": [
+          "away_side",
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "3루외야석",
+        "category": "일반석",
+        "audience": "청소년",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 2500,
+          "ivory": 4500,
+          "weekday": 5000,
+          "weekend": 7000,
+          "blue": 7700,
+          "navy": 8400
+        },
+        "tags": [
+          "away_side",
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "3루외야석",
+        "category": "일반석",
+        "audience": "초등생",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 1500,
+          "ivory": 2700,
+          "weekday": 3000,
+          "weekend": 5000,
+          "blue": 5500,
+          "navy": 6000
+        },
+        "tags": [
+          "away_side",
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "스페셜요금"
+        ]
+      },
+      {
+        "seat_name": "에비뉴엘석 그라운드석",
+        "category": "특별석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 120000,
+          "ivory": 120000,
+          "weekday": 120000,
+          "weekend": 150000,
+          "blue": 150000,
+          "navy": 150000
+        },
+        "tags": [
+          "close_to_field"
+        ],
+        "recommendation_use_cases": [
+          "immersion"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "에비뉴엘석 그라운드석 (시야방해)",
+        "category": "특별석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 84000,
+          "ivory": 84000,
+          "weekday": 84000,
+          "weekend": 105000,
+          "blue": 105000,
+          "navy": 105000
+        },
+        "tags": [
+          "close_to_field",
+          "obstructed_view"
+        ],
+        "recommendation_use_cases": [
+          "immersion"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "중앙탁자석",
+        "category": "특별석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 32000,
+          "ivory": 36000,
+          "weekday": 40000,
+          "weekend": 55000,
+          "blue": 60500,
+          "navy": 66000
+        },
+        "tags": [
+          "central_view",
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort",
+          "view"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "메디힐존 (와이드탁자석)",
+        "category": "특별석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 24000,
+          "ivory": 27000,
+          "weekday": 30000,
+          "weekend": 45000,
+          "blue": 49500,
+          "navy": 54000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "네이버 클립존 (응원탁자석)",
+        "category": "특별석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 24000,
+          "ivory": 27000,
+          "weekday": 30000,
+          "weekend": 45000,
+          "blue": 49500,
+          "navy": 54000
+        },
+        "tags": [
+          "cheering",
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "cheering",
+          "comfort"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "3루 프리미엄석",
+        "category": "특별석",
+        "audience": "all",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 28000,
+          "ivory": 31500,
+          "weekday": 35000,
+          "weekend": 50000,
+          "blue": 55000,
+          "navy": 60000
+        },
+        "tags": [
+          "away_side",
+          "close_to_field"
+        ],
+        "recommendation_use_cases": [
+          "immersion"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "내야탁자석",
+        "category": "특별석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 20000,
+          "ivory": 22500,
+          "weekday": 25000,
+          "weekend": 35000,
+          "blue": 38500,
+          "navy": 42000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "중앙상단탁자석",
+        "category": "특별석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 20000,
+          "ivory": 22500,
+          "weekday": 25000,
+          "weekend": 35000,
+          "blue": 38500,
+          "navy": 42000
+        },
+        "tags": [
+          "central_view",
+          "table",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "comfort",
+          "view"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "중앙상단탁자석 (시야방해)",
+        "category": "특별석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 10000,
+          "ivory": 11200,
+          "weekday": 12500,
+          "weekend": 17500,
+          "blue": 19200,
+          "navy": 21000
+        },
+        "tags": [
+          "central_view",
+          "obstructed_view",
+          "table",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "comfort",
+          "view"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "쓰리디즘글라스존 (3루단체석)",
+        "category": "특별석",
+        "audience": "all",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 20000,
+          "ivory": 22500,
+          "weekday": 25000,
+          "weekend": 30000,
+          "blue": 33000,
+          "navy": 36000
+        },
+        "tags": [
+          "away_side",
+          "group"
+        ],
+        "recommendation_use_cases": [
+          "group"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "쓰리디즘글라스존 (3루단체석) (시야방해)",
+        "category": "특별석",
+        "audience": "all",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 14000,
+          "ivory": 15700,
+          "weekday": 17500,
+          "weekend": 21000,
+          "blue": 23100,
+          "navy": 25200
+        },
+        "tags": [
+          "away_side",
+          "group",
+          "obstructed_view"
+        ],
+        "recommendation_use_cases": [
+          "group"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "르노존 (외야 글램핑존)",
+        "category": "특별석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 24000,
+          "ivory": 27000,
+          "weekday": 30000,
+          "weekend": 40000,
+          "blue": 44000,
+          "navy": 48000
+        },
+        "tags": [
+          "group",
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "group"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "정관장 에브리타임존 (외야탁자석)",
+        "category": "특별석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 24000,
+          "ivory": 27000,
+          "weekday": 30000,
+          "weekend": 35000,
+          "blue": 38500,
+          "navy": 42000
+        },
+        "tags": [
+          "outfield",
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "comfort"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "1루 내야필드석",
+        "category": "특별석",
+        "audience": "all",
+        "side": "home",
+        "price_krw": {
+          "ivory_plus": 12000,
+          "ivory": 13500,
+          "weekday": 15000,
+          "weekend": 20000,
+          "blue": 22000,
+          "navy": 24000
+        },
+        "tags": [
+          "close_to_field",
+          "home_side"
+        ],
+        "recommendation_use_cases": [
+          "immersion"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "3루 내야필드석 A",
+        "category": "특별석",
+        "audience": "all",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 12000,
+          "ivory": 13500,
+          "weekday": 15000,
+          "weekend": 20000,
+          "blue": 22000,
+          "navy": 24000
+        },
+        "tags": [
+          "away_side",
+          "close_to_field"
+        ],
+        "recommendation_use_cases": [
+          "immersion"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "3루 내야필드석 B",
+        "category": "특별석",
+        "audience": "all",
+        "side": "away",
+        "price_krw": {
+          "ivory_plus": 7500,
+          "ivory": 13500,
+          "weekday": 15000,
+          "weekend": 20000,
+          "blue": 22000,
+          "navy": 24000
+        },
+        "tags": [
+          "away_side",
+          "close_to_field"
+        ],
+        "recommendation_use_cases": [
+          "immersion"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      },
+      {
+        "seat_name": "중앙상단석 (시야방해)",
+        "category": "특별석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "ivory_plus": 5600,
+          "ivory": 6300,
+          "weekday": 7000,
+          "weekend": 8500,
+          "blue": 9300,
+          "navy": 10200
+        },
+        "tags": [
+          "central_view",
+          "obstructed_view",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "스페셜 요금"
+        ]
+      }
+    ],
+    "official_tables": [
+      {
+        "heading": "일반석 : 청소년 및 초등생 요금 적용 대상 좌석",
+        "summary": null,
+        "rows": [
+          [
+            "구분",
+            "구분",
+            "구분",
+            "아이보리+",
+            "아이보리",
+            "주중",
+            "주말",
+            "블루",
+            "네이비",
+            "레드"
+          ],
+          [
+            "일반석",
+            "1루내야상단석",
+            "일반",
+            "10,400",
+            "11,700",
+            "13,000",
+            "17,000",
+            "18,700",
+            "20,400",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "1루내야상단석",
+            "청소년",
+            "8,000",
+            "9,000",
+            "10,000",
+            "14,000",
+            "15,400",
+            "16,800",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "1루내야상단석",
+            "초등생",
+            "7,200",
+            "8,100",
+            "9,000",
+            "12,000",
+            "13,200",
+            "14,400",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "3루내야상단석A",
+            "일반",
+            "9,100",
+            "11,700",
+            "13,000",
+            "17,000",
+            "18,700",
+            "20,400",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "3루내야상단석A",
+            "청소년",
+            "7,000",
+            "9,000",
+            "10,000",
+            "14,000",
+            "15,400",
+            "16,800",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "3루내야상단석A",
+            "초등생",
+            "6,300",
+            "8,100",
+            "9,000",
+            "12,000",
+            "13,200",
+            "14,400",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "3루내야상단석B",
+            "일반",
+            "6,500",
+            "11,700",
+            "13,000",
+            "17,000",
+            "18,700",
+            "20,400",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "3루내야상단석B",
+            "청소년",
+            "5,000",
+            "9,000",
+            "10,000",
+            "14,000",
+            "15,400",
+            "16,800",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "3루내야상단석B",
+            "초등생",
+            "4,500",
+            "8,100",
+            "9,000",
+            "12,000",
+            "13,200",
+            "14,400",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "중앙상단석",
+            "일반",
+            "7,000",
+            "9,000",
+            "10,000",
+            "12,000",
+            "13,200",
+            "14,400",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "중앙상단석",
+            "청소년",
+            "4,900",
+            "6,300",
+            "7,000",
+            "9,000",
+            "9,900",
+            "10,800",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "중앙상단석",
+            "초등생",
+            "3,500",
+            "4,500",
+            "5,000",
+            "7,000",
+            "7,700",
+            "8,400",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "1루외야석",
+            "일반",
+            "6,400",
+            "7,200",
+            "8,000",
+            "10,000",
+            "11,000",
+            "12,000",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "1루외야석",
+            "청소년",
+            "4,000",
+            "4,500",
+            "5,000",
+            "7,000",
+            "7,700",
+            "8,400",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "1루외야석",
+            "초등생",
+            "2,400",
+            "2,700",
+            "3,000",
+            "5,000",
+            "5,500",
+            "6,000",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "3루외야석",
+            "일반",
+            "4,000",
+            "7,200",
+            "8,000",
+            "10,000",
+            "11,000",
+            "12,000",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "3루외야석",
+            "청소년",
+            "2,500",
+            "4,500",
+            "5,000",
+            "7,000",
+            "7,700",
+            "8,400",
+            "스페셜요금"
+          ],
+          [
+            "일반석",
+            "3루외야석",
+            "초등생",
+            "1,500",
+            "2,700",
+            "3,000",
+            "5,000",
+            "5,500",
+            "6,000",
+            "스페셜요금"
+          ]
+        ]
+      },
+      {
+        "heading": "특별석(1인당) : 청소년 및 초등생 요금 적용 미대상 좌석",
+        "summary": null,
+        "rows": [
+          [
+            "구분",
+            "구분",
+            "아이보리+",
+            "아이보리",
+            "주중",
+            "주말",
+            "블루",
+            "네이비",
+            "레드"
+          ],
+          [
+            "특별석",
+            "에비뉴엘석 (그라운드석)",
+            "120,000",
+            "120,000",
+            "120,000",
+            "150,000",
+            "150,000",
+            "150,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "에비뉴엘석 (그라운드석) (시야방해)",
+            "84,000",
+            "84,000",
+            "84,000",
+            "105,000",
+            "105,000",
+            "105,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "중앙탁자석",
+            "32,000",
+            "36,000",
+            "40,000",
+            "55,000",
+            "60,500",
+            "66,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "메디힐존 (와이드탁자석)",
+            "24,000",
+            "27,000",
+            "30,000",
+            "45,000",
+            "49,500",
+            "54,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "네이버 클립존 (응원탁자석)",
+            "24,000",
+            "27,000",
+            "30,000",
+            "45,000",
+            "49,500",
+            "54,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "3루 프리미엄석",
+            "28,000",
+            "31,500",
+            "35,000",
+            "50,000",
+            "55,000",
+            "60,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "내야탁자석",
+            "20,000",
+            "22,500",
+            "25,000",
+            "35,000",
+            "38,500",
+            "42,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "중앙상단탁자석",
+            "20,000",
+            "22,500",
+            "25,000",
+            "35,000",
+            "38,500",
+            "42,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "중앙상단탁자석 (시야방해)",
+            "10,000",
+            "11,200",
+            "12,500",
+            "17,500",
+            "19,200",
+            "21,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "쓰리디즘글라스존 (3루단체석)",
+            "20,000",
+            "22,500",
+            "25,000",
+            "30,000",
+            "33,000",
+            "36,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "쓰리디즘글라스존 (3루단체석) (시야방해)",
+            "14,000",
+            "15,700",
+            "17,500",
+            "21,000",
+            "23,100",
+            "25,200",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "르노존 (외야 글램핑존)",
+            "24,000",
+            "27,000",
+            "30,000",
+            "40,000",
+            "44,000",
+            "48,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "정관장 에브리타임존 (외야탁자석)",
+            "24,000",
+            "27,000",
+            "30,000",
+            "35,000",
+            "38,500",
+            "42,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "1루 내야필드석",
+            "12,000",
+            "13,500",
+            "15,000",
+            "20,000",
+            "22,000",
+            "24,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "3루 내야필드석 A",
+            "12,000",
+            "13,500",
+            "15,000",
+            "20,000",
+            "22,000",
+            "24,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "3루 내야필드석 B",
+            "7,500",
+            "13,500",
+            "15,000",
+            "20,000",
+            "22,000",
+            "24,000",
+            "스페셜 요금"
+          ],
+          [
+            "특별석",
+            "중앙상단석 (시야방해)",
+            "5,600",
+            "6,300",
+            "7,000",
+            "8,500",
+            "9,300",
+            "10,200",
+            "스페셜 요금"
+          ]
+        ]
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "Lotte Giants Official Ticket Guide",
+    "source_url": "https://www.giantsclub.com/html/?pcode=339",
+    "fetched_at": "2026-05-07T12:32:56.507969+00:00",
+    "fallback_used": false
+  }
+}

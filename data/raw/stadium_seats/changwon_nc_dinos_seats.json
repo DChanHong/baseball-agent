@@ -1,0 +1,110 @@
+{
+  "ok": true,
+  "data": {
+    "stadium_id": "changwon",
+    "stadium_name": "창원NC파크",
+    "team": "NC 다이노스",
+    "season": 2026,
+    "seat_zone_count": 4,
+    "seat_zones": [
+      {
+        "seat_name": "관중석",
+        "category": "좌석/시설",
+        "audience": "all",
+        "side": null,
+        "price_krw": {},
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 구장 안내의 총 관중석 수",
+          "NC 티켓 가격은 로그인 이후 예매 화면에서 노출되어 공식 공개 가격표 수집 불가"
+        ],
+        "capacity": 17983
+      },
+      {
+        "seat_name": "스카이박스",
+        "category": "좌석/시설",
+        "audience": "all",
+        "side": null,
+        "price_krw": {},
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 구장 안내 본문에 표시된 스카이박스 수",
+          "NC 티켓 가격은 로그인 이후 예매 화면에서 노출되어 공식 공개 가격표 수집 불가"
+        ],
+        "capacity": 32
+      },
+      {
+        "seat_name": "프리미엄석",
+        "category": "좌석/시설",
+        "audience": "all",
+        "side": null,
+        "price_krw": {},
+        "tags": [
+          "close_to_field"
+        ],
+        "recommendation_use_cases": [
+          "immersion"
+        ],
+        "notes": [
+          "공식 구장 안내 본문에 언급된 좌석 구역",
+          "NC 티켓 가격은 로그인 이후 예매 화면에서 노출되어 공식 공개 가격표 수집 불가"
+        ]
+      },
+      {
+        "seat_name": "내야석",
+        "category": "좌석/시설",
+        "audience": "all",
+        "side": null,
+        "price_krw": {},
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 구장 안내 본문에 언급된 좌석 구역",
+          "NC 티켓 가격은 로그인 이후 예매 화면에서 노출되어 공식 공개 가격표 수집 불가"
+        ]
+      }
+    ],
+    "official_tables": [
+      {
+        "heading": "창원NC파크 좌석/시설 안내",
+        "summary": "NC Dinos official stadium guide seat map: https://www.ncdinos.com/assets/images/sub/img_map.jpg",
+        "rows": [
+          [
+            "좌석",
+            "좌석수/수량",
+            "비고"
+          ],
+          [
+            "관중석",
+            "17983",
+            "공식 구장 안내의 총 관중석 수"
+          ],
+          [
+            "스카이박스",
+            "32",
+            "공식 구장 안내 본문에 표시된 스카이박스 수"
+          ],
+          [
+            "프리미엄석",
+            "",
+            "공식 구장 안내 본문에 언급된 좌석 구역"
+          ],
+          [
+            "내야석",
+            "",
+            "공식 구장 안내 본문에 언급된 좌석 구역"
+          ]
+        ]
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "NC Dinos Official Stadium Guide",
+    "source_url": "https://www.ncdinos.com/dinos/stadium.do",
+    "fetched_at": "2026-05-07T12:32:56.143696+00:00",
+    "fallback_used": false
+  }
+}

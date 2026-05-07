@@ -1,0 +1,72 @@
+{
+  "ok": true,
+  "data": {
+    "results": [
+      {
+        "source_id": "jamsil_lg_twins",
+        "output": "data/raw/stadium_seats/jamsil_lg_twins_seats.json",
+        "ok": true,
+        "error": null
+      },
+      {
+        "source_id": "jamsil_doosan_bears",
+        "output": "data/raw/stadium_seats/jamsil_doosan_bears_seats.json",
+        "ok": true,
+        "error": null
+      },
+      {
+        "source_id": "gocheok_kiwoom_heroes",
+        "output": "data/raw/stadium_seats/gocheok_kiwoom_heroes_seats.json",
+        "ok": true,
+        "error": null
+      },
+      {
+        "source_id": "incheon_ssg_landers",
+        "output": "data/raw/stadium_seats/incheon_ssg_landers_seats.json",
+        "ok": true,
+        "error": null
+      },
+      {
+        "source_id": "suwon_kt_wiz",
+        "output": "data/raw/stadium_seats/suwon_kt_wiz_seats.json",
+        "ok": true,
+        "error": null
+      },
+      {
+        "source_id": "daejeon_hanwha_eagles",
+        "output": "data/raw/stadium_seats/daejeon_hanwha_eagles_seats.json",
+        "ok": true,
+        "error": null
+      },
+      {
+        "source_id": "daegu_samsung_lions",
+        "output": "data/raw/stadium_seats/daegu_samsung_lions_seats.json",
+        "ok": true,
+        "error": null
+      },
+      {
+        "source_id": "gwangju_kia_tigers",
+        "output": "data/raw/stadium_seats/gwangju_kia_tigers_seats.json",
+        "ok": true,
+        "error": null
+      },
+      {
+        "source_id": "changwon_nc_dinos",
+        "output": "data/raw/stadium_seats/changwon_nc_dinos_seats.json",
+        "ok": true,
+        "error": null
+      },
+      {
+        "source_id": "sajik_lotte_giants",
+        "output": "data/raw/stadium_seats/sajik_lotte_giants_seats.json",
+        "ok": true,
+        "error": null
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "stadium_seat_crawler",
+    "fetched_at": "2026-05-07T12:32:56.511596+00:00"
+  }
+}

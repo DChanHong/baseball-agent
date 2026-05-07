@@ -1,0 +1,258 @@
+{
+  "ok": true,
+  "data": {
+    "stadium_id": "suwon",
+    "stadium_name": "수원 KT위즈파크",
+    "team": "KT 위즈",
+    "season": 2026,
+    "seat_zone_count": 10,
+    "seat_zones": [
+      {
+        "seat_name": "비씨카드존",
+        "category": "중앙 테이블",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 60000,
+          "weekend": 70000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "네이버클립존",
+        "category": "중앙 테이블",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 60000,
+          "weekend": 70000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "KT존",
+        "category": "중앙 테이블",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 50000,
+          "weekend": 60000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "하이파이브존(1루), 익사이팅석(3루)",
+        "category": "내야(1,3루)",
+        "audience": "all",
+        "side": "away",
+        "price_krw": {
+          "weekday": 27000,
+          "weekend": 32000
+        },
+        "tags": [
+          "away_side",
+          "home_side"
+        ],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "응원지정석",
+        "category": "내야(1,3루)",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 20000,
+          "weekend": 24000
+        },
+        "tags": [
+          "cheering"
+        ],
+        "recommendation_use_cases": [
+          "cheering"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "휠체어석(장애인)",
+        "category": "내야(1,3루)",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 10000,
+          "weekend": 12000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "스카이존(5F)",
+        "category": "내야(1,3루)",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 12000,
+          "weekend": 14000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "티빙테이블석",
+        "category": "외야(1,3루)",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 30000,
+          "weekend": 35000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "위즈 캠핑존",
+        "category": "외야(1,3루)",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 200000,
+          "weekend": 240000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "외야 잔디 자유석",
+        "category": "외야(1,3루)",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "weekday": 12000,
+          "weekend": 14000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      }
+    ],
+    "official_tables": [
+      {
+        "heading": "2026 kt wiz park 티켓 금액",
+        "summary": "KT Wiz official ticket price image: https://wizzap.ktwiz.co.kr/files/resource/2026/03/13/20260313171055.36c-0f712c4e9dcb.jpg",
+        "rows": [
+          [
+            "구분",
+            "좌석",
+            "주중(화/수/목)",
+            "주말(금/토/일/공휴일)"
+          ],
+          [
+            "중앙 테이블",
+            "비씨카드존",
+            "60000",
+            "70000"
+          ],
+          [
+            "중앙 테이블",
+            "네이버클립존",
+            "60000",
+            "70000"
+          ],
+          [
+            "중앙 테이블",
+            "KT존",
+            "50000",
+            "60000"
+          ],
+          [
+            "내야(1,3루)",
+            "하이파이브존(1루), 익사이팅석(3루)",
+            "27000",
+            "32000"
+          ],
+          [
+            "내야(1,3루)",
+            "응원지정석",
+            "20000",
+            "24000"
+          ],
+          [
+            "내야(1,3루)",
+            "휠체어석(장애인)",
+            "10000",
+            "12000"
+          ],
+          [
+            "내야(1,3루)",
+            "스카이존(5F)",
+            "12000",
+            "14000"
+          ],
+          [
+            "외야(1,3루)",
+            "티빙테이블석",
+            "30000",
+            "35000"
+          ],
+          [
+            "외야(1,3루)",
+            "위즈 캠핑존",
+            "200000",
+            "240000"
+          ],
+          [
+            "외야(1,3루)",
+            "외야 잔디 자유석",
+            "12000",
+            "14000"
+          ]
+        ]
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "KT Wiz Official Ticket Guide",
+    "source_url": "https://www.ktwiz.co.kr/ticket/price",
+    "fetched_at": "2026-05-07T12:32:52.486682+00:00",
+    "fallback_used": false
+  }
+}

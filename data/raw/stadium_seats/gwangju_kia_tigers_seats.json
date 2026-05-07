@@ -1,0 +1,2742 @@
+{
+  "ok": true,
+  "data": {
+    "stadium_id": "gwangju",
+    "stadium_name": "광주-기아 챔피언스 필드",
+    "team": "KIA 타이거즈",
+    "season": 2026,
+    "seat_zone_count": 32,
+    "seat_zones": [
+      {
+        "seat_name": "서프라이즈석",
+        "category": "일반석",
+        "audience": "서프라이즈석(1인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 25000,
+          "weekend": 30000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=3출입구",
+          "gate=4출입구"
+        ]
+      },
+      {
+        "seat_name": "중앙테이블석",
+        "category": "일반석",
+        "audience": "중앙테이블석(2인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 90000,
+          "weekend": 110000
+        },
+        "tags": [
+          "central_view",
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort",
+          "view"
+        ],
+        "notes": [
+          "gate=3,4출입구"
+        ]
+      },
+      {
+        "seat_name": "중앙테이블석",
+        "category": "일반석",
+        "audience": "중앙테이블석(3인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 135000,
+          "weekend": 165000
+        },
+        "tags": [
+          "central_view",
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort",
+          "view"
+        ],
+        "notes": [
+          "gate=3,4출입구"
+        ]
+      },
+      {
+        "seat_name": "챔피언석",
+        "category": "일반석",
+        "audience": "챔피언석(1인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 50000,
+          "weekend": 60000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=3,4출입구"
+        ]
+      },
+      {
+        "seat_name": "K5",
+        "category": "일반석",
+        "audience": "성인",
+        "side": null,
+        "price_krw": {
+          "weekday": 12000,
+          "weekend": 16000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=2출입구",
+          "gate=5출입구",
+          "section_id=101",
+          "section_id=102",
+          "section_id=103",
+          "section_id=104",
+          "section_id=105",
+          "section_id=106",
+          "section_id=124",
+          "section_id=125",
+          "section_id=126",
+          "section_id=127"
+        ]
+      },
+      {
+        "seat_name": "K5",
+        "category": "일반석",
+        "audience": "30%할인(청소년,군인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 8400,
+          "weekend": 11200
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=2출입구",
+          "gate=5출입구",
+          "section_id=101",
+          "section_id=102",
+          "section_id=103",
+          "section_id=104",
+          "section_id=105",
+          "section_id=106",
+          "section_id=124",
+          "section_id=125",
+          "section_id=126",
+          "section_id=127"
+        ]
+      },
+      {
+        "seat_name": "K5",
+        "category": "일반석",
+        "audience": "50%할인(어린이,장애인 등)",
+        "side": null,
+        "price_krw": {
+          "weekday": 6000,
+          "weekend": 8000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=2출입구",
+          "gate=5출입구",
+          "section_id=101",
+          "section_id=102",
+          "section_id=103",
+          "section_id=104",
+          "section_id=105",
+          "section_id=106",
+          "section_id=124",
+          "section_id=125",
+          "section_id=126",
+          "section_id=127"
+        ]
+      },
+      {
+        "seat_name": "K8",
+        "category": "일반석",
+        "audience": "성인",
+        "side": null,
+        "price_krw": {
+          "weekday": 14000,
+          "weekend": 18000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=2출입구",
+          "gate=3출입구",
+          "gate=4출입구",
+          "gate=5출입구",
+          "section_id=107",
+          "section_id=108",
+          "section_id=109",
+          "section_id=110",
+          "section_id=111",
+          "section_id=118",
+          "section_id=119",
+          "section_id=123"
+        ]
+      },
+      {
+        "seat_name": "K8",
+        "category": "일반석",
+        "audience": "30%할인(청소년,군인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 9800,
+          "weekend": 12600
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=2출입구",
+          "gate=3출입구",
+          "gate=4출입구",
+          "gate=5출입구",
+          "section_id=107",
+          "section_id=108",
+          "section_id=109",
+          "section_id=110",
+          "section_id=111",
+          "section_id=118",
+          "section_id=119",
+          "section_id=123"
+        ]
+      },
+      {
+        "seat_name": "K8",
+        "category": "일반석",
+        "audience": "50%할인(어린이,장애인 등)",
+        "side": null,
+        "price_krw": {
+          "weekday": 7000,
+          "weekend": 9000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=2출입구",
+          "gate=3출입구",
+          "gate=4출입구",
+          "gate=5출입구",
+          "section_id=107",
+          "section_id=108",
+          "section_id=109",
+          "section_id=110",
+          "section_id=111",
+          "section_id=118",
+          "section_id=119",
+          "section_id=123"
+        ]
+      },
+      {
+        "seat_name": "K9",
+        "category": "일반석",
+        "audience": "성인",
+        "side": null,
+        "price_krw": {
+          "weekday": 16000,
+          "weekend": 20000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=3출입구",
+          "gate=4출입구",
+          "section_id=112",
+          "section_id=113",
+          "section_id=116",
+          "section_id=117"
+        ]
+      },
+      {
+        "seat_name": "K9",
+        "category": "일반석",
+        "audience": "30%할인(청소년,군인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 11200,
+          "weekend": 14000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=3출입구",
+          "gate=4출입구",
+          "section_id=112",
+          "section_id=113",
+          "section_id=116",
+          "section_id=117"
+        ]
+      },
+      {
+        "seat_name": "K9",
+        "category": "일반석",
+        "audience": "50%할인(어린이,장애인 등)",
+        "side": null,
+        "price_krw": {
+          "weekday": 8000,
+          "weekend": 10000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=3출입구",
+          "gate=4출입구",
+          "section_id=112",
+          "section_id=113",
+          "section_id=116",
+          "section_id=117"
+        ]
+      },
+      {
+        "seat_name": "응원특별석",
+        "category": "일반석",
+        "audience": "응원특별석",
+        "side": null,
+        "price_krw": {
+          "weekday": 15000,
+          "weekend": 19000
+        },
+        "tags": [
+          "cheering"
+        ],
+        "recommendation_use_cases": [
+          "cheering"
+        ],
+        "notes": [
+          "gate=4출입구",
+          "gate=5출입구",
+          "section_id=120",
+          "section_id=121",
+          "section_id=122"
+        ]
+      },
+      {
+        "seat_name": "EV",
+        "category": "일반석",
+        "audience": "성인",
+        "side": null,
+        "price_krw": {
+          "weekday": 10000,
+          "weekend": 13000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=2출입구",
+          "gate=3출입구",
+          "gate=4출입구",
+          "gate=5출입구",
+          "section_id=501",
+          "section_id=502",
+          "section_id=503",
+          "section_id=504",
+          "section_id=505",
+          "section_id=506",
+          "section_id=507",
+          "section_id=508",
+          "section_id=509",
+          "section_id=510",
+          "section_id=511",
+          "section_id=512",
+          "section_id=513",
+          "section_id=514",
+          "section_id=515",
+          "section_id=516",
+          "section_id=517",
+          "section_id=518",
+          "section_id=519",
+          "section_id=520",
+          "section_id=521",
+          "section_id=522",
+          "section_id=523",
+          "section_id=524",
+          "section_id=525",
+          "section_id=526",
+          "section_id=527",
+          "section_id=528",
+          "section_id=529",
+          "section_id=530",
+          "section_id=531",
+          "section_id=532",
+          "section_id=533",
+          "section_id=534",
+          "section_id=535"
+        ]
+      },
+      {
+        "seat_name": "EV",
+        "category": "일반석",
+        "audience": "30%할인(청소년,군인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 7000,
+          "weekend": 9100
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=2출입구",
+          "gate=3출입구",
+          "gate=4출입구",
+          "gate=5출입구",
+          "section_id=501",
+          "section_id=502",
+          "section_id=503",
+          "section_id=504",
+          "section_id=505",
+          "section_id=506",
+          "section_id=507",
+          "section_id=508",
+          "section_id=509",
+          "section_id=510",
+          "section_id=511",
+          "section_id=512",
+          "section_id=513",
+          "section_id=514",
+          "section_id=515",
+          "section_id=516",
+          "section_id=517",
+          "section_id=518",
+          "section_id=519",
+          "section_id=520",
+          "section_id=521",
+          "section_id=522",
+          "section_id=523",
+          "section_id=524",
+          "section_id=525",
+          "section_id=526",
+          "section_id=527",
+          "section_id=528",
+          "section_id=529",
+          "section_id=530",
+          "section_id=531",
+          "section_id=532",
+          "section_id=533",
+          "section_id=534",
+          "section_id=535"
+        ]
+      },
+      {
+        "seat_name": "EV",
+        "category": "일반석",
+        "audience": "50%할인(어린이,장애인 등)",
+        "side": null,
+        "price_krw": {
+          "weekday": 5000,
+          "weekend": 6500
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=2출입구",
+          "gate=3출입구",
+          "gate=4출입구",
+          "gate=5출입구",
+          "section_id=501",
+          "section_id=502",
+          "section_id=503",
+          "section_id=504",
+          "section_id=505",
+          "section_id=506",
+          "section_id=507",
+          "section_id=508",
+          "section_id=509",
+          "section_id=510",
+          "section_id=511",
+          "section_id=512",
+          "section_id=513",
+          "section_id=514",
+          "section_id=515",
+          "section_id=516",
+          "section_id=517",
+          "section_id=518",
+          "section_id=519",
+          "section_id=520",
+          "section_id=521",
+          "section_id=522",
+          "section_id=523",
+          "section_id=524",
+          "section_id=525",
+          "section_id=526",
+          "section_id=527",
+          "section_id=528",
+          "section_id=529",
+          "section_id=530",
+          "section_id=531",
+          "section_id=532",
+          "section_id=533",
+          "section_id=534",
+          "section_id=535"
+        ]
+      },
+      {
+        "seat_name": "스카이박스석",
+        "category": "일반석",
+        "audience": "10인실",
+        "side": null,
+        "price_krw": {
+          "weekday": 750000,
+          "weekend": 850000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "section_id=Vector_38",
+          "gate=중앙출입구"
+        ]
+      },
+      {
+        "seat_name": "스카이박스석",
+        "category": "일반석",
+        "audience": "14인실",
+        "side": null,
+        "price_krw": {
+          "weekday": 1050000,
+          "weekend": 1190000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "section_id=Vector_38",
+          "gate=중앙출입구"
+        ]
+      },
+      {
+        "seat_name": "스카이박스석",
+        "category": "일반석",
+        "audience": "18인실",
+        "side": null,
+        "price_krw": {
+          "weekday": 1350000,
+          "weekend": 1530000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "section_id=Vector_38",
+          "gate=중앙출입구"
+        ]
+      },
+      {
+        "seat_name": "타이거즈가족석",
+        "category": "일반석",
+        "audience": "타이거즈가족석(4인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 88000,
+          "weekend": 108000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=2출입구",
+          "gate=5출입구"
+        ]
+      },
+      {
+        "seat_name": "타이거즈가족석",
+        "category": "일반석",
+        "audience": "타이거즈가족석(6인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 132000,
+          "weekend": 162000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=2출입구",
+          "gate=5출입구"
+        ]
+      },
+      {
+        "seat_name": "파티석(4층)",
+        "category": "일반석",
+        "audience": "파티석(4층)",
+        "side": null,
+        "price_krw": {
+          "weekday": 100000,
+          "weekend": 120000
+        },
+        "tags": [
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "gate=2출입구",
+          "gate=5출입구",
+          "section_id=4층파티석"
+        ]
+      },
+      {
+        "seat_name": "휠체어석",
+        "category": "일반석",
+        "audience": "휠체어석",
+        "side": null,
+        "price_krw": {
+          "weekday": 4000,
+          "weekend": 5000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "section_id=Vector_91",
+          "gate=중앙출입구"
+        ]
+      },
+      {
+        "seat_name": "외야석",
+        "category": "일반석",
+        "audience": "성인",
+        "side": null,
+        "price_krw": {
+          "weekday": 10000,
+          "weekend": 13000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "gate=7출입구",
+          "section_id=Vector_82"
+        ]
+      },
+      {
+        "seat_name": "외야석",
+        "category": "일반석",
+        "audience": "30%할인(청소년,군인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 7000,
+          "weekend": 9100
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "gate=7출입구",
+          "section_id=Vector_82"
+        ]
+      },
+      {
+        "seat_name": "외야석",
+        "category": "일반석",
+        "audience": "50%할인(어린이,장애인 등)",
+        "side": null,
+        "price_krw": {
+          "weekday": 5000,
+          "weekend": 6500
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "gate=7출입구",
+          "section_id=Vector_82"
+        ]
+      },
+      {
+        "seat_name": "외야석",
+        "category": "일반석",
+        "audience": "어린이회원",
+        "side": null,
+        "price_krw": {
+          "weekday": 0,
+          "weekend": 0
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "gate=7출입구",
+          "section_id=Vector_82"
+        ]
+      },
+      {
+        "seat_name": "외야 가족석",
+        "category": "일반석",
+        "audience": "외야 가족석(6인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 120000,
+          "weekend": 150000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "gate=7출입구"
+        ]
+      },
+      {
+        "seat_name": "K9 중증 장애인석",
+        "category": "일반석",
+        "audience": "K9 중증 장애인석",
+        "side": null,
+        "price_krw": {
+          "weekday": 4000,
+          "weekend": 5000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "gate=중앙출입구"
+        ]
+      },
+      {
+        "seat_name": "메디힐 테이블석",
+        "category": "일반석",
+        "audience": "5층테이블석(2인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 60000,
+          "weekend": 70000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "gate=2,5출입구",
+          "section_id=501",
+          "section_id=502",
+          "section_id=503",
+          "section_id=504",
+          "section_id=505",
+          "section_id=506",
+          "section_id=507",
+          "section_id=508",
+          "section_id=509",
+          "section_id=510",
+          "section_id=511",
+          "section_id=512",
+          "section_id=513",
+          "section_id=514",
+          "section_id=515",
+          "section_id=516",
+          "section_id=517",
+          "section_id=518",
+          "section_id=519",
+          "section_id=520",
+          "section_id=521",
+          "section_id=522",
+          "section_id=523",
+          "section_id=524",
+          "section_id=525",
+          "section_id=526",
+          "section_id=527",
+          "section_id=528",
+          "section_id=529",
+          "section_id=530",
+          "section_id=531",
+          "section_id=532",
+          "section_id=533",
+          "section_id=534",
+          "section_id=535"
+        ]
+      },
+      {
+        "seat_name": "메디힐 테이블석",
+        "category": "일반석",
+        "audience": "5층테이블석(3인)",
+        "side": null,
+        "price_krw": {
+          "weekday": 90000,
+          "weekend": 105000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "gate=2,5출입구",
+          "section_id=501",
+          "section_id=502",
+          "section_id=503",
+          "section_id=504",
+          "section_id=505",
+          "section_id=506",
+          "section_id=507",
+          "section_id=508",
+          "section_id=509",
+          "section_id=510",
+          "section_id=511",
+          "section_id=512",
+          "section_id=513",
+          "section_id=514",
+          "section_id=515",
+          "section_id=516",
+          "section_id=517",
+          "section_id=518",
+          "section_id=519",
+          "section_id=520",
+          "section_id=521",
+          "section_id=522",
+          "section_id=523",
+          "section_id=524",
+          "section_id=525",
+          "section_id=526",
+          "section_id=527",
+          "section_id=528",
+          "section_id=529",
+          "section_id=530",
+          "section_id=531",
+          "section_id=532",
+          "section_id=533",
+          "section_id=534",
+          "section_id=535"
+        ]
+      }
+    ],
+    "official_tables": [
+      {
+        "heading": "광주-기아 챔피언스 필드 좌석/입장요금",
+        "summary": "KIA 타이거즈 공식 웹사이트 좌석안내도에 포함된 좌석별 요금 데이터",
+        "rows": [
+          [
+            "좌석",
+            "대상",
+            "주중",
+            "주말",
+            "비고"
+          ],
+          [
+            "서프라이즈석",
+            "서프라이즈석(1인)",
+            "25000",
+            "30000",
+            "gate=4출입구"
+          ],
+          [
+            "서프라이즈석",
+            "서프라이즈석(1인)",
+            "25000",
+            "30000",
+            "gate=3출입구"
+          ],
+          [
+            "중앙테이블석",
+            "중앙테이블석(2인)",
+            "90000",
+            "110000",
+            "gate=3,4출입구"
+          ],
+          [
+            "중앙테이블석",
+            "중앙테이블석(3인)",
+            "135000",
+            "165000",
+            "gate=3,4출입구"
+          ],
+          [
+            "챔피언석",
+            "챔피언석(1인)",
+            "50000",
+            "60000",
+            "gate=3,4출입구"
+          ],
+          [
+            "K5",
+            "성인",
+            "12000",
+            "16000",
+            "section_id=101 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "30%할인(청소년,군인)",
+            "8400",
+            "11200",
+            "section_id=101 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "50%할인(어린이,장애인 등)",
+            "6000",
+            "8000",
+            "section_id=101 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "성인",
+            "12000",
+            "16000",
+            "section_id=102 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "30%할인(청소년,군인)",
+            "8400",
+            "11200",
+            "section_id=102 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "50%할인(어린이,장애인 등)",
+            "6000",
+            "8000",
+            "section_id=102 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "성인",
+            "12000",
+            "16000",
+            "section_id=103 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "30%할인(청소년,군인)",
+            "8400",
+            "11200",
+            "section_id=103 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "50%할인(어린이,장애인 등)",
+            "6000",
+            "8000",
+            "section_id=103 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "성인",
+            "12000",
+            "16000",
+            "section_id=104 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "30%할인(청소년,군인)",
+            "8400",
+            "11200",
+            "section_id=104 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "50%할인(어린이,장애인 등)",
+            "6000",
+            "8000",
+            "section_id=104 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "성인",
+            "12000",
+            "16000",
+            "section_id=105 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "30%할인(청소년,군인)",
+            "8400",
+            "11200",
+            "section_id=105 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "50%할인(어린이,장애인 등)",
+            "6000",
+            "8000",
+            "section_id=105 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "성인",
+            "12000",
+            "16000",
+            "section_id=106 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "30%할인(청소년,군인)",
+            "8400",
+            "11200",
+            "section_id=106 / gate=2출입구"
+          ],
+          [
+            "K5",
+            "50%할인(어린이,장애인 등)",
+            "6000",
+            "8000",
+            "section_id=106 / gate=2출입구"
+          ],
+          [
+            "K8",
+            "성인",
+            "14000",
+            "18000",
+            "section_id=107 / gate=2출입구"
+          ],
+          [
+            "K8",
+            "30%할인(청소년,군인)",
+            "9800",
+            "12600",
+            "section_id=107 / gate=2출입구"
+          ],
+          [
+            "K8",
+            "50%할인(어린이,장애인 등)",
+            "7000",
+            "9000",
+            "section_id=107 / gate=2출입구"
+          ],
+          [
+            "K8",
+            "성인",
+            "14000",
+            "18000",
+            "section_id=108 / gate=2출입구"
+          ],
+          [
+            "K8",
+            "30%할인(청소년,군인)",
+            "9800",
+            "12600",
+            "section_id=108 / gate=2출입구"
+          ],
+          [
+            "K8",
+            "50%할인(어린이,장애인 등)",
+            "7000",
+            "9000",
+            "section_id=108 / gate=2출입구"
+          ],
+          [
+            "K8",
+            "성인",
+            "14000",
+            "18000",
+            "section_id=109 / gate=2출입구"
+          ],
+          [
+            "K8",
+            "30%할인(청소년,군인)",
+            "9800",
+            "12600",
+            "section_id=109 / gate=2출입구"
+          ],
+          [
+            "K8",
+            "50%할인(어린이,장애인 등)",
+            "7000",
+            "9000",
+            "section_id=109 / gate=2출입구"
+          ],
+          [
+            "K8",
+            "성인",
+            "14000",
+            "18000",
+            "section_id=110 / gate=3출입구"
+          ],
+          [
+            "K8",
+            "30%할인(청소년,군인)",
+            "9800",
+            "12600",
+            "section_id=110 / gate=3출입구"
+          ],
+          [
+            "K8",
+            "50%할인(어린이,장애인 등)",
+            "7000",
+            "9000",
+            "section_id=110 / gate=3출입구"
+          ],
+          [
+            "K8",
+            "성인",
+            "14000",
+            "18000",
+            "section_id=111 / gate=3출입구"
+          ],
+          [
+            "K8",
+            "30%할인(청소년,군인)",
+            "9800",
+            "12600",
+            "section_id=111 / gate=3출입구"
+          ],
+          [
+            "K8",
+            "50%할인(어린이,장애인 등)",
+            "7000",
+            "9000",
+            "section_id=111 / gate=3출입구"
+          ],
+          [
+            "K9",
+            "성인",
+            "16000",
+            "20000",
+            "section_id=112 / gate=3출입구"
+          ],
+          [
+            "K9",
+            "30%할인(청소년,군인)",
+            "11200",
+            "14000",
+            "section_id=112 / gate=3출입구"
+          ],
+          [
+            "K9",
+            "50%할인(어린이,장애인 등)",
+            "8000",
+            "10000",
+            "section_id=112 / gate=3출입구"
+          ],
+          [
+            "K9",
+            "성인",
+            "16000",
+            "20000",
+            "section_id=113 / gate=3출입구"
+          ],
+          [
+            "K9",
+            "30%할인(청소년,군인)",
+            "11200",
+            "14000",
+            "section_id=113 / gate=3출입구"
+          ],
+          [
+            "K9",
+            "50%할인(어린이,장애인 등)",
+            "8000",
+            "10000",
+            "section_id=113 / gate=3출입구"
+          ],
+          [
+            "K9",
+            "성인",
+            "16000",
+            "20000",
+            "section_id=116 / gate=4출입구"
+          ],
+          [
+            "K9",
+            "30%할인(청소년,군인)",
+            "11200",
+            "14000",
+            "section_id=116 / gate=4출입구"
+          ],
+          [
+            "K9",
+            "50%할인(어린이,장애인 등)",
+            "8000",
+            "10000",
+            "section_id=116 / gate=4출입구"
+          ],
+          [
+            "K9",
+            "성인",
+            "16000",
+            "20000",
+            "section_id=117 / gate=4출입구"
+          ],
+          [
+            "K9",
+            "30%할인(청소년,군인)",
+            "11200",
+            "14000",
+            "section_id=117 / gate=4출입구"
+          ],
+          [
+            "K9",
+            "50%할인(어린이,장애인 등)",
+            "8000",
+            "10000",
+            "section_id=117 / gate=4출입구"
+          ],
+          [
+            "K8",
+            "성인",
+            "14000",
+            "18000",
+            "section_id=118 / gate=4출입구"
+          ],
+          [
+            "K8",
+            "30%할인(청소년,군인)",
+            "9800",
+            "12600",
+            "section_id=118 / gate=4출입구"
+          ],
+          [
+            "K8",
+            "50%할인(어린이,장애인 등)",
+            "7000",
+            "9000",
+            "section_id=118 / gate=4출입구"
+          ],
+          [
+            "K8",
+            "성인",
+            "14000",
+            "18000",
+            "section_id=119 / gate=4출입구"
+          ],
+          [
+            "K8",
+            "30%할인(청소년,군인)",
+            "9800",
+            "12600",
+            "section_id=119 / gate=4출입구"
+          ],
+          [
+            "K8",
+            "50%할인(어린이,장애인 등)",
+            "7000",
+            "9000",
+            "section_id=119 / gate=4출입구"
+          ],
+          [
+            "응원특별석",
+            "응원특별석",
+            "15000",
+            "19000",
+            "section_id=120 / gate=4출입구"
+          ],
+          [
+            "응원특별석",
+            "응원특별석",
+            "15000",
+            "19000",
+            "section_id=121 / gate=5출입구"
+          ],
+          [
+            "응원특별석",
+            "응원특별석",
+            "15000",
+            "19000",
+            "section_id=122 / gate=5출입구"
+          ],
+          [
+            "K8",
+            "성인",
+            "14000",
+            "18000",
+            "section_id=123 / gate=5출입구"
+          ],
+          [
+            "K8",
+            "30%할인(청소년,군인)",
+            "9800",
+            "12600",
+            "section_id=123 / gate=5출입구"
+          ],
+          [
+            "K8",
+            "50%할인(어린이,장애인 등)",
+            "7000",
+            "9000",
+            "section_id=123 / gate=5출입구"
+          ],
+          [
+            "K5",
+            "성인",
+            "12000",
+            "16000",
+            "section_id=124 / gate=5출입구"
+          ],
+          [
+            "K5",
+            "30%할인(청소년,군인)",
+            "8400",
+            "11200",
+            "section_id=124 / gate=5출입구"
+          ],
+          [
+            "K5",
+            "50%할인(어린이,장애인 등)",
+            "6000",
+            "8000",
+            "section_id=124 / gate=5출입구"
+          ],
+          [
+            "K5",
+            "성인",
+            "12000",
+            "16000",
+            "section_id=125 / gate=5출입구"
+          ],
+          [
+            "K5",
+            "30%할인(청소년,군인)",
+            "8400",
+            "11200",
+            "section_id=125 / gate=5출입구"
+          ],
+          [
+            "K5",
+            "50%할인(어린이,장애인 등)",
+            "6000",
+            "8000",
+            "section_id=125 / gate=5출입구"
+          ],
+          [
+            "K5",
+            "성인",
+            "12000",
+            "16000",
+            "section_id=126 / gate=5출입구"
+          ],
+          [
+            "K5",
+            "30%할인(청소년,군인)",
+            "8400",
+            "11200",
+            "section_id=126 / gate=5출입구"
+          ],
+          [
+            "K5",
+            "50%할인(어린이,장애인 등)",
+            "6000",
+            "8000",
+            "section_id=126 / gate=5출입구"
+          ],
+          [
+            "K5",
+            "성인",
+            "12000",
+            "16000",
+            "section_id=127 / gate=5출입구"
+          ],
+          [
+            "K5",
+            "30%할인(청소년,군인)",
+            "8400",
+            "11200",
+            "section_id=127 / gate=5출입구"
+          ],
+          [
+            "K5",
+            "50%할인(어린이,장애인 등)",
+            "6000",
+            "8000",
+            "section_id=127 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=535 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=535 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=535 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=534 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=534 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=534 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=533 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=533 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=533 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=532 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=532 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=532 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=531 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=531 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=531 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=530 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=530 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=530 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=529 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=529 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=529 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=528 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=528 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=528 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=527 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=527 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=527 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=526 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=526 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=526 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=525 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=525 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=525 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=524 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=524 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=524 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=523 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=523 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=523 / gate=5출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=522 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=522 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=522 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=521 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=521 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=521 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=520 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=520 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=520 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=519 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=519 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=519 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=518 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=518 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=518 / gate=4출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=517 / gate=3출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=517 / gate=3출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=517 / gate=3출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=516 / gate=3출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=516 / gate=3출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=516 / gate=3출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=515 / gate=3출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=515 / gate=3출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=515 / gate=3출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=514 / gate=3출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=514 / gate=3출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=514 / gate=3출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=513 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=513 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=513 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=512 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=512 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=512 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=511 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=511 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=511 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=510 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=510 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=510 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=509 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=509 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=509 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=508 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=508 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=508 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=507 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=507 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=507 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=506 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=506 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=506 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=505 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=505 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=505 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=504 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=504 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=504 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=503 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=503 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=503 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=502 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=502 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=502 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=501 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=501 / gate=2출입구"
+          ],
+          [
+            "EV",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=501 / gate=2출입구"
+          ],
+          [
+            "스카이박스석",
+            "10인실",
+            "750000",
+            "850000",
+            "section_id=Vector_38 / gate=중앙출입구"
+          ],
+          [
+            "스카이박스석",
+            "14인실",
+            "1050000",
+            "1190000",
+            "section_id=Vector_38 / gate=중앙출입구"
+          ],
+          [
+            "스카이박스석",
+            "18인실",
+            "1350000",
+            "1530000",
+            "section_id=Vector_38 / gate=중앙출입구"
+          ],
+          [
+            "타이거즈가족석",
+            "타이거즈가족석(4인)",
+            "88000",
+            "108000",
+            "gate=2출입구"
+          ],
+          [
+            "타이거즈가족석",
+            "타이거즈가족석(6인)",
+            "132000",
+            "162000",
+            "gate=2출입구"
+          ],
+          [
+            "타이거즈가족석",
+            "타이거즈가족석(4인)",
+            "88000",
+            "108000",
+            "gate=5출입구"
+          ],
+          [
+            "타이거즈가족석",
+            "타이거즈가족석(6인)",
+            "132000",
+            "162000",
+            "gate=5출입구"
+          ],
+          [
+            "파티석(4층)",
+            "파티석(4층)",
+            "100000",
+            "120000",
+            "section_id=4층파티석 / gate=2출입구"
+          ],
+          [
+            "파티석(4층)",
+            "파티석(4층)",
+            "100000",
+            "120000",
+            "section_id=4층파티석 / gate=5출입구"
+          ],
+          [
+            "휠체어석",
+            "휠체어석",
+            "4000",
+            "5000",
+            "section_id=Vector_91 / gate=중앙출입구"
+          ],
+          [
+            "외야석",
+            "성인",
+            "10000",
+            "13000",
+            "section_id=Vector_82 / gate=7출입구"
+          ],
+          [
+            "외야석",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "section_id=Vector_82 / gate=7출입구"
+          ],
+          [
+            "외야석",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "section_id=Vector_82 / gate=7출입구"
+          ],
+          [
+            "외야석",
+            "어린이회원",
+            "0",
+            "0",
+            "section_id=Vector_82 / gate=7출입구"
+          ],
+          [
+            "외야석",
+            "성인",
+            "10000",
+            "13000",
+            "gate=7출입구"
+          ],
+          [
+            "외야석",
+            "30%할인(청소년,군인)",
+            "7000",
+            "9100",
+            "gate=7출입구"
+          ],
+          [
+            "외야석",
+            "50%할인(어린이,장애인 등)",
+            "5000",
+            "6500",
+            "gate=7출입구"
+          ],
+          [
+            "외야석",
+            "어린이회원",
+            "0",
+            "0",
+            "gate=7출입구"
+          ],
+          [
+            "외야 가족석",
+            "외야 가족석(6인)",
+            "120000",
+            "150000",
+            "gate=7출입구"
+          ],
+          [
+            "외야 가족석",
+            "외야 가족석(6인)",
+            "120000",
+            "150000",
+            "gate=7출입구"
+          ],
+          [
+            "K9 중증 장애인석",
+            "K9 중증 장애인석",
+            "4000",
+            "5000",
+            "gate=중앙출입구"
+          ],
+          [
+            "K9 중증 장애인석",
+            "K9 중증 장애인석",
+            "4000",
+            "5000",
+            "gate=중앙출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=501 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=501 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=502 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=502 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=503 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=503 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=504 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=504 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=505 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=505 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=506 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=506 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=507 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=507 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=508 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=508 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=509 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=509 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=510 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=510 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=511 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=511 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=512 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=512 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=513 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=513 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=514 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=514 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=515 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=515 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=516 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=516 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=517 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=517 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=518 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=518 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=519 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=519 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=520 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=520 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=521 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=521 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=522 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=522 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=523 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=523 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=524 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=524 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=525 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=525 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=526 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=526 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=527 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=527 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=528 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=528 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=529 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=529 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=530 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=530 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=531 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=531 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=532 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=532 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=533 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=533 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=534 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=534 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(2인)",
+            "60000",
+            "70000",
+            "section_id=535 / gate=2,5출입구"
+          ],
+          [
+            "메디힐 테이블석",
+            "5층테이블석(3인)",
+            "90000",
+            "105000",
+            "section_id=535 / gate=2,5출입구"
+          ]
+        ]
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "KIA Tigers Official Ticket Guide",
+    "source_url": "https://tigers.co.kr/ticket/reservation",
+    "fetched_at": "2026-05-07T12:32:56.062047+00:00",
+    "fallback_used": false
+  }
+}

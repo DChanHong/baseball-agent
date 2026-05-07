@@ -1,0 +1,146 @@
+{
+  "ok": true,
+  "data": {
+    "stadium_id": "jamsil",
+    "stadium_name": "잠실야구장",
+    "team": "두산 베어스",
+    "season": 2026,
+    "seat_zone_count": 6,
+    "seat_zones": [
+      {
+        "seat_name": "VIP석",
+        "category": "좌석수",
+        "audience": "all",
+        "side": null,
+        "capacity": 264,
+        "price_krw": {},
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 홈구장 안내의 좌석수 기준이며, 가격표는 포함되지 않음"
+        ]
+      },
+      {
+        "seat_name": "테이블석",
+        "category": "좌석수",
+        "audience": "all",
+        "side": null,
+        "capacity": 502,
+        "price_krw": {},
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "공식 홈구장 안내의 좌석수 기준이며, 가격표는 포함되지 않음"
+        ]
+      },
+      {
+        "seat_name": "블루석",
+        "category": "좌석수",
+        "audience": "all",
+        "side": null,
+        "capacity": 2373,
+        "price_krw": {},
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 홈구장 안내의 좌석수 기준이며, 가격표는 포함되지 않음"
+        ]
+      },
+      {
+        "seat_name": "레드석",
+        "category": "좌석수",
+        "audience": "all",
+        "side": null,
+        "capacity": 6399,
+        "price_krw": {},
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 홈구장 안내의 좌석수 기준이며, 가격표는 포함되지 않음"
+        ]
+      },
+      {
+        "seat_name": "네이비석",
+        "category": "좌석수",
+        "audience": "all",
+        "side": null,
+        "capacity": 10112,
+        "price_krw": {},
+        "tags": [
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "공식 홈구장 안내의 좌석수 기준이며, 가격표는 포함되지 않음"
+        ]
+      },
+      {
+        "seat_name": "외야석",
+        "category": "좌석수",
+        "audience": "all",
+        "side": null,
+        "capacity": 5813,
+        "price_krw": {},
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 홈구장 안내의 좌석수 기준이며, 가격표는 포함되지 않음"
+        ]
+      }
+    ],
+    "official_tables": [
+      {
+        "heading": "잠실야구장 좌석수",
+        "summary": "두산베어스 공식 홈구장 안내에 표시된 좌석 구역별 좌석수",
+        "rows": [
+          [
+            "좌석",
+            "좌석수"
+          ],
+          [
+            "VIP석",
+            "264"
+          ],
+          [
+            "테이블석",
+            "502"
+          ],
+          [
+            "블루석",
+            "2373"
+          ],
+          [
+            "레드석",
+            "6399"
+          ],
+          [
+            "네이비석",
+            "10112"
+          ],
+          [
+            "외야석",
+            "5813"
+          ]
+        ]
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "Doosan Bears Official Stadium Guide",
+    "source_url": "https://www.doosanbears.com/bears/stadium?tabId=seoul",
+    "fetched_at": "2026-05-07T12:32:52.053413+00:00",
+    "fallback_used": false
+  }
+}

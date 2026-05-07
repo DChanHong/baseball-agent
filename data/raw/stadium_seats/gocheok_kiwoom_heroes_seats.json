@@ -1,0 +1,702 @@
+{
+  "ok": true,
+  "data": {
+    "stadium_id": "gocheok",
+    "stadium_name": "고척스카이돔",
+    "team": "키움 히어로즈",
+    "season": 2026,
+    "seat_zone_count": 22,
+    "seat_zones": [
+      {
+        "seat_name": "요기요 R.d-club석",
+        "category": "테이블석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 60000,
+          "weekend": 99000,
+          "summer_weekday": 70000,
+          "summer_weekend": 115000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "LEXUS 1층 테이블석",
+        "category": "테이블석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 55000,
+          "weekend": 88000,
+          "summer_weekday": 65000,
+          "summer_weekend": 100000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "NAVER 2층 테이블석",
+        "category": "테이블석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 45000,
+          "weekend": 72000,
+          "summer_weekday": 52000,
+          "summer_weekend": 83000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "내야커플석 (미니테이블의 스텐딩 의자석)",
+        "category": "테이블석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 33000,
+          "weekend": 50000,
+          "summer_weekday": 40000,
+          "summer_weekend": 60000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "외야커플석 (미니테이블의 스텐딩 의자석)",
+        "category": "테이블석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 20000,
+          "weekend": 30000,
+          "summer_weekday": 25000,
+          "summer_weekend": 40000
+        },
+        "tags": [
+          "outfield",
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "comfort"
+        ],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "다크버건디석",
+        "category": "내야",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 20000,
+          "weekend": 28000,
+          "summer_weekday": 22500,
+          "summer_weekend": 32000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "다크버건디석",
+        "category": "내야",
+        "audience": "어린이",
+        "side": null,
+        "price_krw": {
+          "weekday": 9000,
+          "weekend": 13000,
+          "summer_weekday": 10000,
+          "summer_weekend": 14500
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "버건디석",
+        "category": "내야",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 18000,
+          "weekend": 25000,
+          "summer_weekday": 20000,
+          "summer_weekend": 29000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "버건디석",
+        "category": "내야",
+        "audience": "어린이",
+        "side": null,
+        "price_krw": {
+          "weekday": 8000,
+          "weekend": 12000,
+          "summer_weekday": 10000,
+          "summer_weekend": 14000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "3층 지정석",
+        "category": "내야",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 14000,
+          "weekend": 21000,
+          "summer_weekday": 17000,
+          "summer_weekend": 24000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "3층 지정석",
+        "category": "내야",
+        "audience": "어린이",
+        "side": null,
+        "price_krw": {
+          "weekday": 7000,
+          "weekend": 10000,
+          "summer_weekday": 8000,
+          "summer_weekend": 11000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "4층 지정석",
+        "category": "내야",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 9000,
+          "weekend": 13000,
+          "summer_weekday": 10000,
+          "summer_weekend": 15000
+        },
+        "tags": [
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "4층 지정석",
+        "category": "내야",
+        "audience": "청소년",
+        "side": null,
+        "price_krw": {
+          "weekday": 7000,
+          "weekend": 10000,
+          "summer_weekday": 8000,
+          "summer_weekend": 11000
+        },
+        "tags": [
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "4층 지정석",
+        "category": "내야",
+        "audience": "어린이/장애/유공자/군,경/경로",
+        "side": null,
+        "price_krw": {
+          "weekday": 4000,
+          "weekend": 6000,
+          "summer_weekday": 4500,
+          "summer_weekend": 7000
+        },
+        "tags": [
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "휠체어석",
+        "category": "내야",
+        "audience": "본인 + 동반1인",
+        "side": null,
+        "price_krw": {
+          "weekday": 10000,
+          "weekend": 15000,
+          "summer_weekday": 11000,
+          "summer_weekend": 16500
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "외야 지정석",
+        "category": "외야",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "weekday": 9000,
+          "weekend": 13000,
+          "summer_weekday": 10000,
+          "summer_weekend": 15000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "외야 지정석",
+        "category": "외야",
+        "audience": "청소년",
+        "side": null,
+        "price_krw": {
+          "weekday": 7000,
+          "weekend": 10000,
+          "summer_weekday": 8000,
+          "summer_weekend": 11000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "외야 지정석",
+        "category": "외야",
+        "audience": "어린이/장애/유공자/ 군,경/경로",
+        "side": null,
+        "price_krw": {
+          "weekday": 4000,
+          "weekend": 6000,
+          "summer_weekday": 4500,
+          "summer_weekend": 7000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "외야 지정석",
+        "category": "외야",
+        "audience": "어린이회원/리틀야구단",
+        "side": null,
+        "price_krw": {
+          "weekday": 0,
+          "weekend": 0,
+          "summer_weekday": 0,
+          "summer_weekend": 0
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "외야 패밀리석",
+        "category": "외야",
+        "audience": "4인석",
+        "side": null,
+        "price_krw": {
+          "weekday": 88000,
+          "weekend": 120000,
+          "summer_weekday": 100000,
+          "summer_weekend": 140000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "외야 패밀리석",
+        "category": "외야",
+        "audience": "5인석",
+        "side": null,
+        "price_krw": {
+          "weekday": 112000,
+          "weekend": 150000,
+          "summer_weekday": 130000,
+          "summer_weekend": 180000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "사진"
+        ]
+      },
+      {
+        "seat_name": "외야 유아동반석",
+        "category": "외야",
+        "audience": "2인석",
+        "side": null,
+        "price_krw": {
+          "weekday": 44000,
+          "weekend": 60000,
+          "summer_weekday": 50000,
+          "summer_weekend": 70000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "사진"
+        ]
+      }
+    ],
+    "official_tables": [
+      {
+        "heading": "2026 시즌 입장 요금 안내",
+        "summary": "2026 시즌 입장 요금 안내 테이블입니다.",
+        "rows": [
+          [
+            "좌석권종",
+            "좌석권종",
+            "가격등급",
+            "주중(화/수/목)",
+            "주말 (금/토/일/공휴일)",
+            "2026 하절기 입장료(5/19~9/6)",
+            "2026 하절기 입장료(5/19~9/6)",
+            "비고"
+          ],
+          [
+            "좌석권종",
+            "좌석권종",
+            "가격등급",
+            "주중(화/수/목)",
+            "주말 (금/토/일/공휴일)",
+            "주중(화/수/목)",
+            "주말 (금/토/일/공휴일)",
+            "비고"
+          ],
+          [
+            "테이블석",
+            "요기요 R.d-club석",
+            "일반",
+            "60,000",
+            "99,000",
+            "70,000",
+            "115,000",
+            "사진"
+          ],
+          [
+            "테이블석",
+            "LEXUS 1층 테이블석",
+            "일반",
+            "55,000",
+            "88,000",
+            "65,000",
+            "100,000",
+            "사진"
+          ],
+          [
+            "테이블석",
+            "NAVER 2층 테이블석",
+            "일반",
+            "45,000",
+            "72,000",
+            "52,000",
+            "83,000",
+            "사진"
+          ],
+          [
+            "테이블석",
+            "내야커플석 (미니테이블의 스텐딩 의자석)",
+            "일반",
+            "33,000",
+            "50,000",
+            "40,000",
+            "60,000",
+            "사진"
+          ],
+          [
+            "테이블석",
+            "외야커플석 (미니테이블의 스텐딩 의자석)",
+            "일반",
+            "20,000",
+            "30,000",
+            "25,000",
+            "40,000",
+            "사진"
+          ],
+          [
+            "내야",
+            "다크버건디석",
+            "일반",
+            "20,000",
+            "28,000",
+            "22,500",
+            "32,000",
+            "사진"
+          ],
+          [
+            "내야",
+            "다크버건디석",
+            "어린이",
+            "9,000",
+            "13,000",
+            "10,000",
+            "14,500",
+            "사진"
+          ],
+          [
+            "내야",
+            "버건디석",
+            "일반",
+            "18,000",
+            "25,000",
+            "20,000",
+            "29,000",
+            "사진"
+          ],
+          [
+            "내야",
+            "버건디석",
+            "어린이",
+            "8,000",
+            "12,000",
+            "10,000",
+            "14,000",
+            "사진"
+          ],
+          [
+            "내야",
+            "3층 지정석",
+            "일반",
+            "14,000",
+            "21,000",
+            "17,000",
+            "24,000",
+            "사진"
+          ],
+          [
+            "내야",
+            "3층 지정석",
+            "어린이",
+            "7,000",
+            "10,000",
+            "8,000",
+            "11,000",
+            "사진"
+          ],
+          [
+            "내야",
+            "4층 지정석",
+            "일반",
+            "9,000",
+            "13,000",
+            "10,000",
+            "15,000",
+            "사진"
+          ],
+          [
+            "내야",
+            "4층 지정석",
+            "청소년",
+            "7,000",
+            "10,000",
+            "8,000",
+            "11,000",
+            "사진"
+          ],
+          [
+            "내야",
+            "4층 지정석",
+            "어린이/장애/유공자/군,경/경로",
+            "4,000",
+            "6,000",
+            "4,500",
+            "7,000",
+            "사진"
+          ],
+          [
+            "내야",
+            "휠체어석",
+            "본인 + 동반1인",
+            "10,000",
+            "15,000",
+            "11,000",
+            "16,500",
+            "사진"
+          ],
+          [
+            "외야",
+            "외야 지정석",
+            "일반",
+            "9,000",
+            "13,000",
+            "10,000",
+            "15,000",
+            "사진"
+          ],
+          [
+            "외야",
+            "외야 지정석",
+            "청소년",
+            "7,000",
+            "10,000",
+            "8,000",
+            "11,000",
+            "사진"
+          ],
+          [
+            "외야",
+            "외야 지정석",
+            "어린이/장애/유공자/ 군,경/경로",
+            "4,000",
+            "6,000",
+            "4,500",
+            "7,000",
+            "사진"
+          ],
+          [
+            "외야",
+            "외야 지정석",
+            "어린이회원/리틀야구단",
+            "무료",
+            "무료",
+            "무료",
+            "무료",
+            "사진"
+          ],
+          [
+            "외야",
+            "외야 패밀리석",
+            "4인석",
+            "88,000",
+            "120,000",
+            "100,000",
+            "140,000",
+            "사진"
+          ],
+          [
+            "외야",
+            "외야 패밀리석",
+            "5인석",
+            "112,000",
+            "150,000",
+            "130,000",
+            "180,000",
+            "사진"
+          ],
+          [
+            "외야",
+            "외야 유아동반석",
+            "2인석",
+            "44,000",
+            "60,000",
+            "50,000",
+            "70,000",
+            "사진"
+          ]
+        ]
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "Kiwoom Heroes Official Ticket Guide",
+    "source_url": "https://heroesbaseball.co.kr/ticket/normal/viewCharge.do",
+    "fetched_at": "2026-05-07T12:32:52.205784+00:00",
+    "fallback_used": false
+  }
+}

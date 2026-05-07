@@ -48,12 +48,12 @@
 | 원정 팬 맞춤 동선 설계 | ReAct | 출발지/구장별 이동 시나리오 static 또는 mock rule |
 | 티켓 예매 일정 및 가이드 | ReAct | 팀별 예매처 static, 예매 난이도 rule, 예매 오픈 일시는 mock 또는 안내 수준 |
 
-### 제외 또는 후순위 기능
+### 2차 목표 (MVP 이후 고도화)
 
-- 선수/라인업 분석은 MVP 이후로 미룬다.
-- 맛집 추천은 MVP 이후로 미룬다.
-- 응원가/응원법은 MVP 이후로 미룬다.
-- 교통 실시간 API, 예매처 실시간 크롤링은 2차 확장으로 둔다.
+MVP 3개 기능과 같은 도메인을 다루지만, MVP에서는 static/mock으로 처리하고 실시간화는 2차 확장에서 진행한다.
+
+- 교통 실시간 API: MVP #2 "원정 팬 동선"이 static/mock rule로 다루는 영역의 실시간 버전.
+- 예매처 실시간 크롤링: MVP #3 "티켓 예매 가이드"가 static + mock으로 다루는 영역의 실시간 버전.
 
 ### 추가로 준비할 데이터
 
@@ -74,3 +74,31 @@
 6. 티켓 예매 가이드 static 데이터 및 Tool 구현
 7. 원정 동선 static/mock 데이터 및 Tool 구현
 8. Agent loop에서 3개 Must-have 흐름을 연결한다.
+
+## 2026-05-07 Workflow/RAG vs Agent 영역 구분
+
+### 배경
+
+MVP 3개 기능을 구현할 때, 결정 흐름을 사전에 고정할 수 있는 부분은 Workflow 또는 RAG로 처리하고, 상황 의존적 판단·재계획·되묻기가 필요한 부분만 Agent loop로 처리한다. 두 영역을 명확히 분리해야 Agent의 책임 범위가 비대해지지 않는다.
+
+### Workflow/RAG 영역
+
+정형 처리 또는 검색 기반 응답으로 충분한 작업.
+
+| 항목 | 처리 방식 | MVP 매핑 |
+| --- | --- | --- |
+| 티켓 예매처 안내 | Workflow + static | MVP #3 티켓 예매 가이드 |
+| 구장 좌석 정보 조회 | RAG + static rule | MVP #1 좌석 추천의 후보 좌석 후처리 |
+| 기본 직관 일정 생성 | Workflow | MVP #1, #3에서 일정·날짜 정렬 |
+
+### Agent 영역
+
+상황 판단, 재계획, 사용자 확인이 필요한 작업. Plan-and-Execute 또는 ReAct 루프에서 처리한다.
+
+| 항목 | 처리 방식 | MVP 매핑 |
+| --- | --- | --- |
+| 우천/폭염 대응 | Plan-and-Execute | MVP #1 (날씨 정책의 weather_based / weather_risk_based 모드) |
+| 돔구장 여부에 따른 직관 판단 | Plan-and-Execute | MVP #1 (Agent 동작 4번) |
+| 막차 부족 시 동선 재계획 | ReAct | MVP #2 원정 동선 |
+| 경기 취소 / Tool 실패 시 대안 제시 | Plan-and-Execute + ReAct | MVP 공통 (resilience) |
+| 입력 정보 부족 시 사용자에게 되묻기 | Agent loop 공통 | MVP 공통 (HCI) |

@@ -1,0 +1,738 @@
+{
+  "ok": true,
+  "data": {
+    "stadium_id": "daegu",
+    "stadium_name": "대구 삼성라이온즈파크",
+    "team": "삼성 라이온즈",
+    "season": 2026,
+    "seat_zone_count": 27,
+    "seat_zones": [
+      {
+        "seat_name": "VIP석",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "gray": 50000,
+          "white": 60000,
+          "blue": 65000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "으뜸병원 중앙테이블석",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "gray": 45000,
+          "white": 55000,
+          "blue": 60000
+        },
+        "tags": [
+          "central_view",
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort",
+          "view"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "1,3루 테이블석",
+        "category": "일반석",
+        "audience": "all",
+        "side": "away",
+        "price_krw": {
+          "gray": 40000,
+          "white": 50000,
+          "blue": 55000
+        },
+        "tags": [
+          "away_side",
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "1,3루 익사이팅석",
+        "category": "일반석",
+        "audience": "all",
+        "side": "away",
+        "price_krw": {
+          "gray": 22000,
+          "white": 27000,
+          "blue": 30000
+        },
+        "tags": [
+          "away_side"
+        ],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "블루존",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "gray": 19000,
+          "white": 22000,
+          "blue": 25000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "3루 내야지정석",
+        "category": "일반석",
+        "audience": "all",
+        "side": "away",
+        "price_krw": {
+          "gray": 15000,
+          "white": 17000,
+          "blue": 19000
+        },
+        "tags": [
+          "away_side"
+        ],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "원정응원석",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "gray": 19000,
+          "white": 22000,
+          "blue": 25000
+        },
+        "tags": [
+          "cheering"
+        ],
+        "recommendation_use_cases": [
+          "cheering"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "1루 내야지정석",
+        "category": "일반석",
+        "audience": "all",
+        "side": "home",
+        "price_krw": {
+          "gray": 10000,
+          "white": 13000,
+          "blue": 14000
+        },
+        "tags": [
+          "home_side"
+        ],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "SKY 블루존",
+        "category": "일반석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "gray": 10000,
+          "white": 12000,
+          "blue": 15000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "SKY 블루존",
+        "category": "일반석",
+        "audience": "어린이,청소년,경로,장애인 등",
+        "side": null,
+        "price_krw": {
+          "gray": 7000,
+          "white": 9000,
+          "blue": 12000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "SKY 하단 지정석",
+        "category": "일반석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "gray": 10000,
+          "white": 11000,
+          "blue": 13000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "SKY 하단 지정석",
+        "category": "일반석",
+        "audience": "어린이,청소년,경로,장애인 등",
+        "side": null,
+        "price_krw": {
+          "gray": 7000,
+          "white": 8000,
+          "blue": 10000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "1,3루 SKY 상단 지정석",
+        "category": "일반석",
+        "audience": "일반",
+        "side": "away",
+        "price_krw": {
+          "gray": 8000,
+          "white": 9000,
+          "blue": 11000
+        },
+        "tags": [
+          "away_side",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "1,3루 SKY 상단 지정석",
+        "category": "일반석",
+        "audience": "어린이,청소년,경로,장애인 등",
+        "side": "away",
+        "price_krw": {
+          "gray": 5000,
+          "white": 6000,
+          "blue": 8000
+        },
+        "tags": [
+          "away_side",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "중앙 SKY 상단 지정석",
+        "category": "일반석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "gray": 9000,
+          "white": 10000,
+          "blue": 12000
+        },
+        "tags": [
+          "central_view",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "중앙 SKY 상단 지정석",
+        "category": "일반석",
+        "audience": "어린이,청소년,경로,장애인 등",
+        "side": null,
+        "price_krw": {
+          "gray": 6000,
+          "white": 7000,
+          "blue": 9000
+        },
+        "tags": [
+          "central_view",
+          "upper_deck"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "view"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "외야지정석",
+        "category": "일반석",
+        "audience": "일반",
+        "side": null,
+        "price_krw": {
+          "gray": 9000,
+          "white": 10000,
+          "blue": 11000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "외야지정석",
+        "category": "일반석",
+        "audience": "어린이,청소년,경로,장애인 등",
+        "side": null,
+        "price_krw": {
+          "gray": 6000,
+          "white": 7000,
+          "blue": 8000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "외야패밀리석",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "gray": 18000,
+          "white": 20000,
+          "blue": 23000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "외야테이블석 4인",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "gray": 72000,
+          "white": 80000,
+          "blue": 92000
+        },
+        "tags": [
+          "outfield",
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "comfort"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "외야테이블석 8인",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "gray": 144000,
+          "white": 160000,
+          "blue": 184000
+        },
+        "tags": [
+          "outfield",
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "comfort"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "외야카풀테이블석 2인",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "gray": 30000,
+          "white": 36000,
+          "blue": 40000
+        },
+        "tags": [
+          "outfield",
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "budget",
+          "comfort"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "루프탑테이블석",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "gray": 20000,
+          "white": 23000,
+          "blue": 25000
+        },
+        "tags": [
+          "table"
+        ],
+        "recommendation_use_cases": [
+          "comfort"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "파티플로어 라이브석",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "gray": 65000,
+          "white": 70000,
+          "blue": 75000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "잔디그린존",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "gray": 10000,
+          "white": 11000,
+          "blue": 13000
+        },
+        "tags": [
+          "outfield"
+        ],
+        "recommendation_use_cases": [
+          "budget"
+        ],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "캠핑존 6인",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "gray": 180000,
+          "white": 240000,
+          "blue": 270000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      },
+      {
+        "seat_name": "장애인(휠체어)석",
+        "category": "일반석",
+        "audience": "all",
+        "side": null,
+        "price_krw": {
+          "gray": 5000,
+          "white": 5000,
+          "blue": 5000
+        },
+        "tags": [],
+        "recommendation_use_cases": [],
+        "notes": [
+          "공식 이미지 가격표 수동 정규화"
+        ]
+      }
+    ],
+    "official_tables": [
+      {
+        "heading": "2026 삼성 라이온즈 입장요금표",
+        "summary": "Samsung Lions official ticket price image: https://www.samsunglions.com/img/intro/2026ticket_03.png?v=20260507. 그레이=화/수/목 일반 주중경기, 화이트=금/일/이벤트 주중경기, 블루=토/공휴일/이벤트 주말경기.",
+        "rows": [
+          [
+            "좌석",
+            "대상",
+            "그레이",
+            "화이트",
+            "블루"
+          ],
+          [
+            "VIP석",
+            "all",
+            "50000",
+            "60000",
+            "65000"
+          ],
+          [
+            "으뜸병원 중앙테이블석",
+            "all",
+            "45000",
+            "55000",
+            "60000"
+          ],
+          [
+            "1,3루 테이블석",
+            "all",
+            "40000",
+            "50000",
+            "55000"
+          ],
+          [
+            "1,3루 익사이팅석",
+            "all",
+            "22000",
+            "27000",
+            "30000"
+          ],
+          [
+            "블루존",
+            "all",
+            "19000",
+            "22000",
+            "25000"
+          ],
+          [
+            "3루 내야지정석",
+            "all",
+            "15000",
+            "17000",
+            "19000"
+          ],
+          [
+            "원정응원석",
+            "all",
+            "19000",
+            "22000",
+            "25000"
+          ],
+          [
+            "1루 내야지정석",
+            "all",
+            "10000",
+            "13000",
+            "14000"
+          ],
+          [
+            "SKY 블루존",
+            "일반",
+            "10000",
+            "12000",
+            "15000"
+          ],
+          [
+            "SKY 블루존",
+            "어린이,청소년,경로,장애인 등",
+            "7000",
+            "9000",
+            "12000"
+          ],
+          [
+            "SKY 하단 지정석",
+            "일반",
+            "10000",
+            "11000",
+            "13000"
+          ],
+          [
+            "SKY 하단 지정석",
+            "어린이,청소년,경로,장애인 등",
+            "7000",
+            "8000",
+            "10000"
+          ],
+          [
+            "1,3루 SKY 상단 지정석",
+            "일반",
+            "8000",
+            "9000",
+            "11000"
+          ],
+          [
+            "1,3루 SKY 상단 지정석",
+            "어린이,청소년,경로,장애인 등",
+            "5000",
+            "6000",
+            "8000"
+          ],
+          [
+            "중앙 SKY 상단 지정석",
+            "일반",
+            "9000",
+            "10000",
+            "12000"
+          ],
+          [
+            "중앙 SKY 상단 지정석",
+            "어린이,청소년,경로,장애인 등",
+            "6000",
+            "7000",
+            "9000"
+          ],
+          [
+            "외야지정석",
+            "일반",
+            "9000",
+            "10000",
+            "11000"
+          ],
+          [
+            "외야지정석",
+            "어린이,청소년,경로,장애인 등",
+            "6000",
+            "7000",
+            "8000"
+          ],
+          [
+            "외야패밀리석",
+            "all",
+            "18000",
+            "20000",
+            "23000"
+          ],
+          [
+            "외야테이블석 4인",
+            "all",
+            "72000",
+            "80000",
+            "92000"
+          ],
+          [
+            "외야테이블석 8인",
+            "all",
+            "144000",
+            "160000",
+            "184000"
+          ],
+          [
+            "외야카풀테이블석 2인",
+            "all",
+            "30000",
+            "36000",
+            "40000"
+          ],
+          [
+            "루프탑테이블석",
+            "all",
+            "20000",
+            "23000",
+            "25000"
+          ],
+          [
+            "파티플로어 라이브석",
+            "all",
+            "65000",
+            "70000",
+            "75000"
+          ],
+          [
+            "잔디그린존",
+            "all",
+            "10000",
+            "11000",
+            "13000"
+          ],
+          [
+            "캠핑존 6인",
+            "all",
+            "180000",
+            "240000",
+            "270000"
+          ],
+          [
+            "장애인(휠체어)석",
+            "all",
+            "5000",
+            "5000",
+            "5000"
+          ]
+        ]
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "Samsung Lions Official Ticket Guide",
+    "source_url": "https://www.samsunglions.com/score/score_4_2_1.asp",
+    "fetched_at": "2026-05-07T12:32:52.714891+00:00",
+    "fallback_used": false
+  }
+}
