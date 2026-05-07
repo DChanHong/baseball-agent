@@ -190,6 +190,226 @@ find_kbo_game
   -> 최종 답변
 ```
 
+### 6.0 Tool 계약 설계 원칙
+
+Tool은 단순 기능명만 두지 않는다. Agent가 안정적으로 판단할 수 있도록 각 Tool마다 아래 계약을 명확히 정의한다.
+
+필수 계약:
+
+- 언제 호출하는가
+- 필수 입력은 무엇인가
+- 선택 입력은 무엇인가
+- 성공 시 `status`와 `data`는 어떤 구조인가
+- 실패 시 `status`, `error.code`, `error.message`는 무엇인가
+- 실패했을 때 Agent가 어떤 fallback 또는 되묻기를 해야 하는가
+
+공통 반환 형식:
+
+```json
+{
+  "ok": true,
+  "status": "found",
+  "data": {},
+  "error": null
+}
+```
+
+실패 반환 형식:
+
+```json
+{
+  "ok": false,
+  "status": "missing_required_input",
+  "data": null,
+  "error": {
+    "code": "MISSING_DATE",
+    "message": "경기 날짜가 필요합니다."
+  }
+}
+```
+
+Agent 판단 기준:
+
+- `status=missing_required_input`: Tool을 억지로 재호출하지 않고 사용자에게 필요한 정보를 되묻는다.
+- `status=not_found`: 입력 조건을 완화하거나 사용자에게 날짜/팀/구장을 다시 확인한다.
+- `status=index_not_ready`: FAISS index 생성 안내 또는 JSON fallback을 사용한다.
+- `status=no_candidates`: RAG 검색 query를 바꾸거나 일반 좌석 가이드로 fallback한다.
+- `status=external_api_failed`: mock/static/rule 기반 fallback을 사용한다.
+
+예시 1: `find_kbo_game` 계약
+
+```text
+언제 호출:
+- 좌석 추천, 예매 가이드, 원정 동선 요청 전에 실제 경기 일정을 확정해야 할 때 호출한다.
+- 사용자가 날짜와 팀을 모두 제공한 경우 호출한다.
+- 날짜가 없으면 호출하지 않고 먼저 사용자에게 되묻는다.
+
+필수 입력:
+- date: YYYY-MM-DD 또는 해석 가능한 자연어 날짜
+- team_query: 사용자가 말한 팀명 또는 별칭
+
+선택 입력:
+- stadium_query
+- opponent_query
+```
+
+성공 출력:
+
+```json
+{
+  "ok": true,
+  "status": "found",
+  "data": {
+    "game_id": "20260516LTDO0",
+    "date": "2026-05-16",
+    "time": "17:00",
+    "home_team": "두산 베어스",
+    "away_team": "롯데 자이언츠",
+    "stadium_id": "jamsil",
+    "stadium_name": "잠실야구장"
+  },
+  "error": null
+}
+```
+
+실패 출력:
+
+```json
+{
+  "ok": false,
+  "status": "missing_required_input",
+  "data": null,
+  "error": {
+    "code": "MISSING_DATE",
+    "message": "경기 날짜가 필요합니다."
+  }
+}
+```
+
+Agent 후속 행동:
+
+- `MISSING_DATE`: "어느 날짜 경기인지 알려주세요."라고 되묻는다.
+- `GAME_NOT_FOUND`: 팀명과 날짜를 다시 확인한다.
+- `AMBIGUOUS_GAME`: 후보 경기 목록을 보여주고 사용자가 선택하게 한다.
+
+예시 2: `search_baseball_knowledge` 계약
+
+```text
+언제 호출:
+- 공식/정적 데이터 근거가 필요한 경우 호출한다.
+- 좌석 후보, 예매처, 구장 정보, 원정 동선 rule을 검색할 때 호출한다.
+- 최종 답변에 source_url 근거가 필요한 경우 호출한다.
+
+필수 입력:
+- query: 검색 문장
+- purpose: seat_recommendation | ticketing | logistics | stadium_info
+
+선택 입력:
+- stadium_id
+- team
+- top_k
+```
+
+성공 출력:
+
+```json
+{
+  "ok": true,
+  "status": "found",
+  "data": {
+    "query": "잠실 롯데 원정 그늘 응원 좌석",
+    "documents": [
+      {
+        "content": "잠실야구장 3루 네이비석은 원정 응원과 가성비 측면에서...",
+        "metadata": {
+          "source_type": "stadium_seat",
+          "stadium_id": "jamsil",
+          "team": "LG 트윈스",
+          "source_url": "https://www.lgtwins.com/ticket/general"
+        }
+      }
+    ]
+  },
+  "error": null
+}
+```
+
+실패 출력:
+
+```json
+{
+  "ok": false,
+  "status": "index_not_ready",
+  "data": null,
+  "error": {
+    "code": "FAISS_INDEX_NOT_FOUND",
+    "message": "FAISS 인덱스가 아직 생성되지 않았습니다."
+  }
+}
+```
+
+Agent 후속 행동:
+
+- `FAISS_INDEX_NOT_FOUND`: index 생성 안내 또는 JSON fallback Tool을 사용한다.
+- `NO_DOCUMENTS_FOUND`: query를 넓혀 재검색하거나 일반 가이드로 fallback한다.
+
+예시 3: `score_seat_candidates` 계약
+
+```text
+언제 호출:
+- RAG로 좌석 후보 문서를 찾은 뒤 호출한다.
+- 날씨, 경기 시간, 사용자 선호를 반영해 최종 추천 순위를 매길 때 호출한다.
+
+필수 입력:
+- game
+- weather_context
+- seat_documents
+- preferences
+
+선택 입력:
+- budget
+- cheering_team
+```
+
+성공 출력:
+
+```json
+{
+  "ok": true,
+  "status": "scored",
+  "data": {
+    "recommendations": [
+      {
+        "seat_name": "3루 네이비석",
+        "score": 86,
+        "reasons": ["원정 응원 접근성", "상단 시야", "가성비"]
+      }
+    ],
+    "limitations": []
+  },
+  "error": null
+}
+```
+
+실패 출력:
+
+```json
+{
+  "ok": false,
+  "status": "no_candidates",
+  "data": null,
+  "error": {
+    "code": "NO_SEAT_DOCUMENTS",
+    "message": "점수화할 좌석 후보가 없습니다."
+  }
+}
+```
+
+Agent 후속 행동:
+
+- `NO_SEAT_DOCUMENTS`: RAG 검색을 다시 수행하거나 구장 일반 좌석 가이드로 fallback한다.
+- `PRICE_DATA_LIMITED`: 가격 기준을 제외하고 좌석/시설/응원 기준으로 추천한다.
+
 ### 6.1 `find_kbo_game`
 
 역할:
