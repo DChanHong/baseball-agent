@@ -1,0 +1,63 @@
+{
+  "ok": true,
+  "data": {
+    "teams": [
+      {
+        "team": "LG 트윈스",
+        "schedule_name": "LG",
+        "aliases": ["LG", "엘지", "트윈스", "엘지트윈스", "LG트윈스", "서울 LG"]
+      },
+      {
+        "team": "두산 베어스",
+        "schedule_name": "두산",
+        "aliases": ["두산", "베어스", "두산베어스", "DO", "잠실 두산"]
+      },
+      {
+        "team": "키움 히어로즈",
+        "schedule_name": "키움",
+        "aliases": ["키움", "히어로즈", "키움히어로즈", "고척", "WO"]
+      },
+      {
+        "team": "SSG 랜더스",
+        "schedule_name": "SSG",
+        "aliases": ["SSG", "쓱", "랜더스", "SSG랜더스", "문학", "SK"]
+      },
+      {
+        "team": "KT 위즈",
+        "schedule_name": "KT",
+        "aliases": ["KT", "케이티", "위즈", "KT위즈", "kt wiz", "수원"]
+      },
+      {
+        "team": "한화 이글스",
+        "schedule_name": "한화",
+        "aliases": ["한화", "이글스", "한화이글스", "HH", "대전"]
+      },
+      {
+        "team": "삼성 라이온즈",
+        "schedule_name": "삼성",
+        "aliases": ["삼성", "라이온즈", "삼성라이온즈", "SS", "대구"]
+      },
+      {
+        "team": "KIA 타이거즈",
+        "schedule_name": "KIA",
+        "aliases": ["KIA", "기아", "타이거즈", "KIA타이거즈", "광주"]
+      },
+      {
+        "team": "NC 다이노스",
+        "schedule_name": "NC",
+        "aliases": ["NC", "엔씨", "다이노스", "NC다이노스", "창원"]
+      },
+      {
+        "team": "롯데 자이언츠",
+        "schedule_name": "롯데",
+        "aliases": ["롯데", "자이언츠", "롯데자이언츠", "LT", "부산", "사직"]
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "manual_static_team_aliases",
+    "updated_at": "2026-05-08T00:00:00+09:00",
+    "data_limitations": "사용자 자연어 입력 정규화를 위한 MVP seed 데이터이며, 별칭은 운영 중 보강한다."
+  }
+}

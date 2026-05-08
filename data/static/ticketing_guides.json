@@ -1,0 +1,144 @@
+{
+  "ok": true,
+  "data": {
+    "guides": [
+      {
+        "team": "LG 트윈스",
+        "schedule_name": "LG",
+        "stadium_id": "jamsil",
+        "platform": "티켓링크",
+        "platform_url": "https://www.ticketlink.co.kr/sports/baseball",
+        "official_url": "https://www.ticketlink.co.kr/sports/baseball",
+        "difficulty": "high",
+        "open_rule": "일반적으로 경기 D-7 전후 오픈 여부를 확인합니다. 정확한 오픈 시각은 구단 및 예매처 공지를 우선합니다.",
+        "tips": ["회원가입, 로그인, 본인인증을 미리 완료하세요.", "주말 잠실 경기와 인기 상대전은 오픈 직후 접속하세요.", "응원 선호가 있으면 1루 홈 응원 구역과 3루 원정 구역을 구분해 확인하세요."],
+        "source_url": "https://www.koreabaseball.com/kbo/league/map.aspx",
+        "data_limitations": "실시간 예매 오픈 시각과 잔여석은 조회하지 않는다."
+      },
+      {
+        "team": "두산 베어스",
+        "schedule_name": "두산",
+        "stadium_id": "jamsil",
+        "platform": "인터파크",
+        "platform_url": "https://tickets.interpark.com/contents/genre/sports",
+        "official_url": "https://tickets.interpark.com/contents/genre/sports",
+        "difficulty": "high",
+        "open_rule": "일반적으로 경기 D-7 전후 오픈 여부를 확인합니다. 정확한 오픈 시각은 구단 및 예매처 공지를 우선합니다.",
+        "tips": ["인터파크 계정과 결제수단을 미리 준비하세요.", "잠실 주말 경기와 라이벌전은 빠르게 매진될 수 있습니다.", "좌석 선택 전 홈/원정 응원 위치를 먼저 확인하세요."],
+        "source_url": "https://www.koreabaseball.com/kbo/league/map.aspx",
+        "data_limitations": "실시간 예매 오픈 시각과 잔여석은 조회하지 않는다."
+      },
+      {
+        "team": "키움 히어로즈",
+        "schedule_name": "키움",
+        "stadium_id": "gocheok",
+        "platform": "인터파크",
+        "platform_url": "https://tickets.interpark.com/contents/genre/sports",
+        "official_url": "https://tickets.interpark.com/contents/genre/sports",
+        "difficulty": "medium",
+        "open_rule": "일반적으로 경기 D-7 전후 오픈 여부를 확인합니다. 정확한 오픈 시각은 구단 및 예매처 공지를 우선합니다.",
+        "tips": ["고척은 돔구장이므로 날씨보다 시야와 응원 위치를 우선해 좌석을 고르세요.", "인기 원정팀 경기는 3루 쪽 좌석 수요가 높을 수 있습니다."],
+        "source_url": "https://www.koreabaseball.com/kbo/league/map.aspx",
+        "data_limitations": "실시간 예매 오픈 시각과 잔여석은 조회하지 않는다."
+      },
+      {
+        "team": "SSG 랜더스",
+        "schedule_name": "SSG",
+        "stadium_id": "incheon",
+        "platform": "구단 자체예매",
+        "platform_url": "https://www.ssglanders.com/",
+        "official_url": "https://www.ssglanders.com/",
+        "difficulty": "medium",
+        "open_rule": "일반적으로 경기 D-5~D-7 전후 오픈 여부를 확인합니다. 정확한 오픈 시각은 구단 공지를 우선합니다.",
+        "tips": ["구단 예매 페이지와 앱 로그인을 미리 확인하세요.", "문학 원정은 경기 종료 후 대중교통 막차 시간을 함께 확인하세요."],
+        "source_url": "https://www.koreabaseball.com/kbo/league/map.aspx",
+        "data_limitations": "구단 자체예매 세부 정책과 잔여석은 실시간 조회하지 않는다."
+      },
+      {
+        "team": "KT 위즈",
+        "schedule_name": "KT",
+        "stadium_id": "suwon",
+        "platform": "티켓링크",
+        "platform_url": "https://www.ticketlink.co.kr/sports/baseball",
+        "official_url": "https://www.ticketlink.co.kr/sports/baseball",
+        "difficulty": "medium",
+        "open_rule": "일반적으로 경기 D-7 전후 오픈 여부를 확인합니다. 정확한 오픈 시각은 구단 및 예매처 공지를 우선합니다.",
+        "tips": ["수도권 원정 수요가 있는 주말 경기는 예매 오픈 직후 확인하세요.", "수원 이동은 지하철과 광역버스 종료 시간을 함께 봐야 합니다."],
+        "source_url": "https://www.koreabaseball.com/kbo/league/map.aspx",
+        "data_limitations": "실시간 예매 오픈 시각과 잔여석은 조회하지 않는다."
+      },
+      {
+        "team": "한화 이글스",
+        "schedule_name": "한화",
+        "stadium_id": "daejeon",
+        "platform": "티켓링크",
+        "platform_url": "https://www.ticketlink.co.kr/sports/baseball",
+        "official_url": "https://www.ticketlink.co.kr/sports/baseball",
+        "difficulty": "high",
+        "open_rule": "일반적으로 경기 D-7 전후 오픈 여부를 확인합니다. 정확한 오픈 시각은 구단 및 예매처 공지를 우선합니다.",
+        "tips": ["인기 경기 수요가 높으므로 오픈 전 대기와 결제수단 준비가 필요합니다.", "새 구장 좌석 구조와 출입 동선을 미리 확인하세요."],
+        "source_url": "https://www.koreabaseball.com/kbo/league/map.aspx",
+        "data_limitations": "실시간 예매 오픈 시각과 잔여석은 조회하지 않는다."
+      },
+      {
+        "team": "삼성 라이온즈",
+        "schedule_name": "삼성",
+        "stadium_id": "daegu",
+        "platform": "티켓링크",
+        "platform_url": "https://www.ticketlink.co.kr/sports/baseball",
+        "official_url": "https://www.ticketlink.co.kr/sports/baseball",
+        "difficulty": "medium",
+        "open_rule": "일반적으로 경기 D-7 전후 오픈 여부를 확인합니다. 정확한 오픈 시각은 구단 및 예매처 공지를 우선합니다.",
+        "tips": ["대구 낮 경기는 햇빛과 더위를 고려해 상단 또는 그늘 가능 좌석을 함께 검토하세요.", "인기 상대전은 오픈 초반 좌석 선택을 빠르게 진행하세요."],
+        "source_url": "https://www.koreabaseball.com/kbo/league/map.aspx",
+        "data_limitations": "실시간 예매 오픈 시각과 잔여석은 조회하지 않는다."
+      },
+      {
+        "team": "KIA 타이거즈",
+        "schedule_name": "KIA",
+        "stadium_id": "gwangju",
+        "platform": "티켓링크",
+        "platform_url": "https://www.ticketlink.co.kr/sports/baseball",
+        "official_url": "https://www.ticketlink.co.kr/sports/baseball",
+        "difficulty": "high",
+        "open_rule": "일반적으로 경기 D-7 전후 오픈 여부를 확인합니다. 정확한 오픈 시각은 구단 및 예매처 공지를 우선합니다.",
+        "tips": ["인기 구단 홈경기는 좌석 경쟁이 높을 수 있습니다.", "원정 팬은 3루 쪽 좌석과 귀가 교통을 함께 확인하세요."],
+        "source_url": "https://www.koreabaseball.com/kbo/league/map.aspx",
+        "data_limitations": "실시간 예매 오픈 시각과 잔여석은 조회하지 않는다."
+      },
+      {
+        "team": "NC 다이노스",
+        "schedule_name": "NC",
+        "stadium_id": "changwon",
+        "platform": "구단 자체예매",
+        "platform_url": "https://www.ncdinos.com/",
+        "official_url": "https://www.ncdinos.com/",
+        "difficulty": "medium",
+        "open_rule": "일반적으로 경기 D-5~D-7 전후 오픈 여부를 확인합니다. 정확한 오픈 시각은 구단 공지를 우선합니다.",
+        "tips": ["구단 예매 페이지 로그인을 미리 확인하세요.", "창원 원정은 KTX/버스 시간과 경기 종료 지연 리스크를 같이 봐야 합니다."],
+        "source_url": "https://www.koreabaseball.com/kbo/league/map.aspx",
+        "data_limitations": "구단 자체예매 세부 정책과 잔여석은 실시간 조회하지 않는다."
+      },
+      {
+        "team": "롯데 자이언츠",
+        "schedule_name": "롯데",
+        "stadium_id": "sajik",
+        "platform": "구단 자체예매",
+        "platform_url": "https://www.giantsclub.com/",
+        "official_url": "https://www.giantsclub.com/",
+        "difficulty": "high",
+        "open_rule": "일반적으로 경기 D-5~D-7 전후 오픈 여부를 확인합니다. 정확한 오픈 시각은 구단 공지를 우선합니다.",
+        "tips": ["사직 주말 경기와 인기 상대전은 예매 경쟁이 높을 수 있습니다.", "구단 예매 페이지 로그인과 결제수단을 미리 준비하세요."],
+        "source_url": "https://www.koreabaseball.com/kbo/league/map.aspx",
+        "data_limitations": "구단 자체예매 세부 정책과 잔여석은 실시간 조회하지 않는다."
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "source": "manual_static_ticketing_guides",
+    "updated_at": "2026-05-08T00:00:00+09:00",
+    "primary_reference": "https://www.koreabaseball.com/kbo/league/map.aspx",
+    "data_limitations": "MVP 정적 데이터다. 예매 오픈 시각, 선예매 조건, 잔여석은 실시간으로 보장하지 않는다."
+  }
+}

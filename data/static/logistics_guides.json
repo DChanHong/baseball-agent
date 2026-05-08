@@ -1,0 +1,173 @@
+{
+  "ok": true,
+  "data": {
+    "guides": [
+      {
+        "origin": "부산",
+        "stadium_id": "jamsil",
+        "stadium_name": "잠실야구장",
+        "recommended_routes": [
+          {
+            "mode": "KTX+지하철",
+            "summary": "부산역에서 서울역까지 KTX로 이동한 뒤 지하철로 종합운동장역 또는 잠실새내역까지 이동",
+            "estimated_duration_minutes": 210,
+            "risk": "medium"
+          },
+          {
+            "mode": "고속버스+지하철",
+            "summary": "부산종합버스터미널에서 서울고속버스터미널 이동 후 지하철로 잠실 이동",
+            "estimated_duration_minutes": 300,
+            "risk": "high"
+          }
+        ],
+        "return_plan": {
+          "same_day_possible": "conditional",
+          "note": "주말 17시 경기 기준 정규이닝 종료 후 빠르게 이동하면 가능성이 있지만, 연장전이나 우천 지연 시 당일 복귀가 어려울 수 있습니다."
+        },
+        "fallback_plan": ["서울역 또는 수서역 인근 숙박", "강남/잠실권 숙박", "다음 날 오전 KTX 복귀"],
+        "source_type": "manual_static_rule",
+        "data_limitations": "실시간 열차, 버스, 지하철 막차 API를 조회하지 않는다."
+      },
+      {
+        "origin": "부산",
+        "stadium_id": "daejeon",
+        "stadium_name": "대전 한화생명 볼파크",
+        "recommended_routes": [
+          {
+            "mode": "KTX+택시",
+            "summary": "부산역에서 대전역까지 KTX로 이동한 뒤 택시 또는 버스로 구장 이동",
+            "estimated_duration_minutes": 135,
+            "risk": "medium"
+          },
+          {
+            "mode": "고속버스+택시",
+            "summary": "부산에서 대전복합터미널까지 이동 후 택시 또는 버스로 구장 이동",
+            "estimated_duration_minutes": 230,
+            "risk": "medium"
+          }
+        ],
+        "return_plan": {
+          "same_day_possible": "conditional",
+          "note": "저녁 경기와 연장전은 부산 복귀 막차 리스크가 크므로 마지막 열차 시간을 먼저 확인해야 합니다."
+        },
+        "fallback_plan": ["대전역 인근 숙박", "중구/은행동 인근 숙박", "다음 날 오전 KTX 복귀"],
+        "source_type": "manual_static_rule",
+        "data_limitations": "실시간 열차, 버스, 지하철 막차 API를 조회하지 않는다."
+      },
+      {
+        "origin": "서울",
+        "stadium_id": "sajik",
+        "stadium_name": "부산 사직야구장",
+        "recommended_routes": [
+          {
+            "mode": "KTX+지하철",
+            "summary": "서울역에서 부산역까지 KTX로 이동한 뒤 지하철 1호선과 3호선을 이용해 사직역 또는 종합운동장역으로 이동",
+            "estimated_duration_minutes": 210,
+            "risk": "medium"
+          },
+          {
+            "mode": "SRT+지하철",
+            "summary": "수서역에서 부산역까지 SRT로 이동한 뒤 지하철로 사직 이동",
+            "estimated_duration_minutes": 210,
+            "risk": "medium"
+          }
+        ],
+        "return_plan": {
+          "same_day_possible": "conditional",
+          "note": "낮 경기는 당일 복귀 가능성이 있지만, 18시 이후 경기나 연장전은 부산 숙박을 우선 검토하는 편이 안전합니다."
+        },
+        "fallback_plan": ["부산역 인근 숙박", "서면/연산권 숙박", "다음 날 오전 열차 복귀"],
+        "source_type": "manual_static_rule",
+        "data_limitations": "실시간 열차, 버스, 지하철 막차 API를 조회하지 않는다."
+      },
+      {
+        "origin": "서울",
+        "stadium_id": "daejeon",
+        "stadium_name": "대전 한화생명 볼파크",
+        "recommended_routes": [
+          {
+            "mode": "KTX+택시",
+            "summary": "서울역에서 대전역까지 KTX로 이동한 뒤 택시 또는 버스로 구장 이동",
+            "estimated_duration_minutes": 95,
+            "risk": "low"
+          },
+          {
+            "mode": "고속버스+택시",
+            "summary": "서울고속버스터미널에서 대전복합터미널 이동 후 택시 또는 버스로 구장 이동",
+            "estimated_duration_minutes": 150,
+            "risk": "medium"
+          }
+        ],
+        "return_plan": {
+          "same_day_possible": "likely",
+          "note": "정규이닝 기준 당일 복귀 가능성이 높지만, 연장전과 주말 혼잡 시 마지막 열차 또는 버스를 놓칠 수 있습니다."
+        },
+        "fallback_plan": ["대전역 인근 숙박", "심야 고속버스 확인", "다음 날 오전 복귀"],
+        "source_type": "manual_static_rule",
+        "data_limitations": "실시간 열차, 버스, 지하철 막차 API를 조회하지 않는다."
+      },
+      {
+        "origin": "대구",
+        "stadium_id": "jamsil",
+        "stadium_name": "잠실야구장",
+        "recommended_routes": [
+          {
+            "mode": "KTX+지하철",
+            "summary": "동대구역에서 서울역까지 KTX로 이동한 뒤 지하철로 잠실 이동",
+            "estimated_duration_minutes": 170,
+            "risk": "medium"
+          },
+          {
+            "mode": "SRT+지하철",
+            "summary": "동대구역에서 수서역까지 SRT로 이동한 뒤 지하철로 잠실 이동",
+            "estimated_duration_minutes": 150,
+            "risk": "medium"
+          }
+        ],
+        "return_plan": {
+          "same_day_possible": "conditional",
+          "note": "수서 또는 서울 출발 마지막 열차 시간을 기준으로 판단해야 하며, 연장전은 숙박 대안이 필요합니다."
+        },
+        "fallback_plan": ["수서역 인근 숙박", "잠실/강남권 숙박", "다음 날 오전 열차 복귀"],
+        "source_type": "manual_static_rule",
+        "data_limitations": "실시간 열차, 버스, 지하철 막차 API를 조회하지 않는다."
+      },
+      {
+        "origin": "광주",
+        "stadium_id": "jamsil",
+        "stadium_name": "잠실야구장",
+        "recommended_routes": [
+          {
+            "mode": "KTX+지하철",
+            "summary": "광주송정역에서 용산역까지 KTX로 이동한 뒤 지하철로 잠실 이동",
+            "estimated_duration_minutes": 190,
+            "risk": "medium"
+          },
+          {
+            "mode": "고속버스+지하철",
+            "summary": "광주종합버스터미널에서 서울고속버스터미널 이동 후 지하철로 잠실 이동",
+            "estimated_duration_minutes": 260,
+            "risk": "high"
+          }
+        ],
+        "return_plan": {
+          "same_day_possible": "conditional",
+          "note": "저녁 경기의 당일 복귀는 열차 막차 의존도가 높아 사전 확인이 필요합니다."
+        },
+        "fallback_plan": ["용산역 인근 숙박", "잠실/강남권 숙박", "다음 날 오전 KTX 복귀"],
+        "source_type": "manual_static_rule",
+        "data_limitations": "실시간 열차, 버스, 지하철 막차 API를 조회하지 않는다."
+      }
+    ],
+    "generic_fallback": {
+      "recommended_checks": ["경기 종료 예상 시각에 60분 이상 여유를 둔 막차 확인", "연장전과 우천 지연 시 숙박 대안 확보", "원정 응원 구역과 출입구 위치 확인", "KTX/SRT/고속버스 취소표 가능성 확인"],
+      "same_day_return_rule": "원거리 원정은 18시 이후 경기 또는 연장 가능성이 있으면 당일 복귀를 conditional 이상으로 보수적으로 판단한다."
+    }
+  },
+  "error": null,
+  "metadata": {
+    "source": "manual_static_logistics_guides",
+    "updated_at": "2026-05-08T00:00:00+09:00",
+    "data_limitations": "MVP 정적 rule 데이터다. 실시간 교통 API, 실제 막차, 좌석 예약 가능 여부는 반영하지 않는다."
+  }
+}

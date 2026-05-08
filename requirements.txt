@@ -1,3 +1,9 @@
 fastapi
 uvicorn
 pydantic
+langchain
+langchain-openai
+langchain-google-genai
+faiss-cpu
+python-dotenv
+jinja2
