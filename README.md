@@ -54,6 +54,17 @@ python -c "from app.tools import build_faiss_index; print(build_faiss_index())"
 python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
+## 필요한 환경 변수
+
+`.env.example`을 참고해 로컬에 `.env` 파일을 생성합니다. `.env` 파일은 API key가 포함되므로 commit하지 않습니다.
+
+| 변수명 | 필수 여부 | 설명 |
+|--------|-----------|------|
+| GEMINI_API_KEY | 필수 | LangChain AgentExecutor에서 Gemini 모델을 호출하기 위한 API key입니다. |
+| GEMINI_MODEL | 선택 | Agent reasoning과 최종 답변 생성에 사용할 Gemini 모델명입니다. 기본값은 `gemini-2.5-flash`입니다. |
+| OPENAI_API_KEY | 필수 | FAISS 인덱스 생성과 RAG 검색 query embedding 생성을 위한 OpenAI API key입니다. |
+| OPENAI_EMBEDDING_MODEL | 선택 | 임베딩 생성에 사용할 OpenAI embedding 모델명입니다. 기본값은 `text-embedding-3-small`입니다. |
+
 ## 예시 실행
 
 ### 예시 1
@@ -116,6 +127,18 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 | 종료 조건 | 통과 | AgentExecutor에 `MAX_ITERATIONS=6`, `MAX_EXECUTION_TIME=30`을 설정했습니다. |
 
 ## 구현하며 배운 점
+
+(1) Agent가 사용할 수 있는 데이터는 단순히 많이 모으는 것보다, Tool이 안정적으로 조회할 수 있는 형태로 수집하는 것이 중요하다는 점을 확인했습니다. KBO 일정 데
+이터는 경기 날짜, 시간, 홈/원정 팀, 구장명처럼 필터링에 필요한 필드가 명확해야 했고, 좌석 데이터는 이후 RAG 검색과 점수화에 사용할 수 있도록 좌석명, 가격, 특징, 출처 정보를 함께 보
+존해야 했습니다.
+
+(2) 일정 조회처럼 정확한 필터링이 필요한 기능은 FAISS 검색보다 구조화된 JSON을 직접 조회하는 방식이 더 적합했습니다.
+
+(3) 개발 과정에서 Agent 패턴에 대한 의문도 정리할 수 있었습니다.
+ 처음에는 Plan-and-Execute 패턴을 생각했지만, 실제 구현은 별도의 planner가 전체 계획을 먼저 세우는 구조가 아니라
+LangChain AgentExecutor가 매 단계마다 필요한 Tool을 선택하는 Tool-calling Agent 구조에 가까웠습니다. 설계전 생각과는 다른 방향으로 흘러가기도 한 것을 확인했습니다.
+
+
 
 - ...
 
