@@ -31,7 +31,7 @@ MVP에서 제외하거나 2차로 미루는 항목:
 
 ### 2.1 6주차 설계와의 연결
 
-6주차 `design.md`의 문제 정의와 사용자 시나리오는 유지한다.
+6주차 `6weekOriginDesign.md`의 문제 정의와 사용자 시나리오는 유지한다.
 
 유지하는 설계:
 
@@ -109,7 +109,7 @@ NextJS는 UI 요구가 커지거나 별도 프론트엔드 배포가 필요해�
 ```text
 my-baseball-agent/
   README.md
-  DEV_DESIGN.md
+  MVP_IMPLEMENTATION_DESIGN.md
   requirements.txt
   app/
     __init__.py
