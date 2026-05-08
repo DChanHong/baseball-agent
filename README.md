@@ -5,6 +5,17 @@
 - Repository: https://github.com/DChanHong/baseball-agent
 - 6주차 설계 PR 또는 design.md: https://github.com/DChanHong/baseball-agent/blob/main/6weekOriginDesign.md
 
+### 문서 구성
+
+| 문서 | 설명 |
+|------|------|
+| `README.md` | 7주차 과제 제출용 README입니다. 구현한 Agent, 실행 방법, Tool 목록, 예시 실행, 성공 판정 기준을 정리했습니다. |
+| `assignment.md` | 7주차 과제 안내와 제출 템플릿 원문을 보관한 문서입니다. |
+| `6weekOriginDesign.md` | 6주차에 작성한 원본 Agent 설계서입니다. |
+| `MVP_IMPLEMENTATION_DESIGN.md` | 6주차 설계를 실제 MVP로 구현하기 위한 개발 설계서입니다. 구현 범위, Tool 설계, 데이터 구조, 검증 기준을 정리했습니다. |
+| `ADD_POLICY.md` | MVP 구현 중 추가한 정책과 범위 조정 내용을 정리한 문서입니다. |
+| `docs/data_generation_notes.md` | KBO 일정, 구장 메타데이터, 좌석 데이터 등 수집/정규화 기준을 정리한 작업 노트입니다. |
+
 ## 구현한 Agent
 
 - Agent 이름: KBO 직관 가이드 Agent
