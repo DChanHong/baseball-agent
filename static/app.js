@@ -7,6 +7,9 @@ const preferencesInput = document.querySelector("#preferencesInput");
 const sendButton = document.querySelector("#sendButton");
 const clearButton = document.querySelector("#clearButton");
 const healthStatus = document.querySelector("#healthStatus");
+let isSending = false;
+let isComposing = false;
+let lastSubmitAt = 0;
 let sessionId = (() => {
   const existing = window.localStorage.getItem("baseballAgentSessionId");
   if (existing) {
@@ -68,12 +71,19 @@ function buildPayload() {
 }
 
 async function sendMessage() {
+  const now = Date.now();
+  if (isSending || now - lastSubmitAt < 350) {
+    return;
+  }
+
   const payload = buildPayload();
   if (!payload.message) {
     messageInput.focus();
     return;
   }
 
+  isSending = true;
+  lastSubmitAt = now;
   appendMessage("user", payload.message);
   messageInput.value = "";
   sendButton.disabled = true;
@@ -96,6 +106,7 @@ async function sendMessage() {
   } catch (error) {
     appendMessage("agent", `네트워크 오류: ${error.message}`);
   } finally {
+    isSending = false;
     sendButton.disabled = false;
     sendButton.textContent = "전송";
     messageInput.focus();
@@ -116,14 +127,25 @@ async function checkHealth() {
 
 chatForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  if (isComposing) {
+    return;
+  }
   sendMessage();
 });
 
 messageInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter" && !event.shiftKey) {
+  if (event.key === "Enter" && !event.shiftKey && !isComposing && !event.isComposing) {
     event.preventDefault();
     sendMessage();
   }
+});
+
+messageInput.addEventListener("compositionstart", () => {
+  isComposing = true;
+});
+
+messageInput.addEventListener("compositionend", () => {
+  isComposing = false;
 });
 
 clearButton.addEventListener("click", () => {

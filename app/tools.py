@@ -1,6 +1,8 @@
 import json
 import os
 import re
+import urllib.parse
+import urllib.request
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -32,11 +34,11 @@ if load_dotenv:
     load_dotenv(PROJECT_ROOT / ".env", override=True)
 
 
+# JSON data files are read through this helper so encoding and parsing stay consistent.
 def _read_json(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as file:
         return json.load(file)
-
-
+# Convert nested/list values into compact Korean-readable text for RAG document content.
 def _as_text(value: Any, default: str = "정보 없음") -> str:
     if value is None:
         return default
@@ -45,8 +47,7 @@ def _as_text(value: Any, default: str = "정보 없음") -> str:
     if isinstance(value, dict):
         return json.dumps(value, ensure_ascii=False)
     return str(value)
-
-
+# Format weekday/weekend seat price dictionaries into text used by RAG documents.
 def _format_price(price: Any) -> str:
     if not isinstance(price, dict) or not price:
         return "가격 정보 없음"
@@ -56,12 +57,10 @@ def _format_price(price: Any) -> str:
     if weekday is None and weekend is None:
         return "가격 정보 없음"
     return f"주중 {weekday if weekday is not None else '정보 없음'}원, 주말 {weekend if weekend is not None else '정보 없음'}원"
-
-
+# Drop None metadata values before storing them on LangChain Documents.
 def _metadata(**kwargs: Any) -> dict[str, Any]:
     return {key: value for key, value in kwargs.items() if value is not None}
-
-
+# Lazily create the OpenAI embedding client only when indexing/searching needs it.
 def _get_openai_embeddings():
     try:
         from langchain_openai import OpenAIEmbeddings
@@ -70,8 +69,7 @@ def _get_openai_embeddings():
 
     model = os.getenv("OPENAI_EMBEDDING_MODEL", DEFAULT_OPENAI_EMBEDDING_MODEL)
     return OpenAIEmbeddings(model=model)
-
-
+# Lazily import FAISS from langchain-community to keep import errors explicit.
 def _get_faiss_class():
     try:
         from langchain_community.vectorstores import FAISS
@@ -81,21 +79,17 @@ def _get_faiss_class():
         ) from exc
 
     return FAISS
-
-
+# Check whether both FAISS vector and pickle metadata files exist locally.
 def _faiss_index_exists(index_dir: Path = FAISS_INDEX_DIR) -> bool:
     return (index_dir / "index.faiss").exists() and (index_dir / "index.pkl").exists()
-
-
+# Detect OpenAI authentication errors so Tool responses can expose stable error codes.
 def _is_openai_auth_error(exc: Exception) -> bool:
     message = str(exc).lower()
     return "incorrect api key" in message or "invalid_api_key" in message or "status': 401" in message
-
-
+# Build the common successful Tool response contract.
 def _tool_success(status: str, data: dict[str, Any]) -> dict[str, Any]:
     return {"ok": True, "status": status, "data": data, "error": None}
-
-
+# Build the common failed Tool response contract.
 def _tool_error(status: str, code: str, message: str) -> dict[str, Any]:
     return {
         "ok": False,
@@ -103,15 +97,13 @@ def _tool_error(status: str, code: str, message: str) -> dict[str, Any]:
         "data": None,
         "error": {"code": code, "message": message},
     }
-
-
+# Resolve the next matching weekday from a base date, optionally shifted by weeks.
 def _next_weekday(base_date: date, weekday: int, weeks_ahead: int = 0) -> date:
     days_until = (weekday - base_date.weekday()) % 7
     if days_until == 0:
         days_until = 7
     return base_date + timedelta(days=days_until + (weeks_ahead * 7))
-
-
+# Parse explicit and relative Korean date expressions into candidate ISO dates.
 def _parse_date_candidates(value: str | None) -> list[str]:
     if not value:
         return []
@@ -166,13 +158,11 @@ def _parse_date_candidates(value: str | None) -> list[str]:
             return []
 
     return []
-
-
+# Return the first parsed ISO date when a single date is required.
 def _parse_date(value: str | None) -> str | None:
     candidates = _parse_date_candidates(value)
     return candidates[0] if candidates else None
-
-
+# Convert an ISO date into a Korean weekday label.
 def _weekday_ko(iso_date: str | None) -> str | None:
     if not iso_date:
         return None
@@ -181,13 +171,11 @@ def _weekday_ko(iso_date: str | None) -> str | None:
     except ValueError:
         return None
     return ["월", "화", "수", "목", "금", "토", "일"][weekday]
-
-
+# Load team alias seed data used for deterministic team-name normalization.
 def _load_team_aliases() -> list[dict[str, Any]]:
     payload = _read_json(STATIC_DATA_DIR / "team_aliases.json")
     return (payload.get("data") or {}).get("teams") or []
-
-
+# Normalize user team text to canonical team and schedule names.
 def _normalize_team(team_query: str | None) -> dict[str, Any] | None:
     if not team_query:
         return None
@@ -200,8 +188,7 @@ def _normalize_team(team_query: str | None) -> dict[str, Any] | None:
                 return team
 
     return None
-
-
+# Load all crawled 2026 KBO schedule JSON files into one game list.
 def _load_all_schedule_games() -> list[dict[str, Any]]:
     games: list[dict[str, Any]] = []
     for path in sorted(RAW_DATA_DIR.glob("kbo_schedule_2026_*.json")):
@@ -211,13 +198,11 @@ def _load_all_schedule_games() -> list[dict[str, Any]]:
             copied["_source_file"] = str(path.relative_to(PROJECT_ROOT))
             games.append(copied)
     return games
-
-
+# Load stadium metadata used for exact stadium lookup and weather coordinates.
 def _load_stadiums() -> list[dict[str, Any]]:
     payload = _read_json(STATIC_DATA_DIR / "stadium_metadata.json")
     return (payload.get("data") or {}).get("stadiums") or []
-
-
+# Normalize stadium id/name/city/home-team text to one stadium metadata record.
 def _normalize_stadium(stadium_id: str | None = None, stadium_name: str | None = None) -> dict[str, Any] | None:
     id_query = stadium_id.strip().lower() if stadium_id else None
     name_query = stadium_name.replace(" ", "").lower() if stadium_name else None
@@ -235,8 +220,7 @@ def _normalize_stadium(stadium_id: str | None = None, stadium_name: str | None =
                     return stadium
 
     return None
-
-
+# Map the schedule stadium payload back to the project stadium_id.
 def _stadium_id_from_schedule(schedule_stadium: dict[str, Any]) -> str | None:
     stadium = _normalize_stadium(stadium_name=schedule_stadium.get("name"))
     if stadium:
@@ -245,8 +229,82 @@ def _stadium_id_from_schedule(schedule_stadium: dict[str, Any]) -> str | None:
     if stadium:
         return stadium.get("id")
     return None
+# Translate Open-Meteo WMO weather codes into Korean condition text.
+def _weather_code_text(code: int | None) -> str:
+    mapping = {
+        0: "맑음",
+        1: "대체로 맑음",
+        2: "부분적으로 흐림",
+        3: "흐림",
+        45: "안개",
+        48: "서리 안개",
+        51: "약한 이슬비",
+        53: "이슬비",
+        55: "강한 이슬비",
+        61: "약한 비",
+        63: "비",
+        65: "강한 비",
+        71: "약한 눈",
+        73: "눈",
+        75: "강한 눈",
+        80: "약한 소나기",
+        81: "소나기",
+        82: "강한 소나기",
+        95: "뇌우",
+    }
+    return mapping.get(code, "날씨 코드 정보")
 
 
+# Call Open-Meteo hourly forecast API and pick the hour closest to game time.
+def _fetch_open_meteo_forecast(
+    *,
+    latitude: float,
+    longitude: float,
+    target_date: str,
+    game_hour: int,
+) -> dict[str, Any]:
+    params = {
+        "latitude": latitude,
+        "longitude": longitude,
+        "hourly": "temperature_2m,apparent_temperature,precipitation_probability,precipitation,weather_code",
+        "timezone": "Asia/Seoul",
+        "start_date": target_date,
+        "end_date": target_date,
+    }
+    url = "https://api.open-meteo.com/v1/forecast?" + urllib.parse.urlencode(params)
+    with urllib.request.urlopen(url, timeout=8) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+
+    hourly = payload.get("hourly") or {}
+    times = hourly.get("time") or []
+    if not times:
+        raise RuntimeError("Open-Meteo hourly forecast가 비어 있습니다.")
+
+    target_prefix = f"{target_date}T{game_hour:02d}:"
+    selected_index = next((index for index, value in enumerate(times) if value.startswith(target_prefix)), None)
+    if selected_index is None:
+        selected_index = min(
+            range(len(times)),
+            key=lambda index: abs(int(times[index][11:13]) - game_hour) if len(times[index]) >= 13 else 99,
+        )
+
+    def value_at(key: str) -> Any:
+        values = hourly.get(key) or []
+        return values[selected_index] if selected_index < len(values) else None
+
+    weather_code = value_at("weather_code")
+    return {
+        "provider": "open_meteo",
+        "source_url": url,
+        "forecast_time": times[selected_index],
+        "temperature_c": value_at("temperature_2m"),
+        "apparent_temperature_c": value_at("apparent_temperature"),
+        "precipitation_probability": value_at("precipitation_probability"),
+        "precipitation_mm": value_at("precipitation"),
+        "weather_code": weather_code,
+        "weather_condition": _weather_code_text(weather_code),
+    }
+# Convert each stadium seat zone into one RAG Document.
 def build_stadium_seat_documents(seat_dir: Path = STADIUM_SEAT_DIR) -> list[Document]:
     documents: list[Document] = []
 
@@ -308,8 +366,7 @@ def build_stadium_seat_documents(seat_dir: Path = STADIUM_SEAT_DIR) -> list[Docu
             )
 
     return documents
-
-
+# Convert each stadium metadata record into one RAG Document.
 def build_stadium_metadata_documents(path: Path = STATIC_DATA_DIR / "stadium_metadata.json") -> list[Document]:
     payload = _read_json(path)
     stadiums = (payload.get("data") or {}).get("stadiums") or []
@@ -355,8 +412,7 @@ def build_stadium_metadata_documents(path: Path = STATIC_DATA_DIR / "stadium_met
         )
 
     return documents
-
-
+# Convert each ticketing guide record into one RAG Document.
 def build_ticketing_guide_documents(path: Path = STATIC_DATA_DIR / "ticketing_guides.json") -> list[Document]:
     payload = _read_json(path)
     guides = (payload.get("data") or {}).get("guides") or []
@@ -398,8 +454,7 @@ def build_ticketing_guide_documents(path: Path = STATIC_DATA_DIR / "ticketing_gu
         )
 
     return documents
-
-
+# Convert each logistics scenario and generic fallback into RAG Documents.
 def build_logistics_guide_documents(path: Path = STATIC_DATA_DIR / "logistics_guides.json") -> list[Document]:
     payload = _read_json(path)
     data = payload.get("data") or {}
@@ -465,8 +520,7 @@ def build_logistics_guide_documents(path: Path = STATIC_DATA_DIR / "logistics_gu
         )
 
     return documents
-
-
+# Build the full local RAG corpus from seat, stadium, ticketing, and logistics data.
 def build_rag_documents() -> list[Document]:
     documents: list[Document] = []
     documents.extend(build_stadium_seat_documents())
@@ -474,8 +528,7 @@ def build_rag_documents() -> list[Document]:
     documents.extend(build_ticketing_guide_documents())
     documents.extend(build_logistics_guide_documents())
     return documents
-
-
+# Embed the RAG corpus with OpenAI and save the FAISS index locally.
 def build_faiss_index(index_dir: Path = FAISS_INDEX_DIR) -> dict[str, Any]:
     if not os.getenv("OPENAI_API_KEY"):
         return {
@@ -545,8 +598,7 @@ def build_faiss_index(index_dir: Path = FAISS_INDEX_DIR) -> dict[str, Any]:
         },
         "error": None,
     }
-
-
+# Load the local FAISS index for similarity search.
 def load_faiss_index(index_dir: Path = FAISS_INDEX_DIR):
     if not _faiss_index_exists(index_dir):
         return {
@@ -612,6 +664,7 @@ def load_faiss_index(index_dir: Path = FAISS_INDEX_DIR):
     }
 
 
+# Run a raw FAISS similarity search and return document content plus metadata.
 def search_faiss_documents(
     query: str,
     top_k: int = 4,
@@ -672,8 +725,7 @@ def search_faiss_documents(
         },
         "error": None,
     }
-
-
+# Report whether the local FAISS files are ready for search.
 def get_faiss_index_status(index_dir: Path = FAISS_INDEX_DIR) -> dict[str, Any]:
     exists = _faiss_index_exists(index_dir)
     return {
@@ -694,6 +746,7 @@ def get_faiss_index_status(index_dir: Path = FAISS_INDEX_DIR) -> dict[str, Any]:
     }
 
 
+# Tool: find KBO games from date/team/stadium hints using exact schedule lookup.
 def find_kbo_game(
     date: str | None = None,
     team_query: str | None = None,
@@ -778,6 +831,7 @@ def find_kbo_game(
     )
 
 
+# Tool: return normalized stadium metadata needed by weather, seat, ticketing, and logistics flows.
 def get_stadium_info(
     stadium_id: str | None = None,
     stadium_name: str | None = None,
@@ -813,6 +867,7 @@ def get_stadium_info(
     )
 
 
+# Tool: decide weather recommendation mode and fetch real forecast when policy allows.
 def get_weather_context(
     game_date: str | None = None,
     game_time: str | None = None,
@@ -846,23 +901,58 @@ def get_weather_context(
         recommendation_mode = "weather_based"
         forecast_level = "short_term"
         forecast_reliability = "high"
-        if hour < 17:
-            risk_flags.append("heat")
-            weather_summary = "낮 경기 기준 햇빛과 더위 리스크가 있어 그늘, 상단, 통로 접근성을 우선합니다."
-        else:
-            weather_summary = "단기 예보 사용 구간입니다. 야외 구장은 우천과 체감온도 리스크를 함께 봅니다."
     elif 4 <= days_until <= 10:
         recommendation_mode = "weather_risk_based"
         forecast_level = "medium_term"
         forecast_reliability = "medium"
-        if hour < 17:
-            risk_flags.append("heat")
-        weather_summary = "중기 예보 구간이라 정확한 날씨보다 우천/폭염 가능성을 보수적으로 반영합니다."
     else:
         recommendation_mode = "preference_based"
         forecast_level = "unavailable"
         forecast_reliability = "none"
         weather_summary = "11일 이후 경기라 날씨 예보를 사용하지 않고 성향 기반으로 추천합니다."
+
+    forecast = None
+    weather_provider_error = None
+    if not is_dome and 0 <= days_until <= 10:
+        stadium = _normalize_stadium(stadium_id=stadium_id) if stadium_id else None
+        coordinates = (stadium or {}).get("coordinates") or {}
+        try:
+            if coordinates.get("lat") is None or coordinates.get("lng") is None:
+                raise RuntimeError("구장 좌표가 없어 실제 날씨 조회를 생략합니다.")
+            forecast = _fetch_open_meteo_forecast(
+                latitude=float(coordinates["lat"]),
+                longitude=float(coordinates["lng"]),
+                target_date=parsed_date,
+                game_hour=hour,
+            )
+        except Exception as exc:
+            weather_provider_error = str(exc)
+
+    if forecast:
+        temp = forecast.get("temperature_c")
+        apparent_temp = forecast.get("apparent_temperature_c")
+        pop = forecast.get("precipitation_probability") or 0
+        precipitation = forecast.get("precipitation_mm") or 0
+        condition = forecast.get("weather_condition")
+
+        if pop >= 50 or precipitation >= 1:
+            risk_flags.append("rain")
+        if apparent_temp is not None and apparent_temp >= 30:
+            risk_flags.append("heat")
+        if hour < 17 and temp is not None and temp >= 27:
+            risk_flags.append("sun")
+
+        weather_summary = (
+            f"{forecast['forecast_time']} 기준 {condition}, 기온 {temp}도"
+            f"(체감 {apparent_temp}도), 강수확률 {pop}%, 예상 강수량 {precipitation}mm입니다."
+        )
+    elif not is_dome and forecast_level != "unavailable":
+        if hour < 17:
+            risk_flags.append("heat")
+        weather_summary = (
+            "실제 날씨 조회에 실패해 날짜 범위 기반 rule로 처리합니다. "
+            "야외 구장은 우천/폭염 가능성을 보수적으로 반영합니다."
+        )
 
     status = "forecast_unavailable_by_policy" if forecast_level == "unavailable" else recommendation_mode
     return _tool_success(
@@ -878,10 +968,13 @@ def get_weather_context(
             "risk_flags": risk_flags,
             "weather_summary": weather_summary,
             "weather_grid": weather_grid,
+            "forecast": forecast,
+            "weather_provider_error": weather_provider_error,
         },
     )
 
 
+# Tool: search the indexed baseball knowledge base with optional team/stadium filtering.
 def search_baseball_knowledge(
     query: str,
     purpose: str,
@@ -924,13 +1017,11 @@ def search_baseball_knowledge(
             "documents": documents,
         },
     )
-
-
+# Extract a rough minimum KRW price from a RAG seat document.
 def _extract_price_from_content(content: str) -> int | None:
     prices = [int(match.replace(",", "")) for match in re.findall(r"(\d[\d,]*)원", content)]
     return min(prices) if prices else None
-
-
+# Normalize user preference input into comparable tokens.
 def _preference_terms(preferences: list[str] | str | None) -> list[str]:
     if preferences is None:
         return []
@@ -939,6 +1030,7 @@ def _preference_terms(preferences: list[str] | str | None) -> list[str]:
     return [str(item).strip() for item in preferences if str(item).strip()]
 
 
+# Tool: score RAG seat candidates using preferences, budget, weather risks, and source limits.
 def score_seat_candidates(
     game: dict[str, Any],
     weather_context: dict[str, Any],
@@ -1038,6 +1130,7 @@ def score_seat_candidates(
     )
 
 
+# Tool: retrieve ticketing guidance from the FAISS RAG index first.
 def get_ticketing_guide(
     team: str | None = None,
     stadium_id: str | None = None,
@@ -1049,18 +1142,49 @@ def get_ticketing_guide(
         return _tool_error("missing_required_input", "MISSING_TEAM", "예매 가이드를 찾으려면 팀 또는 구장 정보가 필요합니다.")
 
     normalized_team = _normalize_team(team) if team else None
-    payload = _read_json(STATIC_DATA_DIR / "ticketing_guides.json")
-    guides = (payload.get("data") or {}).get("guides") or []
+    query_parts = ["예매 가이드", "티켓팅", "공식 예매처"]
+    if normalized_team:
+        query_parts.extend([normalized_team.get("team"), normalized_team.get("schedule_name")])
+    elif team:
+        query_parts.append(team)
+    if stadium_id:
+        query_parts.append(stadium_id)
+    if opponent:
+        query_parts.append(f"상대팀 {opponent}")
+    if game_date:
+        query_parts.append(f"경기일 {game_date}")
 
-    for guide in guides:
-        if normalized_team and guide.get("schedule_name") == normalized_team.get("schedule_name"):
-            return _tool_success("found", dict(guide, game_date=game_date, opponent=opponent, popularity_hint=popularity_hint))
-        if stadium_id and guide.get("stadium_id") == stadium_id:
-            return _tool_success("found", dict(guide, game_date=game_date, opponent=opponent, popularity_hint=popularity_hint))
+    result = search_baseball_knowledge(
+        query=" ".join(str(part) for part in query_parts if part),
+        purpose="ticketing",
+        stadium_id=stadium_id,
+        team=(normalized_team or {}).get("team") if normalized_team else team,
+        top_k=5,
+    )
+    if result["ok"]:
+        documents = [
+            document
+            for document in result["data"].get("documents", [])
+            if (document.get("metadata") or {}).get("source_type") == "ticketing_guide"
+        ] or result["data"].get("documents", [])
+        return _tool_success(
+            "found",
+            {
+                "team": (normalized_team or {}).get("team") if normalized_team else team,
+                "stadium_id": stadium_id,
+                "game_date": game_date,
+                "opponent": opponent,
+                "popularity_hint": popularity_hint,
+                "documents": documents,
+                "lookup_mode": "rag",
+                "data_limitations": "예매 오픈 시각과 잔여석은 실시간 조회하지 않고 인덱싱된 안내 문서를 근거로 답합니다.",
+            },
+        )
 
-    return _tool_error("not_found", "TICKETING_GUIDE_NOT_FOUND", "해당 팀 또는 구장의 예매 가이드를 찾지 못했습니다.")
+    return _tool_error("not_found", "TICKETING_GUIDE_NOT_FOUND", "RAG 인덱스에서 예매 가이드를 찾지 못했습니다.")
 
 
+# Tool: retrieve away-trip logistics guidance from the FAISS RAG index first.
 def get_logistics_guide(
     origin: str | None = None,
     stadium_id: str | None = None,
@@ -1081,20 +1205,48 @@ def get_logistics_guide(
     if not stadium:
         return _tool_error("missing_required_input", "MISSING_STADIUM", "원정 동선을 계산하려면 구장 정보가 필요합니다.")
 
-    payload = _read_json(STATIC_DATA_DIR / "logistics_guides.json")
-    data = payload.get("data") or {}
-    origin_normalized = origin.replace(" ", "")
+    query = " ".join(
+        str(part)
+        for part in [
+            "원정 동선",
+            origin,
+            stadium.get("name"),
+            stadium.get("id"),
+            game_date,
+            game_time,
+            preferred_transport,
+            "당일 복귀" if return_same_day else None,
+        ]
+        if part
+    )
+    result = search_baseball_knowledge(
+        query=query,
+        purpose="logistics",
+        stadium_id=stadium.get("id"),
+        top_k=5,
+    )
+    if result["ok"]:
+        documents = [
+            document
+            for document in result["data"].get("documents", [])
+            if (document.get("metadata") or {}).get("source_type") == "logistics_guide"
+        ] or result["data"].get("documents", [])
+        return _tool_success(
+            "planned",
+            {
+                "origin": origin,
+                "stadium_id": stadium.get("id"),
+                "stadium_name": stadium.get("name"),
+                "game_date": _parse_date(game_date) or game_date,
+                "game_time": game_time,
+                "preferred_transport": preferred_transport,
+                "return_same_day_requested": return_same_day,
+                "documents": documents,
+                "lookup_mode": "rag",
+                "data_limitations": "실시간 열차, 버스, 지하철 막차 API를 조회하지 않고 인덱싱된 동선 rule을 근거로 답합니다.",
+            },
+        )
 
-    for guide in data.get("guides") or []:
-        if guide.get("origin", "").replace(" ", "") == origin_normalized and guide.get("stadium_id") == stadium.get("id"):
-            result = dict(guide)
-            result["game_date"] = _parse_date(game_date) or game_date
-            result["game_time"] = game_time
-            result["preferred_transport"] = preferred_transport
-            result["return_same_day_requested"] = return_same_day
-            return _tool_success("planned", result)
-
-    fallback = data.get("generic_fallback") or {}
     return _tool_success(
         "fallback_planned",
         {
@@ -1106,14 +1258,20 @@ def get_logistics_guide(
             "recommended_routes": [],
             "return_plan": {
                 "same_day_possible": "unknown",
-                "note": "정적 동선 데이터에 없는 조합이라 일반 원정 준비 기준으로 안내합니다.",
+                "note": "RAG 동선 문서를 찾지 못해 일반 원정 준비 기준으로 안내합니다.",
             },
-            "generic_fallback": fallback,
-            "data_limitations": (payload.get("metadata") or {}).get("data_limitations"),
+            "generic_fallback": {
+                "recommended_checks": [
+                    "경기 종료 예상 시각에서 최소 60분 이상 여유를 두고 막차 확인",
+                    "연장전과 우천 지연 가능성을 고려한 숙박 대안 확보",
+                    "KTX/SRT/고속버스 마지막 출발 시각과 취소표 가능성 확인",
+                ]
+            },
+            "lookup_mode": "fallback",
+            "data_limitations": "실시간 교통 API를 조회하지 않습니다.",
         },
     )
-
-
+# Register all public Tool functions as LangChain StructuredTools.
 def get_langchain_tools() -> list[Any]:
     try:
         from langchain_core.tools import StructuredTool
@@ -1160,8 +1318,7 @@ def get_langchain_tools() -> list[Any]:
             description="출발지, 구장, 경기 날짜/시간 기준으로 원정 동선과 당일 복귀 리스크를 정적 rule로 안내한다.",
         ),
     ]
-
-
+# Return a lightweight summary of the RAG corpus build without creating an index.
 def get_rag_document_build_result() -> dict[str, Any]:
     try:
         documents = build_rag_documents()
@@ -1172,6 +1329,16 @@ def get_rag_document_build_result() -> dict[str, Any]:
             "data": None,
             "error": {
                 "code": "RAG_SOURCE_FILE_NOT_FOUND",
+                "message": str(exc),
+            },
+        }
+    except Exception as exc:
+        return {
+            "ok": False,
+            "status": "source_build_failed",
+            "data": None,
+            "error": {
+                "code": "RAG_DOCUMENT_BUILD_FAILED",
                 "message": str(exc),
             },
         }
@@ -1187,68 +1354,6 @@ def get_rag_document_build_result() -> dict[str, Any]:
         "data": {
             "document_count": len(documents),
             "counts_by_source_type": counts,
-        },
-        "error": None,
-    }
-
-
-def get_game_data(message: str) -> dict:
-    """Mock game data provider. Replace with KBO/Naver integration later."""
-    if not message.strip():
-        return {
-            "ok": False,
-            "data": None,
-            "error": {
-                "code": "EMPTY_INPUT",
-                "message": "사용자 요청이 비어 있습니다.",
-            },
-        }
-
-    return {
-        "ok": True,
-        "data": {
-            "game_id": "mock-20260515-lotte-jamsil",
-            "teams": {
-                "home": {"name": "두산 베어스", "code": "OB"},
-                "away": {"name": "롯데 자이언츠", "code": "LT"},
-            },
-            "stadium": {
-                "name": "잠실야구장",
-                "is_dome": False,
-            },
-            "schedule": {
-                "date": "2026-05-15",
-                "time": "14:00",
-            },
-            "status": "PRE_GAME",
-        },
-        "error": None,
-    }
-
-
-def get_stadium_environment(stadium_name: str) -> dict:
-    """Mock stadium environment tool. Replace with weather/API/RAG later."""
-    if stadium_name != "잠실야구장":
-        return {
-            "ok": False,
-            "data": None,
-            "error": {
-                "code": "STADIUM_NOT_FOUND",
-                "message": "지원하지 않는 구장입니다.",
-            },
-        }
-
-    return {
-        "ok": True,
-        "data": {
-            "weather": {
-                "temp": 31,
-                "condition": "sunny",
-                "precipitation_probability": 10,
-            },
-            "recommended_zone": "3루 네이비석 상단",
-            "weather_tip": "낮 경기라 햇빛 노출이 커서 선크림과 모자를 챙기는 편이 좋습니다.",
-            "fallback_used": False,
         },
         "error": None,
     }
