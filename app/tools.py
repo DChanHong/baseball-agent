@@ -650,11 +650,13 @@ def find_kbo_game(
     if not parsed_date:
         return _tool_error("missing_required_input", "MISSING_DATE", "경기 날짜가 필요합니다.")
 
-    team = _normalize_team(team_query)
+    effective_team_query = team_query or opponent_query
+    effective_opponent_query = opponent_query if team_query else None
+    team = _normalize_team(effective_team_query)
     if not team:
         return _tool_error("missing_required_input", "MISSING_TEAM", "경기 팀 또는 응원 팀이 필요합니다.")
 
-    opponent = _normalize_team(opponent_query)
+    opponent = _normalize_team(effective_opponent_query)
     stadium = _normalize_stadium(stadium_name=stadium_query) if stadium_query else None
     schedule_name = team.get("schedule_name")
     opponent_schedule_name = opponent.get("schedule_name") if opponent else None
