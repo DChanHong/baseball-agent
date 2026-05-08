@@ -160,7 +160,9 @@ h1 {
 }
 
 .metadata pre {
+  max-height: 260px;
   margin: 10px 0 0;
+  overflow-y: auto;
   overflow-x: auto;
   white-space: pre-wrap;
 }

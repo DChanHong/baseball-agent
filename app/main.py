@@ -69,9 +69,45 @@ def _game_label(game: dict[str, Any]) -> str:
     )
 
 
-def _preprocess_request(message: str, user_context: dict[str, Any], session_state: dict[str, Any]) -> str:
-    if _looks_like_schedule_lookup(message):
+def _preprocess_observation(
+    *,
+    tool: str,
+    arguments: dict[str, Any],
+    result: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "step": 0,
+        "tool": tool,
+        "arguments": arguments,
+        "result": {
+            "ok": result.get("ok"),
+            "status": result.get("status"),
+            "error": result.get("error"),
+        },
+    }
+
+
+def _preprocess_request(
+    message: str,
+    user_context: dict[str, Any],
+    session_state: dict[str, Any],
+) -> tuple[str, list[dict[str, Any]]]:
+    observations: list[dict[str, Any]] = []
+
+    has_session_candidates = bool(session_state.get("candidate_games"))
+    if _looks_like_schedule_lookup(message) and not (has_session_candidates and _looks_like_action_followup(message)):
         schedule_result = find_kbo_game(date=message, team_query=message)
+        observations.append(
+            _preprocess_observation(
+                tool="find_kbo_game",
+                arguments={
+                    "date": message,
+                    "team_query": message,
+                    "source": "server_preprocess",
+                },
+                result=schedule_result,
+            )
+        )
         if schedule_result["ok"] and schedule_result["status"] == "ambiguous_game":
             candidates = schedule_result["data"].get("candidates") or []
             session_state["candidate_games"] = candidates
@@ -88,6 +124,16 @@ def _preprocess_request(message: str, user_context: dict[str, Any], session_stat
         if selected_game:
             session_state["selected_game"] = selected_game
             user_context["selected_game"] = selected_game
+            observations.append(
+                _preprocess_observation(
+                    tool="select_game_from_session_state",
+                    arguments={
+                        "message": message,
+                        "candidate_count": len(candidates),
+                    },
+                    result={"ok": True, "status": "selected", "error": None},
+                )
+            )
 
     selected_game = session_state.get("selected_game")
     if selected_game and _looks_like_action_followup(message):
@@ -95,11 +141,14 @@ def _preprocess_request(message: str, user_context: dict[str, Any], session_stat
         scoring_instruction = ""
         if any(keyword in message for keyword in ["좌석", "자리", "추천"]):
             scoring_instruction = " 좌석 추천이면 search_baseball_knowledge 후 score_seat_candidates까지 호출해 추천 순위를 만들어줘."
-        return f"{_game_label(selected_game)} 경기 기준으로 답변해줘.{scoring_instruction} 사용자 원문: {message}"
+        return (
+            f"{_game_label(selected_game)} 경기 기준으로 답변해줘."
+            f"{scoring_instruction} 사용자 원문: {message}"
+        ), observations
 
     if candidates:
         user_context["candidate_games"] = candidates
-    return message
+    return message, observations
 
 
 @app.get("/health")
@@ -143,8 +192,13 @@ def chat(request: ChatRequest) -> dict[str, Any]:
         history = SESSION_HISTORY.get(session_id, [])
         user_context["conversation_history"] = history[-SESSION_HISTORY_LIMIT:]
 
-    processed_message = _preprocess_request(request.message, user_context, session_state)
-    result = run_agent(processed_message, user_context=user_context or None)
+    processed_message, pre_observations = _preprocess_request(request.message, user_context, session_state)
+    result = run_agent(
+        processed_message,
+        user_context=user_context or None,
+        original_message=request.message,
+        pre_observations=pre_observations,
+    )
 
     if session_id:
         history = SESSION_HISTORY.setdefault(session_id, [])

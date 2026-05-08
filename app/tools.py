@@ -798,6 +798,7 @@ def find_kbo_game(
                         "time": game.get("time"),
                         "home_team": (game.get("teams") or {}).get("home"),
                         "away_team": (game.get("teams") or {}).get("away"),
+                        "stadium_id": _stadium_id_from_schedule(game.get("stadium") or {}),
                         "stadium_name": (game.get("stadium") or {}).get("name"),
                     }
                     for game in candidates

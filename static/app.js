@@ -10,6 +10,7 @@ const healthStatus = document.querySelector("#healthStatus");
 let isSending = false;
 let isComposing = false;
 let lastSubmitAt = 0;
+let lastSubmittedMessage = "";
 let sessionId = (() => {
   const existing = window.localStorage.getItem("baseballAgentSessionId");
   if (existing) {
@@ -19,6 +20,44 @@ let sessionId = (() => {
   window.localStorage.setItem("baseballAgentSessionId", generated);
   return generated;
 })();
+
+function sanitizeMessage(value) {
+  return value
+    .replace(/\x1B\[[0-?]*[ -/]*[@-~]/g, "")
+    .replace(/[\u0000-\u001F\u007F-\u009F]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function compactValue(value, maxLength = 600) {
+  const text = typeof value === "string" ? value : JSON.stringify(value, null, 2);
+  if (!text || text.length <= maxLength) {
+    return value;
+  }
+  return `${text.slice(0, maxLength)}...`;
+}
+
+function compactMetadata(metadata) {
+  if (!metadata) {
+    return null;
+  }
+
+  return {
+    intent: metadata.intent,
+    agent_mode: metadata.agent_mode,
+    tools_used: metadata.tools_used || [],
+    observations: (metadata.observations || []).map((observation) => ({
+      step: observation.step,
+      tool: observation.tool,
+      arguments: compactValue(observation.arguments, 420),
+      result: observation.result,
+    })),
+    stop_reason: metadata.stop_reason,
+    iterations: metadata.iterations,
+    elapsed_ms: metadata.elapsed_ms,
+    fallback_used: metadata.fallback_used,
+  };
+}
 
 function appendMessage(role, text, metadata) {
   const article = document.createElement("article");
@@ -39,7 +78,7 @@ function appendMessage(role, text, metadata) {
     details.appendChild(summary);
 
     const pre = document.createElement("pre");
-    pre.textContent = JSON.stringify(metadata, null, 2);
+    pre.textContent = JSON.stringify(compactMetadata(metadata), null, 2);
     details.appendChild(pre);
     article.appendChild(details);
   }
@@ -64,7 +103,7 @@ function buildPayload() {
 
   const hasContext = userContext.favorite_team || userContext.origin || userContext.preferences.length;
   return {
-    message: messageInput.value.trim(),
+    message: sanitizeMessage(messageInput.value),
     user_context: hasContext ? userContext : null,
     session_id: sessionId,
   };
@@ -77,13 +116,17 @@ async function sendMessage() {
   }
 
   const payload = buildPayload();
-  if (!payload.message) {
+  if (!payload.message || payload.message.length < 2) {
     messageInput.focus();
+    return;
+  }
+  if (payload.message === lastSubmittedMessage && now - lastSubmitAt < 2000) {
     return;
   }
 
   isSending = true;
   lastSubmitAt = now;
+  lastSubmittedMessage = payload.message;
   appendMessage("user", payload.message);
   messageInput.value = "";
   sendButton.disabled = true;
@@ -157,6 +200,7 @@ clearButton.addEventListener("click", () => {
   favoriteTeamInput.value = "";
   originInput.value = "";
   preferencesInput.value = "";
+  lastSubmittedMessage = "";
   messageInput.focus();
 });
 
