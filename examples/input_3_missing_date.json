@@ -1,8 +1,7 @@
 {
-  "message": "2026년 5월 16일 잠실 롯데전 자리 추천해줘",
+  "message": "잠실 롯데전 자리 추천해줘",
   "user_context": {
     "favorite_team": "롯데",
-    "origin": "부산",
     "preferences": ["응원", "가성비"]
   }
 }

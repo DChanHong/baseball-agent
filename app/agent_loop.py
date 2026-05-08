@@ -37,6 +37,8 @@ def _infer_intent(message: str) -> str:
         return "ticketing"
     if any(keyword in text for keyword in ["원정", "동선", "막차", "교통", "ktx", "버스", "복귀"]):
         return "logistics"
+    if any(keyword in text for keyword in ["경기", "일정", "보러", "직관", "주말", "다음주"]):
+        return "schedule_lookup"
     return "general"
 
 

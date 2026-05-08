@@ -12,6 +12,7 @@ class UserContext(BaseModel):
 class ChatRequest(BaseModel):
     message: str
     user_context: UserContext | None = None
+    session_id: str | None = None
 
 
 class ToolObservation(BaseModel):

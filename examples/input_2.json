@@ -1,3 +1,8 @@
 {
-  "message": "비 오면 고척돔 경기 직관 가도 괜찮을까?"
+  "message": "부산에서 2026년 5월 16일 대전 한화 원정 가는데 동선 알려줘",
+  "user_context": {
+    "favorite_team": "한화",
+    "origin": "부산",
+    "preferences": ["당일치기", "KTX"]
+  }
 }

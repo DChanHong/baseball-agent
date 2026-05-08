@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KBO 직관 Agent</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="chat-panel" aria-label="KBO 직관 Agent 채팅">
+        <header class="chat-header">
+          <div>
+            <p class="eyebrow">KBO Game-Day Agent</p>
+            <h1>직관 플래너</h1>
+          </div>
+          <div class="status-pill" id="healthStatus">준비 중</div>
+        </header>
+
+        <div class="quick-prompts" aria-label="예시 질문">
+          <button type="button" data-prompt="2026년 5월 16일 잠실 롯데전 자리 추천해줘">좌석 추천</button>
+          <button type="button" data-prompt="부산에서 2026년 5월 16일 대전 한화 원정 가는데 동선 알려줘">원정 동선</button>
+          <button type="button" data-prompt="삼성 홈경기 예매 어디서 해?">예매 안내</button>
+        </div>
+
+        <div class="messages" id="messages" aria-live="polite"></div>
+
+        <form class="composer" id="chatForm">
+          <label class="sr-only" for="messageInput">메시지</label>
+          <textarea id="messageInput" name="message" rows="2" placeholder="경기 날짜, 구장, 팀, 원하는 조건을 입력하세요."></textarea>
+
+          <div class="context-grid">
+            <label>
+              <span>응원 팀</span>
+              <input id="favoriteTeamInput" type="text" placeholder="롯데">
+            </label>
+            <label>
+              <span>출발지</span>
+              <input id="originInput" type="text" placeholder="부산">
+            </label>
+            <label>
+              <span>선호</span>
+              <input id="preferencesInput" type="text" placeholder="응원, 가성비, 그늘">
+            </label>
+          </div>
+
+          <div class="composer-actions">
+            <button class="secondary" type="button" id="clearButton">초기화</button>
+            <button class="primary" type="submit" id="sendButton">전송</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

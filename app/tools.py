@@ -2,7 +2,7 @@ import json
 import os
 import re
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -105,28 +105,82 @@ def _tool_error(status: str, code: str, message: str) -> dict[str, Any]:
     }
 
 
-def _parse_date(value: str | None) -> str | None:
+def _next_weekday(base_date: date, weekday: int, weeks_ahead: int = 0) -> date:
+    days_until = (weekday - base_date.weekday()) % 7
+    if days_until == 0:
+        days_until = 7
+    return base_date + timedelta(days=days_until + (weeks_ahead * 7))
+
+
+def _parse_date_candidates(value: str | None) -> list[str]:
     if not value:
-        return None
+        return []
 
     stripped = value.strip()
+    compact = stripped.replace(" ", "")
+    today = date.today()
+
+    if "다음주" in compact or "다음주말" in compact:
+        next_monday = today + timedelta(days=(7 - today.weekday()))
+        next_saturday = _next_weekday(today, 5, weeks_ahead=1)
+        next_sunday = next_saturday + timedelta(days=1)
+        if "주말" in compact:
+            return [next_saturday.isoformat(), next_sunday.isoformat()]
+        if "토" in compact:
+            return [next_saturday.isoformat()]
+        if "일" in compact:
+            return [next_sunday.isoformat()]
+        return [(next_monday + timedelta(days=offset)).isoformat() for offset in range(7)]
+
+    if "이번주" in compact or "이번주말" in compact or "주말" == compact:
+        this_monday = today - timedelta(days=today.weekday())
+        this_saturday = _next_weekday(today - timedelta(days=1), 5)
+        this_sunday = this_saturday + timedelta(days=1)
+        if "주말" in compact:
+            return [this_saturday.isoformat(), this_sunday.isoformat()]
+        if "토" in compact:
+            return [this_saturday.isoformat()]
+        if "일" in compact:
+            return [this_sunday.isoformat()]
+        return [(this_monday + timedelta(days=offset)).isoformat() for offset in range(7)]
+
+    if compact in {"오늘"}:
+        return [today.isoformat()]
+    if compact in {"내일"}:
+        return [(today + timedelta(days=1)).isoformat()]
+
     iso_match = re.search(r"(20\d{2})[-./년\s]+(\d{1,2})[-./월\s]+(\d{1,2})", stripped)
     if iso_match:
         year, month, day = (int(part) for part in iso_match.groups())
         try:
-            return date(year, month, day).isoformat()
+            return [date(year, month, day).isoformat()]
         except ValueError:
-            return None
+            return []
 
     compact_match = re.search(r"(20\d{2})(\d{2})(\d{2})", stripped)
     if compact_match:
         year, month, day = (int(part) for part in compact_match.groups())
         try:
-            return date(year, month, day).isoformat()
+            return [date(year, month, day).isoformat()]
         except ValueError:
-            return None
+            return []
 
-    return None
+    return []
+
+
+def _parse_date(value: str | None) -> str | None:
+    candidates = _parse_date_candidates(value)
+    return candidates[0] if candidates else None
+
+
+def _weekday_ko(iso_date: str | None) -> str | None:
+    if not iso_date:
+        return None
+    try:
+        weekday = date.fromisoformat(iso_date).weekday()
+    except ValueError:
+        return None
+    return ["월", "화", "수", "목", "금", "토", "일"][weekday]
 
 
 def _load_team_aliases() -> list[dict[str, Any]]:
@@ -646,8 +700,8 @@ def find_kbo_game(
     stadium_query: str | None = None,
     opponent_query: str | None = None,
 ) -> dict[str, Any]:
-    parsed_date = _parse_date(date)
-    if not parsed_date:
+    parsed_dates = _parse_date_candidates(date)
+    if not parsed_dates:
         return _tool_error("missing_required_input", "MISSING_DATE", "경기 날짜가 필요합니다.")
 
     effective_team_query = team_query or opponent_query
@@ -665,7 +719,7 @@ def find_kbo_game(
     for game in _load_all_schedule_games():
         teams = game.get("teams") or {}
         game_teams = {teams.get("home"), teams.get("away")}
-        if game.get("date") != parsed_date:
+        if game.get("date") not in parsed_dates:
             continue
         if schedule_name not in game_teams:
             continue
@@ -684,8 +738,10 @@ def find_kbo_game(
             {
                 "candidates": [
                     {
-                        "game_id": game.get("game_id"),
+                        "game_id": game.get("game_id")
+                        or f"{game.get('date')}-{(game.get('teams') or {}).get('away')}-{(game.get('teams') or {}).get('home')}-{(game.get('stadium') or {}).get('short_name')}",
                         "date": game.get("date"),
+                        "weekday": _weekday_ko(game.get("date")),
                         "time": game.get("time"),
                         "home_team": (game.get("teams") or {}).get("home"),
                         "away_team": (game.get("teams") or {}).get("away"),
@@ -708,6 +764,7 @@ def find_kbo_game(
         {
             "game_id": game_id,
             "date": game.get("date"),
+            "weekday": _weekday_ko(game.get("date")),
             "time": game.get("time"),
             "home_team": teams.get("home"),
             "away_team": teams.get("away"),
