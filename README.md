@@ -94,7 +94,7 @@ LangSmith 활성화 예시:
 ```bash
 export LANGSMITH_TRACING=true
 export LANGSMITH_API_KEY="..."
-export LANGSMITH_PROJECT="kbo-game-day-agent-week8"
+export LANGSMITH_PROJECT="kbo-game-day-agent"
 python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
@@ -109,6 +109,22 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 | Agent Step | AgentExecutor intermediate step, `/chat` 응답 metadata의 observation |
 | Output | 최종 답변, stop reason |
 | Latency | LangSmith run/span latency, `/chat` 응답의 전체 elapsed_ms |
+
+Trace 실행 결과:
+
+| 케이스 | 입력 | session id | trace id | 주요 Tool 흐름 | 결과 | latency |
+|--------|------|------------|----------|----------------|------|---------|
+| 정상 일정 조회 | `다음주 롯데 경기 알려줘` | `week8-normal-trace` | `kbo_4b07d3c7ce2e4d299c532352ecad1a7e` | `find_kbo_game` | 다음주 롯데 후보 경기 6개를 제시하고 추가 선택을 요청 | 4494ms |
+| 정상 좌석 추천 | `다음주 롯데 경기 알려줘` -> `토요일 경기 좌석 추천해줘` | `week8-seat-flow-trace` | `kbo_627726ce282c416bbebbbca7aa3dcc77` | `select_game_from_session_state` -> `get_stadium_info` -> `get_weather_context` -> `search_baseball_knowledge` -> `score_seat_candidates` | 2026-05-23 사직 롯데 경기 기준 좌석 3개 추천 | 23569ms |
+| 실패/예외 | `2026년 2월 1일 롯데 좌석 추천해줘` | `week8-not-found-trace` | `kbo_3814ca60b57f4209a888780841aa85f4` | `find_kbo_game` | `GAME_NOT_FOUND`를 확인하고 다른 날짜 입력을 요청 | 3413ms |
+
+Trace 분석:
+
+- 예상 흐름: 일정 조회는 `find_kbo_game`만 호출하고, 좌석 추천은 경기 선택 후 구장 정보, 날씨, RAG 검색, 좌석 점수화 순서로 진행해야 합니다.
+- 실제 흐름: 좌석 추천 trace에서 session 후보 6개 중 토요일 경기를 먼저 선택한 뒤 `get_stadium_info`, `get_weather_context`, `search_baseball_knowledge`, `score_seat_candidates`가 순서대로 호출됐습니다.
+- 잘 동작한 부분: 후속 요청의 짧은 입력인 `토요일 경기 좌석 추천해줘`에서도 session state를 사용해 2026-05-23 사직 경기를 확정했습니다.
+- 실패 처리: 2026-02-01 롯데 경기 조회는 `find_kbo_game`이 `ok=false`, `status=not_found`, `error.code=GAME_NOT_FOUND`를 반환했고, Agent는 다른 날짜를 요청하는 답변으로 종료했습니다.
+- 개선할 부분: 일부 단일턴 좌석 추천에서는 `score_seat_candidates`까지 가지 못하고 최종 답변 생성에 실패할 수 있어, 좌석 추천 intent에서는 경기 확정 여부를 더 엄격히 확인하는 보강이 필요합니다.
 
 민감정보 처리:
 
