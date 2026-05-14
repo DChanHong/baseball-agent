@@ -23,8 +23,14 @@ class ToolObservation(BaseModel):
 
 
 class AgentMetadata(BaseModel):
+    trace_id: str | None = None
+    session_id: str | None = None
+    started_at: str | None = None
+    ended_at: str | None = None
     intent: str | None = None
     agent_mode: str = "langchain_agent_executor"
+    observability: dict[str, Any] = Field(default_factory=dict)
+    model: dict[str, Any] = Field(default_factory=dict)
     tools_used: list[str] = Field(default_factory=list)
     observations: list[ToolObservation] = Field(default_factory=list)
     stop_reason: str = "final_answer"

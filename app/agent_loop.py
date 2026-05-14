@@ -1,6 +1,8 @@
 import json
 import os
 import time
+import uuid
+from datetime import datetime, timezone
 from typing import Any
 
 from dotenv import load_dotenv
@@ -20,6 +22,7 @@ MAX_ITERATIONS = 6
 MAX_EXECUTION_TIME = 30
 DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
 UNAVAILABLE_GEMINI_MODELS = {"gemini-2.0-flash", "models/gemini-2.0-flash"}
+PROMPT_VERSION = "kbo-game-day-agent-v1"
 
 
 def _get_gemini_model() -> str:
@@ -42,18 +45,76 @@ def _infer_intent(message: str) -> str:
     return "general"
 
 
+def _env_flag(name: str) -> bool:
+    return os.getenv(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _langsmith_enabled() -> bool:
+    return _env_flag("LANGSMITH_TRACING") or _env_flag("LANGCHAIN_TRACING_V2")
+
+
+def _langsmith_run_config(
+    *,
+    trace_id: str,
+    session_id: str | None,
+    intent: str,
+    original_message: str,
+    processed_message: str,
+    user_context: dict[str, Any] | None,
+) -> dict[str, Any]:
+    context = user_context or {}
+    selected_game = context.get("selected_game") or {}
+    candidate_games = context.get("candidate_games") or []
+    return {
+        "run_name": "kbo_game_day_agent",
+        "tags": [
+            "kbo-agent",
+            "week8-observability",
+            f"intent:{intent}",
+            f"prompt:{PROMPT_VERSION}",
+        ],
+        "metadata": {
+            "trace_id": trace_id,
+            "session_id": session_id,
+            "intent": intent,
+            "agent_mode": "langchain_agent_executor",
+            "prompt_version": PROMPT_VERSION,
+            "original_message": original_message,
+            "processed_message": processed_message,
+            "selected_game_id": selected_game.get("game_id"),
+            "selected_stadium_id": selected_game.get("stadium_id"),
+            "candidate_game_count": len(candidate_games),
+            "chat_model": _get_gemini_model(),
+            "embedding_model": os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"),
+        },
+    }
+
+
 def _metadata(
     *,
+    trace_id: str,
+    session_id: str | None,
     intent: str,
     start_time: float,
+    started_at: str,
     tools_used: list[str] | None = None,
     observations: list[dict[str, Any]] | None = None,
     stop_reason: str = "final_answer",
     fallback_used: bool = False,
 ) -> dict[str, Any]:
     return {
+        "trace_id": trace_id,
+        "session_id": session_id,
+        "started_at": started_at,
+        "ended_at": datetime.now(timezone.utc).isoformat(),
         "intent": intent,
         "agent_mode": "langchain_agent_executor",
+        "observability": {
+            "provider": "langsmith",
+            "enabled": _langsmith_enabled(),
+            "project": os.getenv("LANGSMITH_PROJECT") or "default",
+            "prompt_version": PROMPT_VERSION,
+        },
         "model": {
             "chat": _get_gemini_model(),
             "embedding": os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"),
@@ -257,18 +318,25 @@ def run_agent(
     message: str,
     user_context: dict[str, Any] | None = None,
     *,
+    session_id: str | None = None,
     original_message: str | None = None,
     pre_observations: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     start_time = time.perf_counter()
-    intent = _infer_intent(original_message or message)
+    started_at = datetime.now(timezone.utc).isoformat()
+    trace_id = f"kbo_{uuid.uuid4().hex}"
+    raw_message = original_message or message
+    intent = _infer_intent(raw_message)
 
     if not message.strip():
         return {
             "answer": "요청이 비어 있습니다. 경기 날짜, 팀, 원하는 도움을 함께 알려주세요.",
             "metadata": _metadata(
+                trace_id=trace_id,
+                session_id=session_id,
                 intent=intent,
                 start_time=start_time,
+                started_at=started_at,
                 stop_reason="missing_required_input",
                 fallback_used=True,
             ),
@@ -280,7 +348,15 @@ def run_agent(
             {
                 "input": message,
                 "user_context": json.dumps(user_context or {}, ensure_ascii=False),
-            }
+            },
+            config=_langsmith_run_config(
+                trace_id=trace_id,
+                session_id=session_id,
+                intent=intent,
+                original_message=raw_message,
+                processed_message=message,
+                user_context=user_context,
+            ),
         )
     except Exception as exc:
         return {
@@ -289,8 +365,11 @@ def run_agent(
                 "현재는 날짜, 팀, 구장 정보를 더 구체적으로 입력한 뒤 다시 시도해 주세요."
             ),
             "metadata": _metadata(
+                trace_id=trace_id,
+                session_id=session_id,
                 intent=intent,
                 start_time=start_time,
+                started_at=started_at,
                 observations=[
                     {
                         "step": 1,
@@ -331,8 +410,11 @@ def run_agent(
     return {
         "answer": answer or "답변을 생성하지 못했습니다.",
         "metadata": _metadata(
+            trace_id=trace_id,
+            session_id=session_id,
             intent=intent,
             start_time=start_time,
+            started_at=started_at,
             tools_used=tools_used,
             observations=observations,
             stop_reason=stop_reason,

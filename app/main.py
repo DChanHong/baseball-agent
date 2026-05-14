@@ -196,6 +196,7 @@ def chat(request: ChatRequest) -> dict[str, Any]:
     result = run_agent(
         processed_message,
         user_context=user_context or None,
+        session_id=session_id,
         original_message=request.message,
         pre_observations=pre_observations,
     )

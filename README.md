@@ -57,6 +57,7 @@ pip install -r requirements.txt
 # 환경 변수 설정
 # .env 파일에 GEMINI_API_KEY, OPENAI_API_KEY를 설정합니다.
 # 선택: GEMINI_MODEL, OPENAI_EMBEDDING_MODEL
+# 선택: LangSmith trace를 남기려면 LANGSMITH_TRACING=true, LANGSMITH_API_KEY, LANGSMITH_PROJECT를 설정합니다.
 
 # FAISS 인덱스가 없을 경우 생성
 python -c "from app.tools import build_faiss_index; print(build_faiss_index())"
@@ -75,6 +76,47 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 | GEMINI_MODEL | 선택 | Agent reasoning과 최종 답변 생성에 사용할 Gemini 모델명입니다. 기본값은 `gemini-2.5-flash`입니다. |
 | OPENAI_API_KEY | 필수 | FAISS 인덱스 생성과 RAG 검색 query embedding 생성을 위한 OpenAI API key입니다. |
 | OPENAI_EMBEDDING_MODEL | 선택 | 임베딩 생성에 사용할 OpenAI embedding 모델명입니다. 기본값은 `text-embedding-3-small`입니다. |
+| LANGSMITH_TRACING | 선택 | `true`로 설정하면 LangChain AgentExecutor 실행 trace를 LangSmith에 전송합니다. 기본값은 비활성입니다. |
+| LANGSMITH_API_KEY | 선택 | LangSmith trace 전송에 사용하는 API key입니다. |
+| LANGSMITH_PROJECT | 선택 | LangSmith에서 trace를 모을 project 이름입니다. 예: `kbo-game-day-agent-week8` |
+
+## 8주차 Observability
+
+- 사용한 방식: LangSmith managed tracing
+- trace 단위: `/chat` 요청 1건을 LangSmith trace 1건으로 기록합니다.
+- trace 식별자: 서버에서 `kbo_{uuid}` 형식의 `trace_id`를 만들고 LangSmith metadata와 `/chat` 응답 metadata에 함께 남깁니다.
+- prompt version: `kbo-game-day-agent-v1`
+- LangSmith run name: `kbo_game_day_agent`
+- LangSmith tags: `kbo-agent`, `week8-observability`, `intent:{intent}`, `prompt:kbo-game-day-agent-v1`
+
+LangSmith 활성화 예시:
+
+```bash
+export LANGSMITH_TRACING=true
+export LANGSMITH_API_KEY="..."
+export LANGSMITH_PROJECT="kbo-game-day-agent-week8"
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+기록되는 주요 항목:
+
+| 영역 | 항목 |
+|------|------|
+| Request | 원문 사용자 요청, 전처리된 Agent 입력, session id, trace id |
+| Prompt | prompt version, LangChain prompt 실행 흐름 |
+| Model | Gemini chat model, OpenAI embedding model |
+| Tool | LangChain tool call, tool arguments, tool output/error |
+| Agent Step | AgentExecutor intermediate step, `/chat` 응답 metadata의 observation |
+| Output | 최종 답변, stop reason |
+| Latency | LangSmith run/span latency, `/chat` 응답의 전체 elapsed_ms |
+
+민감정보 처리:
+
+- `.env`, API key, LangSmith API key는 commit하지 않습니다.
+- 현재 MVP는 실제 사용자 DB, 결제정보, 주소, 전화번호를 받지 않습니다.
+- LangSmith metadata에는 전체 `user_context`를 넣지 않고 `selected_game_id`, `selected_stadium_id`, 후보 경기 수처럼 재현에 필요한 요약값만 넣습니다.
+- 사용자 입력 원문은 LangSmith에 기록되므로, 제출용 trace를 공유할 때는 개인정보가 포함되지 않은 예시 입력만 사용합니다.
+- RAG 문서 전문, API key, 로컬 `.env` 값은 README나 제출 README에 붙이지 않습니다.
 
 ## 예시 실행
 
