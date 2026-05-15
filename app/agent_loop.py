@@ -7,6 +7,7 @@ from typing import Any
 
 from dotenv import load_dotenv
 from langchain_classic.agents import AgentExecutor, create_tool_calling_agent
+from langchain_core.callbacks import BaseCallbackHandler
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_google_genai import ChatGoogleGenerativeAI
 from pydantic import SecretStr
@@ -23,6 +24,72 @@ MAX_EXECUTION_TIME = 30
 DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
 UNAVAILABLE_GEMINI_MODELS = {"gemini-2.0-flash", "models/gemini-2.0-flash"}
 PROMPT_VERSION = "kbo-game-day-agent-v1"
+
+
+class ToolTraceCallback(BaseCallbackHandler):
+    """Collect lightweight per-tool observability fields for the API metadata."""
+
+    def __init__(self) -> None:
+        self._started_at_by_run_id: dict[str, float] = {}
+        self._events_by_run_id: dict[str, dict[str, Any]] = {}
+        self.events: list[dict[str, Any]] = []
+
+    def on_tool_start(
+        self,
+        serialized: dict[str, Any],
+        input_str: str,
+        *,
+        run_id: uuid.UUID,
+        parent_run_id: uuid.UUID | None = None,
+        tags: list[str] | None = None,
+        metadata: dict[str, Any] | None = None,
+        inputs: dict[str, Any] | None = None,
+        **kwargs: Any,
+    ) -> Any:
+        run_key = str(run_id)
+        tool_name = serialized.get("name") or serialized.get("id") or "unknown"
+        self._started_at_by_run_id[run_key] = time.perf_counter()
+        self._events_by_run_id[run_key] = {
+            "tool": tool_name,
+            "arguments": _mask_tool_arguments(inputs if inputs is not None else input_str),
+            "parent_run_id": str(parent_run_id) if parent_run_id else None,
+        }
+
+    def on_tool_end(
+        self,
+        output: Any,
+        *,
+        run_id: uuid.UUID,
+        parent_run_id: uuid.UUID | None = None,
+        **kwargs: Any,
+    ) -> Any:
+        run_key = str(run_id)
+        started_at = self._started_at_by_run_id.pop(run_key, None)
+        event = self._events_by_run_id.pop(run_key, {"tool": "unknown", "arguments": {}})
+        event["latency_ms"] = int((time.perf_counter() - started_at) * 1000) if started_at else None
+        event["result"] = _parse_observation_result(output)
+        event["result_summary"] = _summarize_tool_output(event.get("tool", "unknown"), output)
+        self.events.append(event)
+
+    def on_tool_error(
+        self,
+        error: BaseException,
+        *,
+        run_id: uuid.UUID,
+        parent_run_id: uuid.UUID | None = None,
+        **kwargs: Any,
+    ) -> Any:
+        run_key = str(run_id)
+        started_at = self._started_at_by_run_id.pop(run_key, None)
+        event = self._events_by_run_id.pop(run_key, {"tool": "unknown", "arguments": {}})
+        event["latency_ms"] = int((time.perf_counter() - started_at) * 1000) if started_at else None
+        event["result"] = {
+            "ok": False,
+            "status": "tool_error",
+            "error": {"code": type(error).__name__, "message": str(error)},
+        }
+        event["result_summary"] = {"error_type": type(error).__name__}
+        self.events.append(event)
 
 
 def _get_gemini_model() -> str:
@@ -153,6 +220,121 @@ def _observation_as_dict(observation: Any) -> dict[str, Any]:
     return {}
 
 
+def _mask_tool_arguments(value: Any) -> Any:
+    if isinstance(value, str):
+        try:
+            parsed = json.loads(value)
+        except json.JSONDecodeError:
+            return value
+        return _mask_tool_arguments(parsed)
+
+    if isinstance(value, list):
+        return [_mask_tool_arguments(item) for item in value]
+
+    if not isinstance(value, dict):
+        return value
+
+    masked: dict[str, Any] = {}
+    sensitive_keys = {"api_key", "token", "password", "secret", "payment_info", "phone", "email", "address"}
+    for key, item in value.items():
+        normalized_key = str(key).lower()
+        if normalized_key in sensitive_keys:
+            masked[key] = "[excluded]"
+        elif normalized_key == "origin" and isinstance(item, str) and len(item) > 12:
+            masked[key] = item[:2] + "***"
+        else:
+            masked[key] = _mask_tool_arguments(item)
+    return masked
+
+
+def _summarize_tool_output(tool_name: str, output: Any) -> dict[str, Any]:
+    payload = _observation_as_dict(output)
+    if not payload:
+        return {}
+
+    data = payload.get("data") or {}
+    summary: dict[str, Any] = {
+        "ok": payload.get("ok"),
+        "status": payload.get("status"),
+    }
+    if payload.get("error"):
+        summary["error_code"] = (payload.get("error") or {}).get("code")
+
+    if tool_name == "find_kbo_game":
+        candidates = data.get("candidates") or []
+        summary.update(
+            {
+                "candidate_count": len(candidates),
+                "game_id": data.get("game_id"),
+                "date": data.get("date"),
+                "stadium_id": data.get("stadium_id"),
+            }
+        )
+    elif tool_name == "get_stadium_info":
+        summary.update(
+            {
+                "stadium_id": data.get("stadium_id"),
+                "is_dome": data.get("is_dome"),
+                "home_team_count": len(data.get("home_teams") or []),
+            }
+        )
+    elif tool_name == "get_weather_context":
+        summary.update(
+            {
+                "recommendation_mode": data.get("recommendation_mode"),
+                "forecast_level": data.get("forecast_level"),
+                "risk_flags": data.get("risk_flags") or [],
+                "weather_provider_failed": bool(data.get("weather_provider_error")),
+            }
+        )
+    elif tool_name == "search_baseball_knowledge":
+        documents = data.get("documents") or []
+        source_types = sorted(
+            {
+                (document.get("metadata") or {}).get("source_type")
+                for document in documents
+                if isinstance(document, dict) and (document.get("metadata") or {}).get("source_type")
+            }
+        )
+        summary.update(
+            {
+                "returned_count": data.get("returned_count", len(documents)),
+                "search_top_k": data.get("search_top_k"),
+                "source_types": source_types,
+            }
+        )
+    elif tool_name == "score_seat_candidates":
+        recommendations = data.get("recommendations") or []
+        summary.update(
+            {
+                "recommendation_count": len(recommendations),
+                "top_seat": (recommendations[0] or {}).get("seat_name") if recommendations else None,
+                "limitations": data.get("limitations") or [],
+            }
+        )
+    elif tool_name == "get_ticketing_guide":
+        summary.update(
+            {
+                "team": data.get("team"),
+                "stadium_id": data.get("stadium_id"),
+                "match_basis": data.get("match_basis"),
+                "lookup_mode": data.get("lookup_mode"),
+            }
+        )
+    elif tool_name == "get_logistics_guide":
+        summary.update(
+            {
+                "origin": data.get("origin"),
+                "stadium_id": data.get("stadium_id"),
+                "lookup_mode": data.get("lookup_mode"),
+                "route_count": len(data.get("recommended_routes") or []),
+                "same_day_possible": (data.get("return_plan") or {}).get("same_day_possible"),
+            }
+        )
+
+    return {key: value for key, value in summary.items() if value is not None}
+
+
 def _extract_text(value: Any) -> str:
     if value is None:
         return ""
@@ -169,15 +351,23 @@ def _extract_text(value: Any) -> str:
     return str(value)
 
 
-def _format_intermediate_steps(intermediate_steps: list[tuple[Any, Any]]) -> list[dict[str, Any]]:
+def _format_intermediate_steps(
+    intermediate_steps: list[tuple[Any, Any]],
+    tool_events: list[dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
     observations = []
+    events = tool_events or []
     for step, (action, observation) in enumerate(intermediate_steps, start=1):
+        event = events[step - 1] if step - 1 < len(events) else {}
         observations.append(
             {
                 "step": step,
                 "tool": getattr(action, "tool", "unknown"),
-                "arguments": getattr(action, "tool_input", {}) or {},
+                "arguments": _mask_tool_arguments(getattr(action, "tool_input", {}) or {}),
                 "result": _parse_observation_result(observation),
+                "latency_ms": event.get("latency_ms"),
+                "result_summary": event.get("result_summary")
+                or _summarize_tool_output(getattr(action, "tool", "unknown"), observation),
             }
         )
     return observations
@@ -301,18 +491,21 @@ def run_agent(
 
     try:
         executor = _create_agent_executor()
+        tool_trace_callback = ToolTraceCallback()
+        run_config = _langsmith_run_config(
+            trace_id=trace_id,
+            session_id=session_id,
+            original_message=raw_message,
+            processed_message=message,
+            user_context=user_context,
+        )
+        run_config["callbacks"] = [tool_trace_callback]
         result = executor.invoke(
             {
                 "input": message,
                 "user_context": json.dumps(user_context or {}, ensure_ascii=False),
             },
-            config=_langsmith_run_config(
-                trace_id=trace_id,
-                session_id=session_id,
-                original_message=raw_message,
-                processed_message=message,
-                user_context=user_context,
-            ),
+            config=run_config,
         )
     except Exception as exc:
         resolved_intents = ["agent_error"]
@@ -349,7 +542,10 @@ def run_agent(
         }
 
     intermediate_steps = result.get("intermediate_steps") or []
-    observations = [*(pre_observations or []), *_format_intermediate_steps(intermediate_steps)]
+    observations = [
+        *(pre_observations or []),
+        *_format_intermediate_steps(intermediate_steps, tool_trace_callback.events),
+    ]
     session_updates = _derive_session_updates(intermediate_steps)
     observations = _renumber_observations(observations)
     tools_used = [observation["tool"] for observation in observations]

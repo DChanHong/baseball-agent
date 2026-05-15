@@ -87,7 +87,8 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 - trace 식별자: 서버에서 `kbo_{uuid}` 형식의 `trace_id`를 만들고 LangSmith metadata와 `/chat` 응답 metadata에 함께 남깁니다.
 - prompt version: `kbo-game-day-agent-v1`
 - LangSmith run name: `kbo_game_day_agent`
-- LangSmith tags: `kbo-agent`, `week8-observability`, `intent:{intent}`, `prompt:kbo-game-day-agent-v1`
+- LangSmith tags: `kbo-agent`, `week8-observability`, `prompt:kbo-game-day-agent-v1`
+- Tool span: LangChain Tool 실행은 LangSmith 하위 run으로 남기고, `/chat` 응답 metadata에도 tool별 `arguments`, `result`, `result_summary`, `latency_ms`를 함께 남깁니다.
 
 LangSmith 활성화 예시:
 
@@ -106,17 +107,38 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 | Prompt | prompt version, LangChain prompt 실행 흐름 |
 | Model | Gemini chat model, OpenAI embedding model |
 | Tool | LangChain tool call, tool arguments, tool output/error |
-| Agent Step | AgentExecutor intermediate step, `/chat` 응답 metadata의 observation |
+| Agent Step | AgentExecutor intermediate step, `/chat` 응답 metadata의 observation, step별 latency |
 | Output | 최종 답변, stop reason |
 | Latency | LangSmith run/span latency, `/chat` 응답의 전체 elapsed_ms |
+
+Tool별 관찰 기준:
+
+| Tool | 주요 확인 항목 |
+|------|----------------|
+| `find_kbo_game` | 날짜/팀 조건, 후보 수, `found`/`ambiguous_game`/`not_found`, 선택 경기 id |
+| `get_stadium_info` | `stadium_id`, 돔 여부, 홈팀 수 |
+| `get_weather_context` | 추천 모드, 예보 범위, `risk_flags`, 외부 날씨 API fallback 여부 |
+| `search_baseball_knowledge` | 검색 query, `top_k`, 반환 문서 수, source type |
+| `score_seat_candidates` | 입력 후보 기반 추천 수, 1순위 좌석, 데이터 한계 |
+| `get_ticketing_guide` | 팀/구장 match basis, 예매처 lookup 방식 |
+| `get_logistics_guide` | 출발지/구장/시간 조건, route 수, 당일 복귀 판단 |
+
+골든리스트:
+
+| 케이스 | 입력 | 기대 Tool 흐름 |
+|--------|------|----------------|
+| 정상 일정 조회 | `다음주 롯데 경기 알려줘` | `find_kbo_game` |
+| 정상 좌석 추천 | `5월 23일 롯데 경기 좌석 추천해줘` | `find_kbo_game` -> `get_stadium_info` -> `get_weather_context` -> `search_baseball_knowledge` -> `score_seat_candidates` |
+| 정상 예매/동선 | `서울에서 사직 롯데 경기 보러 가는데 예매랑 이동 알려줘` | 일정/구장 확인 -> `get_ticketing_guide` -> `get_logistics_guide` -> 필요 시 RAG 검색 |
+| 실패 경기 없음 | `2026년 2월 1일 롯데 좌석 추천해줘` | `find_kbo_game` -> `GAME_NOT_FOUND` -> fallback 답변 |
 
 Trace 실행 결과:
 
 | 케이스 | 입력 | session id | trace id | 주요 Tool 흐름 | 결과 | latency |
 |--------|------|------------|----------|----------------|------|---------|
-| 정상 일정 조회 | `다음주 롯데 경기 알려줘` | `week8-normal-trace` | `kbo_4b07d3c7ce2e4d299c532352ecad1a7e` | `find_kbo_game` | 다음주 롯데 후보 경기 6개를 제시하고 추가 선택을 요청 | 4494ms |
+| 정상 일정 조회 | `다음주 롯데 경기 알려줘` | `week8-normal-smoke` | `kbo_1db5f318590149d5bb11a933dfe86cdf` | `find_kbo_game` | 다음주 롯데 후보 경기 6개를 제시하고 추가 선택을 요청 | 5745ms |
 | 정상 좌석 추천 | `다음주 롯데 경기 알려줘` -> `토요일 경기 좌석 추천해줘` | `week8-seat-flow-trace` | `kbo_627726ce282c416bbebbbca7aa3dcc77` | `select_game_from_session_state` -> `get_stadium_info` -> `get_weather_context` -> `search_baseball_knowledge` -> `score_seat_candidates` | 2026-05-23 사직 롯데 경기 기준 좌석 3개 추천 | 23569ms |
-| 실패/예외 | `2026년 2월 1일 롯데 좌석 추천해줘` | `week8-not-found-trace` | `kbo_3814ca60b57f4209a888780841aa85f4` | `find_kbo_game` | `GAME_NOT_FOUND`를 확인하고 다른 날짜 입력을 요청 | 3413ms |
+| 실패/예외 | `2026년 2월 1일 롯데 좌석 추천해줘` | `week8-failure-smoke` | `kbo_74f2d1be16b24cceae26f8891a570ecc` | `find_kbo_game` | `GAME_NOT_FOUND`를 확인하고 다른 날짜 입력을 요청 | 3806ms |
 
 Trace 분석:
 

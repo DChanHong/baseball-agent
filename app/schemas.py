@@ -20,6 +20,8 @@ class ToolObservation(BaseModel):
     tool: str
     arguments: dict[str, Any] = Field(default_factory=dict)
     result: dict[str, Any] = Field(default_factory=dict)
+    latency_ms: int | None = None
+    result_summary: dict[str, Any] = Field(default_factory=dict)
 
 
 class AgentMetadata(BaseModel):
