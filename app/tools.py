@@ -975,6 +975,15 @@ def get_weather_context(
     )
 
 
+# Keep LLM-provided top_k values inside a small, predictable range.
+def _normalize_top_k(top_k: int | str | None, default: int = 4) -> int:
+    try:
+        value = int(top_k) if top_k is not None else default
+    except (TypeError, ValueError):
+        value = default
+    return max(1, min(value, 10))
+
+
 # Tool: search the indexed baseball knowledge base with optional team/stadium filtering.
 def search_baseball_knowledge(
     query: str,
@@ -992,7 +1001,9 @@ def search_baseball_knowledge(
     if team:
         enriched_query_parts.append(team)
 
-    result = search_faiss_documents(" ".join(enriched_query_parts), top_k=top_k)
+    requested_top_k = _normalize_top_k(top_k)
+    search_top_k = max(requested_top_k, min(max(requested_top_k * 3, 8), 12))
+    result = search_faiss_documents(" ".join(enriched_query_parts), top_k=search_top_k)
     if not result["ok"]:
         return result
 
@@ -1010,11 +1021,15 @@ def search_baseball_knowledge(
         if filtered:
             documents = filtered
 
+    documents = documents[:requested_top_k]
+
     return _tool_success(
         "found",
         {
             "query": query,
             "purpose": purpose,
+            "search_top_k": search_top_k,
+            "returned_count": len(documents),
             "documents": documents,
         },
     )
@@ -1329,7 +1344,10 @@ def get_langchain_tools() -> list[Any]:
         StructuredTool.from_function(
             func=search_baseball_knowledge,
             name="search_baseball_knowledge",
-            description="FAISS RAG 인덱스에서 좌석, 구장, 예매, 동선 근거 문서를 검색한다.",
+            description=(
+                "정형 Tool 하나로 답하기 어려운 좌석/예매/동선/구장 설명, 비교, 팁, 주의사항, 근거가 필요할 때 "
+                "FAISS RAG 문서를 검색한다. 반환 문서의 metadata.source_type을 보고 답변에 필요한 근거를 선별한다."
+            ),
         ),
         StructuredTool.from_function(
             func=score_seat_candidates,
@@ -1339,12 +1357,18 @@ def get_langchain_tools() -> list[Any]:
         StructuredTool.from_function(
             func=get_ticketing_guide,
             name="get_ticketing_guide",
-            description="팀 또는 구장 기준으로 예매처, 공식 링크, 난이도, 티켓팅 팁을 정적 데이터에서 조회한다.",
+            description=(
+                "팀 또는 구장 기준으로 예매처, 공식 링크, 난이도, 티켓팅 기본 팁을 정적 데이터에서 조회한다. "
+                "상세 근거, 비교, 주의사항은 search_baseball_knowledge를 별도 호출한다."
+            ),
         ),
         StructuredTool.from_function(
             func=get_logistics_guide,
             name="get_logistics_guide",
-            description="출발지, 구장, 경기 날짜/시간 기준으로 원정 동선과 당일 복귀 리스크를 정적 rule로 안내한다.",
+            description=(
+                "출발지, 구장, 경기 날짜/시간 기준으로 원정 동선과 당일 복귀 리스크를 임시 정적 rule로 안내한다. "
+                "유사 경로 근거, 비교, 주의사항은 search_baseball_knowledge를 별도 호출한다."
+            ),
         ),
     ]
 # Return a lightweight summary of the RAG corpus build without creating an index.
