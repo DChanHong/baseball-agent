@@ -12,7 +12,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from pydantic import SecretStr
 
 from app.prompts import SYSTEM_PROMPT
-from app.tools import get_langchain_tools, score_seat_candidates
+from app.tools import get_langchain_tools
 
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,19 +32,6 @@ def _get_gemini_model() -> str:
     return configured_model
 
 
-def _infer_intent(message: str) -> str:
-    text = message.lower()
-    if any(keyword in text for keyword in ["자리", "좌석", "응원석", "그늘", "시야"]):
-        return "seat_recommendation"
-    if any(keyword in text for keyword in ["예매", "티켓", "티켓팅", "오픈"]):
-        return "ticketing"
-    if any(keyword in text for keyword in ["원정", "동선", "막차", "교통", "ktx", "버스", "복귀"]):
-        return "logistics"
-    if any(keyword in text for keyword in ["경기", "일정", "보러", "직관", "주말", "다음주"]):
-        return "schedule_lookup"
-    return "general"
-
-
 def _env_flag(name: str) -> bool:
     return os.getenv(name, "").strip().lower() in {"1", "true", "yes", "on"}
 
@@ -57,7 +44,6 @@ def _langsmith_run_config(
     *,
     trace_id: str,
     session_id: str | None,
-    intent: str,
     original_message: str,
     processed_message: str,
     user_context: dict[str, Any] | None,
@@ -70,13 +56,11 @@ def _langsmith_run_config(
         "tags": [
             "kbo-agent",
             "week8-observability",
-            f"intent:{intent}",
             f"prompt:{PROMPT_VERSION}",
         ],
         "metadata": {
             "trace_id": trace_id,
             "session_id": session_id,
-            "intent": intent,
             "agent_mode": "langchain_agent_executor",
             "prompt_version": PROMPT_VERSION,
             "original_message": original_message,
@@ -94,20 +78,24 @@ def _metadata(
     *,
     trace_id: str,
     session_id: str | None,
-    intent: str,
     start_time: float,
     started_at: str,
     tools_used: list[str] | None = None,
+    primary_intent: str = "general",
+    resolved_intents: list[str] | None = None,
     observations: list[dict[str, Any]] | None = None,
     stop_reason: str = "final_answer",
     fallback_used: bool = False,
+    session_updates: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     return {
         "trace_id": trace_id,
         "session_id": session_id,
         "started_at": started_at,
         "ended_at": datetime.now(timezone.utc).isoformat(),
-        "intent": intent,
+        "intent": primary_intent,
+        "primary_intent": primary_intent,
+        "resolved_intents": resolved_intents or [primary_intent],
         "agent_mode": "langchain_agent_executor",
         "observability": {
             "provider": "langsmith",
@@ -125,6 +113,7 @@ def _metadata(
         "iterations": len(observations or []),
         "elapsed_ms": int((time.perf_counter() - start_time) * 1000),
         "fallback_used": fallback_used,
+        "session_updates": session_updates or {},
     }
 
 
@@ -210,75 +199,42 @@ def _latest_tool_payload(intermediate_steps: list[tuple[Any, Any]], tool_name: s
     return {}
 
 
-def _seat_answer_from_scoring(score_result: dict[str, Any]) -> str:
-    if not score_result.get("ok"):
-        return "좌석 후보를 점수화하지 못했습니다. 경기와 구장 정보는 확인됐지만 좌석 RAG 문서가 부족합니다."
-
-    data = score_result.get("data") or {}
-    game = data.get("game") or {}
-    recommendations = data.get("recommendations") or []
-    if not recommendations:
-        return "좌석 후보를 찾지 못했습니다. 구장 좌석 데이터가 인덱싱되어 있는지 확인해 주세요."
-
-    header = (
-        f"{game.get('date')} {game.get('time')} "
-        f"{game.get('away_team')} vs {game.get('home_team')} "
-        f"{game.get('stadium_name')} 기준 좌석 추천입니다."
-    ).strip()
-    lines = [header, ""]
-    for index, item in enumerate(recommendations, start=1):
-        price = item.get("price_hint_krw")
-        price_text = f" / 최저가 힌트 {price:,}원" if isinstance(price, int) else ""
-        reasons = ", ".join(item.get("reasons") or ["RAG 검색 후보"])
-        lines.append(f"{index}. {item.get('seat_name')} - 점수 {item.get('score')}{price_text}: {reasons}")
-
-    limitations = data.get("limitations") or []
-    if limitations:
-        lines.extend(["", f"주의: {', '.join(limitations)}"])
-    return "\n".join(lines)
+def _derive_session_updates(intermediate_steps: list[tuple[Any, Any]]) -> dict[str, Any]:
+    updates: dict[str, Any] = {}
+    for action, observation in intermediate_steps:
+        if getattr(action, "tool", None) != "find_kbo_game":
+            continue
+        payload = _observation_as_dict(observation)
+        if not payload.get("ok"):
+            continue
+        data = payload.get("data") or {}
+        if payload.get("status") == "ambiguous_game":
+            candidates = data.get("candidates") or []
+            if candidates:
+                updates["candidate_games"] = candidates
+        elif payload.get("status") == "found":
+            updates["selected_game"] = data
+            updates["candidate_games"] = [data]
+    return updates
 
 
-def _apply_seat_scoring_fallback(
-    *,
-    intent: str,
-    user_context: dict[str, Any] | None,
-    intermediate_steps: list[tuple[Any, Any]],
-    observations: list[dict[str, Any]],
-) -> tuple[list[dict[str, Any]], str | None]:
-    tools_used = [observation["tool"] for observation in observations]
-    if intent != "seat_recommendation" or "score_seat_candidates" in tools_used:
-        return observations, None
-
-    search_payload = _latest_tool_payload(intermediate_steps, "search_baseball_knowledge")
-    weather_payload = _latest_tool_payload(intermediate_steps, "get_weather_context")
-    seat_documents = ((search_payload.get("data") or {}).get("documents") or [])
-    weather_context = (weather_payload.get("data") or {})
-    context = user_context or {}
-    selected_game = context.get("selected_game") or {}
-    if not seat_documents or not selected_game:
-        return observations, None
-
-    score_result = score_seat_candidates(
-        game=selected_game,
-        weather_context=weather_context,
-        seat_documents=seat_documents,
-        preferences=context.get("preferences") or [],
-        budget=context.get("budget"),
-        cheering_team=context.get("favorite_team") or selected_game.get("away_team"),
-    )
-    observations.append(
-        {
-            "step": 0,
-            "tool": "score_seat_candidates",
-            "arguments": {
-                "game_id": selected_game.get("game_id"),
-                "seat_document_count": len(seat_documents),
-                "fallback": "server_enforced",
-            },
-            "result": _parse_observation_result(score_result),
-        }
-    )
-    return observations, _seat_answer_from_scoring(score_result)
+def _resolve_intents(tools_used: list[str], *, stop_reason: str) -> list[str]:
+    intents = []
+    if "score_seat_candidates" in tools_used:
+        intents.append("seat_recommendation")
+    if "get_ticketing_guide" in tools_used:
+        intents.append("ticketing")
+    if "get_logistics_guide" in tools_used:
+        intents.append("logistics")
+    if "get_weather_context" in tools_used and not intents:
+        intents.append("weather")
+    if "find_kbo_game" in tools_used and not intents:
+        intents.append("schedule_lookup")
+    if not intents and stop_reason == "missing_required_input":
+        intents.append("clarification")
+    if not intents:
+        intents.append("general")
+    return intents
 
 
 def _create_agent_executor() -> AgentExecutor:
@@ -310,7 +266,7 @@ def _create_agent_executor() -> AgentExecutor:
         max_iterations=MAX_ITERATIONS,
         max_execution_time=MAX_EXECUTION_TIME,
         handle_parsing_errors=True,
-        early_stopping_method="generate",
+        early_stopping_method="force",
     )
 
 
@@ -326,17 +282,18 @@ def run_agent(
     started_at = datetime.now(timezone.utc).isoformat()
     trace_id = f"kbo_{uuid.uuid4().hex}"
     raw_message = original_message or message
-    intent = _infer_intent(raw_message)
 
     if not message.strip():
+        resolved_intents = ["clarification"]
         return {
             "answer": "요청이 비어 있습니다. 경기 날짜, 팀, 원하는 도움을 함께 알려주세요.",
             "metadata": _metadata(
                 trace_id=trace_id,
                 session_id=session_id,
-                intent=intent,
                 start_time=start_time,
                 started_at=started_at,
+                primary_intent=resolved_intents[0],
+                resolved_intents=resolved_intents,
                 stop_reason="missing_required_input",
                 fallback_used=True,
             ),
@@ -352,13 +309,13 @@ def run_agent(
             config=_langsmith_run_config(
                 trace_id=trace_id,
                 session_id=session_id,
-                intent=intent,
                 original_message=raw_message,
                 processed_message=message,
                 user_context=user_context,
             ),
         )
     except Exception as exc:
+        resolved_intents = ["agent_error"]
         return {
             "answer": (
                 "Agent 실행 중 문제가 발생했습니다. "
@@ -367,9 +324,10 @@ def run_agent(
             "metadata": _metadata(
                 trace_id=trace_id,
                 session_id=session_id,
-                intent=intent,
                 start_time=start_time,
                 started_at=started_at,
+                primary_intent=resolved_intents[0],
+                resolved_intents=resolved_intents,
                 observations=[
                     {
                         "step": 1,
@@ -392,32 +350,28 @@ def run_agent(
 
     intermediate_steps = result.get("intermediate_steps") or []
     observations = [*(pre_observations or []), *_format_intermediate_steps(intermediate_steps)]
-    observations, fallback_answer = _apply_seat_scoring_fallback(
-        intent=intent,
-        user_context=user_context,
-        intermediate_steps=intermediate_steps,
-        observations=observations,
-    )
+    session_updates = _derive_session_updates(intermediate_steps)
     observations = _renumber_observations(observations)
     tools_used = [observation["tool"] for observation in observations]
     stop_reason = "final_answer"
     if len(intermediate_steps) >= MAX_ITERATIONS:
         stop_reason = "max_iterations_exceeded"
+    resolved_intents = _resolve_intents(tools_used, stop_reason=stop_reason)
     answer = _extract_text(result.get("output"))
-    if fallback_answer and (not answer or "답변을 생성하지 못했습니다" in answer):
-        answer = fallback_answer
 
     return {
         "answer": answer or "답변을 생성하지 못했습니다.",
         "metadata": _metadata(
             trace_id=trace_id,
             session_id=session_id,
-            intent=intent,
             start_time=start_time,
             started_at=started_at,
             tools_used=tools_used,
+            primary_intent=resolved_intents[0],
+            resolved_intents=resolved_intents,
             observations=observations,
             stop_reason=stop_reason,
             fallback_used=False,
+            session_updates=session_updates,
         ),
     }

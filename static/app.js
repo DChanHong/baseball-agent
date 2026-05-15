@@ -11,15 +11,7 @@ let isSending = false;
 let isComposing = false;
 let lastSubmitAt = 0;
 let lastSubmittedMessage = "";
-let sessionId = (() => {
-  const existing = window.localStorage.getItem("baseballAgentSessionId");
-  if (existing) {
-    return existing;
-  }
-  const generated = window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`;
-  window.localStorage.setItem("baseballAgentSessionId", generated);
-  return generated;
-})();
+let sessionId = null;
 
 function sanitizeMessage(value) {
   return value
@@ -44,6 +36,8 @@ function compactMetadata(metadata) {
 
   return {
     intent: metadata.intent,
+    primary_intent: metadata.primary_intent,
+    resolved_intents: metadata.resolved_intents || [],
     agent_mode: metadata.agent_mode,
     tools_used: metadata.tools_used || [],
     observations: (metadata.observations || []).map((observation) => ({
@@ -140,6 +134,9 @@ async function sendMessage() {
     });
 
     const data = await response.json();
+    if (data.metadata?.session_id) {
+      sessionId = data.metadata.session_id;
+    }
     if (!response.ok) {
       appendMessage("agent", data.detail || "요청 처리에 실패했습니다.");
       return;
@@ -162,6 +159,9 @@ async function checkHealth() {
     const data = await response.json();
     healthStatus.textContent = data.status === "ok" ? "온라인" : "확인 필요";
     healthStatus.dataset.state = data.status === "ok" ? "ok" : "warn";
+    if (data.default_session_id) {
+      sessionId = data.default_session_id;
+    }
   } catch {
     healthStatus.textContent = "오프라인";
     healthStatus.dataset.state = "error";
@@ -193,9 +193,6 @@ messageInput.addEventListener("compositionend", () => {
 
 clearButton.addEventListener("click", () => {
   messages.replaceChildren();
-  window.localStorage.removeItem("baseballAgentSessionId");
-  sessionId = window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`;
-  window.localStorage.setItem("baseballAgentSessionId", sessionId);
   messageInput.value = "";
   favoriteTeamInput.value = "";
   originInput.value = "";

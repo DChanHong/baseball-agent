@@ -1131,7 +1131,7 @@ def score_seat_candidates(
     )
 
 
-# Tool: retrieve ticketing guidance from the FAISS RAG index first.
+# Tool: retrieve structured ticketing guidance from static JSON.
 def get_ticketing_guide(
     team: str | None = None,
     stadium_id: str | None = None,
@@ -1143,49 +1143,70 @@ def get_ticketing_guide(
         return _tool_error("missing_required_input", "MISSING_TEAM", "예매 가이드를 찾으려면 팀 또는 구장 정보가 필요합니다.")
 
     normalized_team = _normalize_team(team) if team else None
-    query_parts = ["예매 가이드", "티켓팅", "공식 예매처"]
-    if normalized_team:
-        query_parts.extend([normalized_team.get("team"), normalized_team.get("schedule_name")])
-    elif team:
-        query_parts.append(team)
-    if stadium_id:
-        query_parts.append(stadium_id)
-    if opponent:
-        query_parts.append(f"상대팀 {opponent}")
-    if game_date:
-        query_parts.append(f"경기일 {game_date}")
+    normalized_stadium = _normalize_stadium(stadium_id=stadium_id) if stadium_id else None
+    effective_stadium_id = (normalized_stadium or {}).get("id") or stadium_id
+    guides = (_read_json(STATIC_DATA_DIR / "ticketing_guides.json").get("data") or {}).get("guides") or []
 
-    result = search_baseball_knowledge(
-        query=" ".join(str(part) for part in query_parts if part),
-        purpose="ticketing",
-        stadium_id=stadium_id,
-        team=(normalized_team or {}).get("team") if normalized_team else team,
-        top_k=5,
-    )
-    if result["ok"]:
-        documents = [
-            document
-            for document in result["data"].get("documents", [])
-            if (document.get("metadata") or {}).get("source_type") == "ticketing_guide"
-        ] or result["data"].get("documents", [])
+    matched_guide = None
+    if normalized_team:
+        for guide in guides:
+            if (
+                guide.get("team") == normalized_team.get("team")
+                or guide.get("schedule_name") == normalized_team.get("schedule_name")
+            ):
+                matched_guide = guide
+                break
+
+    if not matched_guide and effective_stadium_id:
+        for guide in guides:
+            if guide.get("stadium_id") == effective_stadium_id:
+                matched_guide = guide
+                break
+
+    if matched_guide:
+        guide = matched_guide
+        team_matches = bool(
+            normalized_team
+            and (
+                guide.get("team") == normalized_team.get("team")
+                or guide.get("schedule_name") == normalized_team.get("schedule_name")
+            )
+        )
+        stadium_matches = bool(effective_stadium_id and guide.get("stadium_id") == effective_stadium_id)
+        matched = dict(guide)
+        matched["game_date"] = game_date
+        matched["opponent"] = opponent
+        matched["popularity_hint"] = popularity_hint
+        matched["lookup_mode"] = "static_direct"
+        matched["match_basis"] = "team" if team_matches else "stadium"
         return _tool_success(
             "found",
             {
-                "team": (normalized_team or {}).get("team") if normalized_team else team,
-                "stadium_id": stadium_id,
+                "guide": matched,
+                "team": matched.get("team"),
+                "stadium_id": matched.get("stadium_id"),
                 "game_date": game_date,
                 "opponent": opponent,
                 "popularity_hint": popularity_hint,
-                "documents": documents,
-                "lookup_mode": "rag",
-                "data_limitations": "예매 오픈 시각과 잔여석은 실시간 조회하지 않고 인덱싱된 안내 문서를 근거로 답합니다.",
+                "lookup_mode": "static_direct",
+                "match_basis": "team" if team_matches else "stadium",
+                "rag_recommended": True,
+                "rag_query_hint": " ".join(
+                    str(part)
+                    for part in ["예매 가이드", matched.get("team"), matched.get("stadium_id"), opponent, game_date]
+                    if part
+                ),
+                "data_limitations": matched.get("data_limitations")
+                or "예매 오픈 시각과 잔여석은 실시간 조회하지 않습니다.",
             },
         )
 
-    return _tool_error("not_found", "TICKETING_GUIDE_NOT_FOUND", "RAG 인덱스에서 예매 가이드를 찾지 못했습니다.")
+    return _tool_error("not_found", "TICKETING_GUIDE_NOT_FOUND", "해당 팀 또는 구장의 예매 가이드를 찾지 못했습니다.")
 
 
-# Tool: retrieve away-trip logistics guidance from the FAISS RAG index first.
+# Tool: retrieve structured away-trip logistics guidance from static JSON.
+# Current MVP uses temporary static/mock logistics rules from data/static/logistics_guides.json.
+# Real-time train, bus, subway, and traffic APIs are intentionally out of scope for now.
 def get_logistics_guide(
     origin: str | None = None,
     stadium_id: str | None = None,
@@ -1206,48 +1227,55 @@ def get_logistics_guide(
     if not stadium:
         return _tool_error("missing_required_input", "MISSING_STADIUM", "원정 동선을 계산하려면 구장 정보가 필요합니다.")
 
-    query = " ".join(
-        str(part)
-        for part in [
-            "원정 동선",
-            origin,
-            stadium.get("name"),
-            stadium.get("id"),
-            game_date,
-            game_time,
-            preferred_transport,
-            "당일 복귀" if return_same_day else None,
-        ]
-        if part
-    )
-    result = search_baseball_knowledge(
-        query=query,
-        purpose="logistics",
-        stadium_id=stadium.get("id"),
-        top_k=5,
-    )
-    if result["ok"]:
-        documents = [
-            document
-            for document in result["data"].get("documents", [])
-            if (document.get("metadata") or {}).get("source_type") == "logistics_guide"
-        ] or result["data"].get("documents", [])
-        return _tool_success(
-            "planned",
-            {
-                "origin": origin,
-                "stadium_id": stadium.get("id"),
-                "stadium_name": stadium.get("name"),
-                "game_date": _parse_date(game_date) or game_date,
-                "game_time": game_time,
-                "preferred_transport": preferred_transport,
-                "return_same_day_requested": return_same_day,
-                "documents": documents,
-                "lookup_mode": "rag",
-                "data_limitations": "실시간 열차, 버스, 지하철 막차 API를 조회하지 않고 인덱싱된 동선 rule을 근거로 답합니다.",
-            },
-        )
+    payload = _read_json(STATIC_DATA_DIR / "logistics_guides.json")
+    data = payload.get("data") or {}
+    guides = data.get("guides") or []
+    normalized_origin = origin.replace(" ", "").lower()
+    for guide in guides:
+        guide_origin = str(guide.get("origin") or "").replace(" ", "").lower()
+        if guide_origin == normalized_origin and guide.get("stadium_id") == stadium.get("id"):
+            matched = dict(guide)
+            matched["game_date"] = _parse_date(game_date) or game_date
+            matched["game_time"] = game_time
+            matched["preferred_transport"] = preferred_transport
+            matched["return_same_day_requested"] = return_same_day
+            matched["lookup_mode"] = "static_direct"
+            return _tool_success(
+                "planned",
+                {
+                    "origin": origin,
+                    "stadium_id": stadium.get("id"),
+                    "stadium_name": stadium.get("name"),
+                    "game_date": _parse_date(game_date) or game_date,
+                    "game_time": game_time,
+                    "preferred_transport": preferred_transport,
+                    "return_same_day_requested": return_same_day,
+                    "guide": matched,
+                    "recommended_routes": matched.get("recommended_routes") or [],
+                    "return_plan": matched.get("return_plan") or {},
+                    "fallback_plan": matched.get("fallback_plan") or [],
+                    "lookup_mode": "static_direct",
+                    "rag_recommended": True,
+                    "rag_query_hint": " ".join(
+                        str(part)
+                        for part in [
+                            "원정 동선",
+                            origin,
+                            stadium.get("name"),
+                            stadium.get("id"),
+                            game_date,
+                            game_time,
+                            preferred_transport,
+                            "당일 복귀" if return_same_day else None,
+                        ]
+                        if part
+                    ),
+                    "data_limitations": matched.get("data_limitations")
+                    or "실시간 열차, 버스, 지하철 막차 API를 조회하지 않습니다.",
+                },
+            )
 
+    generic_fallback = data.get("generic_fallback") or {}
     return _tool_success(
         "fallback_planned",
         {
@@ -1259,16 +1287,16 @@ def get_logistics_guide(
             "recommended_routes": [],
             "return_plan": {
                 "same_day_possible": "unknown",
-                "note": "RAG 동선 문서를 찾지 못해 일반 원정 준비 기준으로 안내합니다.",
+                "note": "정적 동선 rule에서 정확한 출발지-구장 조합을 찾지 못해 일반 원정 준비 기준으로 안내합니다.",
             },
-            "generic_fallback": {
-                "recommended_checks": [
-                    "경기 종료 예상 시각에서 최소 60분 이상 여유를 두고 막차 확인",
-                    "연장전과 우천 지연 가능성을 고려한 숙박 대안 확보",
-                    "KTX/SRT/고속버스 마지막 출발 시각과 취소표 가능성 확인",
-                ]
-            },
-            "lookup_mode": "fallback",
+            "generic_fallback": generic_fallback,
+            "lookup_mode": "static_fallback",
+            "rag_recommended": True,
+            "rag_query_hint": " ".join(
+                str(part)
+                for part in ["원정 동선", origin, stadium.get("name"), stadium.get("id"), game_date, game_time]
+                if part
+            ),
             "data_limitations": "실시간 교통 API를 조회하지 않습니다.",
         },
     )
