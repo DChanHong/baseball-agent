@@ -33,3 +33,6 @@ dist/
 # Runtime logs
 logs/
 *.log
+
+# Generated vector indexes
+data/index/
