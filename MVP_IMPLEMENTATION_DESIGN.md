@@ -926,7 +926,7 @@ Tool 실패 시:
 
 종료 조건:
 
-- `max_iterations=6`
+- `max_iterations=8`
 - `max_execution_time=30`초
 - `tool_failure_limit=2`
 - `same_tool_same_args_limit=2`

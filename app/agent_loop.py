@@ -19,7 +19,7 @@ from app.tools import get_langchain_tools
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 load_dotenv(os.path.join(PROJECT_ROOT, ".env"), override=True)
 
-MAX_ITERATIONS = 6
+MAX_ITERATIONS = 8
 MAX_EXECUTION_TIME = 30
 DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
 UNAVAILABLE_GEMINI_MODELS = {"gemini-2.0-flash", "models/gemini-2.0-flash"}
@@ -427,6 +427,27 @@ def _resolve_intents(tools_used: list[str], *, stop_reason: str) -> list[str]:
     return intents
 
 
+def _fallback_answer_from_observations(observations: list[dict[str, Any]]) -> str | None:
+    latest_score_summary = None
+    for observation in reversed(observations):
+        if observation.get("tool") == "score_seat_candidates":
+            result = observation.get("result") or {}
+            if result.get("ok"):
+                latest_score_summary = observation.get("result_summary") or {}
+                break
+
+    if latest_score_summary:
+        top_seat = latest_score_summary.get("top_seat") or "점수화 결과 1순위 좌석"
+        recommendation_count = latest_score_summary.get("recommendation_count") or 0
+        return (
+            f"좌석 후보 {recommendation_count}개를 점수화한 결과, 우선 추천 좌석은 {top_seat}입니다. "
+            "자세한 추천 근거는 이번 실행의 Tool observation에 기록되어 있습니다. "
+            "좌석/가격 정보는 크롤링 시점 기준이며 실시간 잔여석은 반영하지 않습니다."
+        )
+
+    return None
+
+
 def _create_agent_executor() -> AgentExecutor:
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
@@ -552,8 +573,11 @@ def run_agent(
     stop_reason = "final_answer"
     if len(intermediate_steps) >= MAX_ITERATIONS:
         stop_reason = "max_iterations_exceeded"
-    resolved_intents = _resolve_intents(tools_used, stop_reason=stop_reason)
     answer = _extract_text(result.get("output"))
+    if answer.startswith("Agent stopped due to max iterations"):
+        stop_reason = "max_iterations_exceeded"
+        answer = _fallback_answer_from_observations(observations) or answer
+    resolved_intents = _resolve_intents(tools_used, stop_reason=stop_reason)
 
     return {
         "answer": answer or "답변을 생성하지 못했습니다.",
