@@ -136,17 +136,17 @@ Trace 실행 결과:
 
 | 케이스 | 입력 | session id | trace id | 주요 Tool 흐름 | 결과 | latency |
 |--------|------|------------|----------|----------------|------|---------|
-| 정상 일정 조회 | `다음주 롯데 경기 알려줘` | `week8-normal-smoke` | `kbo_1db5f318590149d5bb11a933dfe86cdf` | `find_kbo_game` | 다음주 롯데 후보 경기 6개를 제시하고 추가 선택을 요청 | 5745ms |
-| 정상 좌석 추천 | `다음주 롯데 경기 알려줘` -> `토요일 경기 좌석 추천해줘` | `week8-seat-flow-trace` | `kbo_627726ce282c416bbebbbca7aa3dcc77` | `select_game_from_session_state` -> `get_stadium_info` -> `get_weather_context` -> `search_baseball_knowledge` -> `score_seat_candidates` | 2026-05-23 사직 롯데 경기 기준 좌석 3개 추천 | 23569ms |
-| 실패/예외 | `2026년 2월 1일 롯데 좌석 추천해줘` | `week8-failure-smoke` | `kbo_74f2d1be16b24cceae26f8891a570ecc` | `find_kbo_game` | `GAME_NOT_FOUND`를 확인하고 다른 날짜 입력을 요청 | 3806ms |
+| 정상 일정 조회 | `다음주 롯데 경기 알려줘` | `codex-week8-normal-check` | `kbo_8f16708cde1346a0a742824b2dfb715a` | `find_kbo_game` | 2026-05-26~2026-05-31 롯데 후보 경기 6개를 제시하고 추가 선택을 요청 | 5574ms |
+| 정상 좌석 추천 | `2026년 5월 23일 롯데 경기 좌석 추천해줘. 가성비 좋고 응원하기 좋은 자리로 알려줘` | `codex-week8-seat-recheck` | `kbo_2749677030f342458c2eecf42d95d30e` | `find_kbo_game` -> `get_stadium_info` -> `get_weather_context` -> `search_baseball_knowledge` -> `score_seat_candidates` | 2026-05-23 사직 롯데 경기 기준 1루내야상단석 우선 추천 | 27267ms |
+| 실패/예외 | `2026년 2월 1일 롯데 좌석 추천해줘` | `codex-week8-failure-check` | `kbo_86b9b90aa04b4dac85a1043eb4411bd0` | `find_kbo_game` | `GAME_NOT_FOUND`를 확인하고 다른 날짜 입력을 요청 | 3679ms |
 
 Trace 분석:
 
 - 예상 흐름: 일정 조회는 `find_kbo_game`만 호출하고, 좌석 추천은 경기 선택 후 구장 정보, 날씨, RAG 검색, 좌석 점수화 순서로 진행해야 합니다.
-- 실제 흐름: 좌석 추천 trace에서 session 후보 6개 중 토요일 경기를 먼저 선택한 뒤 `get_stadium_info`, `get_weather_context`, `search_baseball_knowledge`, `score_seat_candidates`가 순서대로 호출됐습니다.
-- 잘 동작한 부분: 후속 요청의 짧은 입력인 `토요일 경기 좌석 추천해줘`에서도 session state를 사용해 2026-05-23 사직 경기를 확정했습니다.
+- 실제 흐름: 좌석 추천 trace에서 `find_kbo_game`으로 2026-05-23 사직 경기를 확정한 뒤 `get_stadium_info`, `get_weather_context`, `search_baseball_knowledge`, `score_seat_candidates`가 순서대로 호출됐습니다.
+- 잘 동작한 부분: 단일턴 좌석 추천 요청에서도 경기 확정, 구장 조회, 날씨 조회, RAG 검색, 좌석 점수화를 모두 수행했습니다.
 - 실패 처리: 2026-02-01 롯데 경기 조회는 `find_kbo_game`이 `ok=false`, `status=not_found`, `error.code=GAME_NOT_FOUND`를 반환했고, Agent는 다른 날짜를 요청하는 답변으로 종료했습니다.
-- 개선할 부분: 일부 단일턴 좌석 추천에서는 `score_seat_candidates`까지 가지 못하고 최종 답변 생성에 실패할 수 있어, 좌석 추천 intent에서는 경기 확정 여부를 더 엄격히 확인하는 보강이 필요합니다.
+- 개선할 부분: 좌석 추천 trace의 전체 latency가 27267ms로 길어, prompt 축약이나 deterministic pre-routing으로 LLM reasoning 시간을 줄일 수 있습니다.
 
 민감정보 처리:
 
@@ -171,12 +171,12 @@ Trace 분석:
 ```text
 다음 주 롯데 자이언츠 경기는 다음과 같습니다.
 
-* 5월 12일 (화) 18:30 NC vs 롯데 (부산 사직야구장)
-* 5월 13일 (수) 18:30 NC vs 롯데 (부산 사직야구장)
-* 5월 14일 (목) 18:30 NC vs 롯데 (부산 사직야구장)
-* 5월 15일 (금) 18:30 롯데 vs 두산 (잠실야구장)
-* 5월 16일 (토) 17:00 롯데 vs 두산 (잠실야구장)
-* 5월 17일 (일) 14:00 롯데 vs 두산 (잠실야구장)
+* 5월 26일 (화) 18:30 LG vs 롯데 (부산 사직야구장)
+* 5월 27일 (수) 18:30 LG vs 롯데 (부산 사직야구장)
+* 5월 28일 (목) 18:30 LG vs 롯데 (부산 사직야구장)
+* 5월 29일 (금) 18:30 롯데 vs NC (창원 NC파크)
+* 5월 30일 (토) 17:00 롯데 vs NC (창원 NC파크)
+* 5월 31일 (일) 14:00 롯데 vs NC (창원 NC파크)
 
 어떤 경기에 대해 더 자세히 알려드릴까요?
 ```
@@ -186,22 +186,20 @@ Trace 분석:
 입력:
 
 ```text
-토요일 경기 좌석 추천해줘
+2026년 5월 23일 롯데 경기 좌석 추천해줘. 가성비 좋고 응원하기 좋은 자리로 알려줘
 ```
 
 출력:
 
 ```text
-2026년 5월 16일 토요일 17:00 롯데와 두산의 잠실야구장 경기 좌석을 추천해 드립니다.
+2026년 5월 23일 롯데와 삼성의 사직 야구장 경기 좌석을 추천해 드립니다.
 
-현재 날씨와 구장 정보를 함께 고려하여 좌석 후보를 추천합니다.
+가성비 좋고 롯데 응원하기 좋은 자리로는 1루내야상단석을 추천합니다.
+주말 경기 기준 청소년은 14,000원, 초등생은 12,000원입니다.
 
-추천 좌석:
-1. 레드석
-2. 테이블석
-3. 네이비석
+날씨는 5월 23일 오후 5시 기준 맑고 기온은 19.5도로 쾌적할 것으로 예상됩니다.
 
-좌석 추천은 FAISS에 인덱싱된 좌석 문서와 날씨 context를 바탕으로 score_seat_candidates Tool이 점수화한 결과를 사용했습니다.
+좌석 가격은 크롤링 시점 기준이며, 실시간 잔여석은 반영되지 않습니다.
 ```
 
 ## 실행 로그 분석 
@@ -215,7 +213,7 @@ Trace 분석:
 | LLM이 Tool 사용 여부와 순서를 판단 | 통과 | LangChain AgentExecutor가 사용자 요청에 따라 구장 정보, 날씨, RAG 검색, 좌석 점수화, 예매/동선 Tool을 선택적으로 호출합니다. |
 | Tool observation 기반 최종 답변 생성 | 통과 | `/chat` 응답 metadata의 `observations`에 Tool 결과가 기록되고, Agent는 해당 결과를 바탕으로 좌석 추천, 예매 안내, 동선 안내 답변을 생성합니다. |
 | Tool 실패 처리 | 통과 | 모든 Tool은 `ok`, `status`, `data`, `error` 구조를 반환하며, 필수 입력 누락이나 검색 실패 시 구조화된 실패 응답을 반환합니다. |
-| 종료 조건 | 통과 | AgentExecutor에 `MAX_ITERATIONS=6`, `MAX_EXECUTION_TIME=30`을 설정했습니다. |
+| 종료 조건 | 통과 | AgentExecutor에 `MAX_ITERATIONS=8`, `MAX_EXECUTION_TIME=30`을 설정했습니다. |
 
 ## 구현하며 배운 점
 
