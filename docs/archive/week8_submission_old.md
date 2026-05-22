@@ -238,6 +238,41 @@ Tool 결과 상세:
 | retrieved document count | 0 | 4 | 0 | 좌석 추천에서만 RAG 좌석 문서 검색 |
 | recommendation count | 0 | 3 | 0 | 좌석 추천에서만 점수화 결과 생성 |
 
+## 실제 관측 로그 샘플
+
+LangSmith trace 링크와 별도로, repository 안에서 바로 확인할 수 있는 실제 `/chat` 실행 결과 JSON을 남겼다.
+`logs/`는 runtime 로그라 `.gitignore`에 유지하고, 제출 검토용 샘플만 `docs/observability/examples/`에 저장했다.
+
+| 항목 | 파일 |
+|------|------|
+| 인덱싱 상태 | `docs/observability/examples/index_status.json` |
+| 정상 일정 조회 run | `docs/observability/examples/normal_schedule_run.json` |
+| 정상 일정 조회 Tool 호출 | `docs/observability/examples/normal_schedule_tool_calls.json` |
+| 정상 좌석 추천 run | `docs/observability/examples/normal_seat_recommendation_run.json` |
+| 정상 좌석 추천 Tool 호출 | `docs/observability/examples/normal_seat_recommendation_tool_calls.json` |
+| 실패 케이스 run | `docs/observability/examples/failure_game_not_found_run.json` |
+| 실패 케이스 Tool 호출 | `docs/observability/examples/failure_game_not_found_tool_calls.json` |
+| 실행 요약 | `docs/observability/examples/summary.md` |
+| 전체 흐름 다이어그램 | `docs/observability/examples/flow.mmd` |
+
+인덱싱 결과:
+
+```text
+FAISS index status: ready
+document count: 239
+stadium_seat: 213
+stadium_metadata: 9
+ticketing_guide: 10
+logistics_guide: 7
+embedding model: text-embedding-3-small
+```
+
+샘플 생성 명령:
+
+```bash
+.venv313/bin/python scripts/generate_observability_examples.py
+```
+
 ## 민감정보 처리
 
 - 저장하지 않은 정보: API key, `.env`, LangSmith API key, 결제 정보, 연락처, 주소는 제출 문서에 포함하지 않는다.

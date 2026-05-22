@@ -1,0 +1,33 @@
+{
+  "case": "Normal schedule lookup",
+  "input": {
+    "message": "다음주 롯데 경기 알려줘",
+    "session_id": "local-observability-normal-schedule"
+  },
+  "trace_id": "kbo_14a9f81fe6684825b3dfb9cdf9d0dae6",
+  "session_id": "local-observability-normal-schedule",
+  "tools_used": [
+    "find_kbo_game"
+  ],
+  "observations": [
+    {
+      "step": 1,
+      "tool": "find_kbo_game",
+      "arguments": {
+        "team_query": "롯데",
+        "date": "다음주"
+      },
+      "result": {
+        "ok": true,
+        "status": "ambiguous_game",
+        "error": null
+      },
+      "latency_ms": 17,
+      "result_summary": {
+        "ok": true,
+        "status": "ambiguous_game",
+        "candidate_count": 6
+      }
+    }
+  ]
+}

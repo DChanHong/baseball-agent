@@ -1,0 +1,304 @@
+{
+  "case": "Normal seat recommendation",
+  "input": {
+    "message": "2026년 5월 23일 롯데 경기 좌석 추천해줘. 가성비 좋고 응원하기 좋은 자리로 알려줘",
+    "session_id": "local-observability-normal-seat"
+  },
+  "response": {
+    "answer": "2026년 5월 23일 토요일 17:00에 부산 사직야구장에서 열리는 롯데 자이언츠와 삼성 라이온즈 경기 좌석을 추천해 드릴게요.\n\n가성비 좋고 롯데 응원에 좋은 좌석으로는 **1루내야상단석**을 추천합니다.\n\n*   **추천 이유**: 롯데 자이언츠 홈팀 응원석과 가까워 응원하기 좋고, 상단석이라 전체적인 경기 시야 확보에 유리하며 가성비가 좋은 좌석입니다.\n*   **예상 가격**: 주말 경기이므로 17,000원입니다. (청소년은 14,000원)\n*   **날씨**: 경기 당일 맑을 것으로 예상되며, 기온은 약 20.6도(체감 21.0도)로 쾌적하게 관람하실 수 있습니다. 사직야구장은 돔구장이 아니니 참고해주세요.\n\n**주의사항**: 좌석 가격은 크롤링 시점 기준이며 실시간 잔여석을 반영하지 않습니다. 예매 시점에 따라 가격이 변동될 수 있습니다.",
+    "metadata": {
+      "trace_id": "kbo_7e76285988b8438ba8a72a82c15fbf09",
+      "session_id": "local-observability-normal-seat",
+      "started_at": "2026-05-22T01:08:07.871163+00:00",
+      "ended_at": "2026-05-22T01:08:31.435595+00:00",
+      "intent": "seat_recommendation",
+      "primary_intent": "seat_recommendation",
+      "resolved_intents": [
+        "seat_recommendation"
+      ],
+      "agent_mode": "langchain_agent_executor",
+      "observability": {
+        "provider": "langsmith",
+        "enabled": true,
+        "project": "kbo-game-day-agent",
+        "prompt_version": "kbo-game-day-agent-v1"
+      },
+      "model": {
+        "chat": "gemini-2.5-flash",
+        "embedding": "text-embedding-3-small"
+      },
+      "tools_used": [
+        "find_kbo_game",
+        "get_stadium_info",
+        "get_weather_context",
+        "search_baseball_knowledge",
+        "score_seat_candidates"
+      ],
+      "observations": [
+        {
+          "step": 1,
+          "tool": "find_kbo_game",
+          "arguments": {
+            "team_query": "롯데",
+            "date": "2026-05-23"
+          },
+          "result": {
+            "ok": true,
+            "status": "found",
+            "error": null
+          },
+          "latency_ms": 19,
+          "result_summary": {
+            "ok": true,
+            "status": "found",
+            "candidate_count": 0,
+            "game_id": "2026-05-23-삼성-롯데-사직",
+            "date": "2026-05-23",
+            "stadium_id": "sajik"
+          }
+        },
+        {
+          "step": 2,
+          "tool": "get_stadium_info",
+          "arguments": {
+            "stadium_id": "sajik"
+          },
+          "result": {
+            "ok": true,
+            "status": "found",
+            "error": null
+          },
+          "latency_ms": 0,
+          "result_summary": {
+            "ok": true,
+            "status": "found",
+            "stadium_id": "sajik",
+            "is_dome": false,
+            "home_team_count": 1
+          }
+        },
+        {
+          "step": 3,
+          "tool": "get_weather_context",
+          "arguments": {
+            "stadium_id": "sajik",
+            "game_time": "17:00",
+            "is_dome": false,
+            "game_date": "2026-05-23",
+            "weather_grid": {
+              "ny": 76,
+              "nx": 98
+            }
+          },
+          "result": {
+            "ok": true,
+            "status": "weather_based",
+            "error": null
+          },
+          "latency_ms": 2123,
+          "result_summary": {
+            "ok": true,
+            "status": "weather_based",
+            "recommendation_mode": "weather_based",
+            "forecast_level": "short_term",
+            "risk_flags": [],
+            "weather_provider_failed": false
+          }
+        },
+        {
+          "step": 4,
+          "tool": "search_baseball_knowledge",
+          "arguments": {
+            "team": "롯데",
+            "stadium_id": "sajik",
+            "purpose": "seat_recommendation",
+            "query": "가성비 좋고 응원하기 좋은 롯데 자이언츠 좌석"
+          },
+          "result": {
+            "ok": true,
+            "status": "found",
+            "error": null
+          },
+          "latency_ms": 999,
+          "result_summary": {
+            "ok": true,
+            "status": "found",
+            "returned_count": 4,
+            "search_top_k": 12,
+            "source_types": [
+              "stadium_seat"
+            ]
+          }
+        },
+        {
+          "step": 5,
+          "tool": "score_seat_candidates",
+          "arguments": {
+            "weather_context": {
+              "game_date": "2026-05-23",
+              "risk_flags": [],
+              "days_until_game": 1,
+              "weather_summary": "2026-05-23T17:00 기준 맑음, 기온 20.6도(체감 21.0도), 강수확률 27%, 예상 강수량 0mm입니다.",
+              "recommendation_mode": "weather_based",
+              "forecast_reliability": "high",
+              "game_time": "17:00",
+              "weather_provider_error": null,
+              "weather_grid": {
+                "nx": 98,
+                "ny": 76
+              },
+              "forecast_level": "short_term",
+              "stadium_id": "sajik",
+              "forecast": {
+                "weather_condition": "맑음",
+                "source_url": "https://api.open-meteo.com/v1/forecast?latitude=35.194&longitude=129.0615&hourly=temperature_2m%2Capparent_temperature%2Cprecipitation_probability%2Cprecipitation%2Cweather_code&timezone=Asia%2FSeoul&start_date=2026-05-23&end_date=2026-05-23",
+                "apparent_temperature_c": 21,
+                "precipitation_mm": 0,
+                "forecast_time": "2026-05-23T17:00",
+                "precipitation_probability": 27,
+                "temperature_c": 20.6,
+                "provider": "open_meteo",
+                "weather_code": 0
+              }
+            },
+            "seat_documents": [
+              {
+                "content": "좌석 정보: 부산 사직야구장 롯데 자이언츠 1루내야상단석\n구장: 부산 사직야구장\n구장 ID: sajik\n팀: 롯데 자이언츠\n좌석명: 1루내야상단석\n분류: 일반석\n대상: 일반\n방향/구역: home\n가격: 주중 13000원, 주말 17000원\n태그: home_side, upper_deck\n추천 상황: budget, view\n주의사항: 스페셜요금\n출처: https://www.giantsclub.com/html/?pcode=339",
+                "metadata": {
+                  "source_url": "https://www.giantsclub.com/html/?pcode=339",
+                  "data_limitations": "좌석/가격 데이터는 크롤링 시점 기준이며 실시간 잔여석을 반영하지 않는다.",
+                  "source_type": "stadium_seat",
+                  "document_unit": "seat_zone",
+                  "audience": "일반",
+                  "source_file": "data/raw/stadium_seats/sajik_lotte_giants_seats.json",
+                  "team": "롯데 자이언츠",
+                  "stadium_id": "sajik",
+                  "category": "일반석",
+                  "seat_name": "1루내야상단석",
+                  "stadium_name": "부산 사직야구장",
+                  "document_index": 1
+                }
+              },
+              {
+                "content": "좌석 정보: 부산 사직야구장 롯데 자이언츠 3루내야상단석A\n구장: 부산 사직야구장\n구장 ID: sajik\n팀: 롯데 자이언츠\n좌석명: 3루내야상단석A\n분류: 일반석\n대상: 일반\n방향/구역: away\n가격: 주중 13000원, 주말 17000원\n태그: away_side, upper_deck\n추천 상황: budget, view\n주의사항: 스페셜요금\n출처: https://www.giantsclub.com/html/?pcode=339",
+                "metadata": {
+                  "source_type": "stadium_seat",
+                  "source_url": "https://www.giantsclub.com/html/?pcode=339",
+                  "data_limitations": "좌석/가격 데이터는 크롤링 시점 기준이며 실시간 잔여석을 반영하지 않는다.",
+                  "document_unit": "seat_zone",
+                  "source_file": "data/raw/stadium_seats/sajik_lotte_giants_seats.json",
+                  "audience": "일반",
+                  "stadium_name": "부산 사직야구장",
+                  "document_index": 4,
+                  "team": "롯데 자이언츠",
+                  "stadium_id": "sajik",
+                  "category": "일반석",
+                  "seat_name": "3루내야상단석A"
+                }
+              },
+              {
+                "content": "좌석 정보: 부산 사직야구장 롯데 자이언츠 3루내야상단석B\n구장: 부산 사직야구장\n구장 ID: sajik\n팀: 롯데 자이언츠\n좌석명: 3루내야상단석B\n분류: 일반석\n대상: 일반\n방향/구역: away\n가격: 주중 13000원, 주말 17000원\n태그: away_side, upper_deck\n추천 상황: budget, view\n주의사항: 스페셜요금\n출처: https://www.giantsclub.com/html/?pcode=339",
+                "metadata": {
+                  "document_unit": "seat_zone",
+                  "source_type": "stadium_seat",
+                  "source_url": "https://www.giantsclub.com/html/?pcode=339",
+                  "data_limitations": "좌석/가격 데이터는 크롤링 시점 기준이며 실시간 잔여석을 반영하지 않는다.",
+                  "stadium_name": "부산 사직야구장",
+                  "document_index": 7,
+                  "team": "롯데 자이언츠",
+                  "stadium_id": "sajik",
+                  "category": "일반석",
+                  "seat_name": "3루내야상단석B",
+                  "source_file": "data/raw/stadium_seats/sajik_lotte_giants_seats.json",
+                  "audience": "일반"
+                }
+              },
+              {
+                "content": "좌석 정보: 부산 사직야구장 롯데 자이언츠 1루내야상단석\n구장: 부산 사직야구장\n구장 ID: sajik\n팀: 롯데 자이언츠\n좌석명: 1루내야상단석\n분류: 일반석\n대상: 청소년\n방향/구역: home\n가격: 주중 10000원, 주말 14000원\n태그: home_side, upper_deck\n추천 상황: budget, view\n주의사항: 스페셜요금\n출처: https://www.giantsclub.com/html/?pcode=339",
+                "metadata": {
+                  "source_url": "https://www.giantsclub.com/html/?pcode=339",
+                  "data_limitations": "좌석/가격 데이터는 크롤링 시점 기준이며 실시간 잔여석을 반영하지 않는다.",
+                  "source_type": "stadium_seat",
+                  "document_unit": "seat_zone",
+                  "audience": "청소년",
+                  "source_file": "data/raw/stadium_seats/sajik_lotte_giants_seats.json",
+                  "team": "롯데 자이언츠",
+                  "stadium_id": "sajik",
+                  "category": "일반석",
+                  "seat_name": "1루내야상단석",
+                  "document_index": 2,
+                  "stadium_name": "부산 사직야구장"
+                }
+              }
+            ],
+            "preferences": "가성비 좋고 응원하기 좋은",
+            "cheering_team": "롯데",
+            "game": {
+              "stadium_id": "sajik",
+              "stadium_name": "부산 사직야구장",
+              "game_id": "2026-05-23-삼성-롯데-사직",
+              "away_team": "삼성",
+              "home_team_full": "롯데 자이언츠",
+              "home_team": "롯데",
+              "stadium_short_name": "사직",
+              "date": "2026-05-23",
+              "time": "17:00",
+              "source_url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList",
+              "weekday": "토",
+              "away_team_full": "삼성 라이온즈"
+            }
+          },
+          "result": {
+            "ok": true,
+            "status": "scored",
+            "error": null
+          },
+          "latency_ms": 0,
+          "result_summary": {
+            "ok": true,
+            "status": "scored",
+            "recommendation_count": 3,
+            "top_seat": "1루내야상단석",
+            "limitations": []
+          }
+        }
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 5,
+      "elapsed_ms": 23564,
+      "fallback_used": false,
+      "session_updates": {
+        "selected_game": {
+          "game_id": "2026-05-23-삼성-롯데-사직",
+          "date": "2026-05-23",
+          "weekday": "토",
+          "time": "17:00",
+          "home_team": "롯데",
+          "away_team": "삼성",
+          "home_team_full": "롯데 자이언츠",
+          "away_team_full": "삼성 라이온즈",
+          "stadium_id": "sajik",
+          "stadium_name": "부산 사직야구장",
+          "stadium_short_name": "사직",
+          "source_url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+        },
+        "candidate_games": [
+          {
+            "game_id": "2026-05-23-삼성-롯데-사직",
+            "date": "2026-05-23",
+            "weekday": "토",
+            "time": "17:00",
+            "home_team": "롯데",
+            "away_team": "삼성",
+            "home_team_full": "롯데 자이언츠",
+            "away_team_full": "삼성 라이온즈",
+            "stadium_id": "sajik",
+            "stadium_name": "부산 사직야구장",
+            "stadium_short_name": "사직",
+            "source_url": "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList"
+          }
+        ]
+      }
+    }
+  }
+}

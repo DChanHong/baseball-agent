@@ -14,7 +14,7 @@
 
 ## 2. MVP 범위
 
-`ADD_POLICY.md` 기준으로 MVP는 6주차 설계의 Must-have 중 아래 3개를 우선 구현한다.
+MVP는 6주차 설계의 Must-have 중 아래 3개를 우선 구현한다.
 
 | 기능 | 구현 방식 | 데이터 |
 | --- | --- | --- |
@@ -31,7 +31,7 @@ MVP에서 제외하거나 2차로 미루는 항목:
 
 ### 2.1 6주차 설계와의 연결
 
-6주차 `6weekOriginDesign.md`의 문제 정의와 사용자 시나리오는 유지한다.
+6주차 `docs/design/6week_origin_design.md`의 문제 정의와 사용자 시나리오는 유지한다.
 
 유지하는 설계:
 
@@ -109,7 +109,7 @@ NextJS는 UI 요구가 커지거나 별도 프론트엔드 배포가 필요해�
 ```text
 my-baseball-agent/
   README.md
-  MVP_IMPLEMENTATION_DESIGN.md
+  docs/design/mvp_implementation_design.md
   requirements.txt
   app/
     __init__.py
@@ -532,7 +532,7 @@ Agent 후속 행동:
 역할:
 
 - 경기 날짜와 구장 정보를 바탕으로 날씨 추천 모드를 결정한다.
-- `ADD_POLICY.md`의 날씨 예보 범위 정책을 따른다.
+- MVP 날씨 예보 범위 정책을 따른다.
 
 정책:
 

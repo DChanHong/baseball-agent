@@ -4,7 +4,7 @@
 
 기준 자료:
 
-- `MVP_IMPLEMENTATION_DESIGN.md`
+- `docs/design/mvp_implementation_design.md`
 - `app/tools.py`
 - `app/agent_loop.py`
 - `app/main.py`
@@ -89,4 +89,3 @@ find_kbo_game
 - 실패 시 같은 Tool과 같은 arguments를 반복 호출하지 않는가.
 - 최종 답변이 Tool result 또는 RAG documents를 벗어나지 않는가.
 - 실시간 잔여석, 실시간 교통, 정확한 예매 오픈 시각처럼 MVP 범위 밖 정보를 확정적으로 말하지 않는가.
-

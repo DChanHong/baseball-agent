@@ -62,10 +62,10 @@ Trace 정보:
 
 | 항목 | 값 |
 |------|----|
-| session id | `codex-week8-normal-check` |
-| trace id | `kbo_8f16708cde1346a0a742824b2dfb715a` |
+| session id | `local-observability-normal-schedule` |
+| trace id | `kbo_14a9f81fe6684825b3dfb9cdf9d0dae6` |
 | tool 호출 순서 | `find_kbo_game` |
-| 전체 latency | 5574ms |
+| 전체 latency | 4624ms |
 | stop reason | `final_answer` |
 
 최종 답변 요약:
@@ -102,11 +102,11 @@ Trace 정보:
 
 | 항목 | 값 |
 |------|----|
-| session id | `codex-week8-seat-recheck` |
-| trace id | `kbo_2749677030f342458c2eecf42d95d30e` |
+| session id | `local-observability-normal-seat` |
+| trace id | `kbo_7e76285988b8438ba8a72a82c15fbf09` |
 | tool 호출 순서 | `find_kbo_game` -> `get_stadium_info` -> `get_weather_context` -> `search_baseball_knowledge` -> `score_seat_candidates` |
-| tool latency | 74ms -> 1ms -> 1125ms -> 2350ms -> 3ms |
-| 전체 latency | 27267ms |
+| tool latency | 19ms -> 0ms -> 2123ms -> 999ms -> 0ms |
+| 전체 latency | 23564ms |
 | stop reason | `final_answer` |
 
 최종 답변 요약:
@@ -121,7 +121,7 @@ Trace 정보:
 
 - 단일턴 입력에서 경기 확정, 구장 조회, 날씨 조회, RAG 검색, 좌석 점수화가 모두 실행됐다.
 - 좌석 추천 답변은 `score_seat_candidates` observation 이후에 생성됐다.
-- tool latency 기준 병목은 `search_baseball_knowledge` 2350ms였고, 전체 latency에는 LLM reasoning 시간이 크게 포함됐다.
+- tool latency 기준 병목은 `get_weather_context` 2123ms였고, 전체 latency에는 LLM reasoning 시간이 크게 포함됐다.
 
 ## 실패 또는 예외 케이스 Trace
 
@@ -141,10 +141,10 @@ Trace 정보:
 
 | 항목 | 값 |
 |------|----|
-| session id | `codex-week8-failure-check` |
-| trace id | `kbo_86b9b90aa04b4dac85a1043eb4411bd0` |
+| session id | `local-observability-failure-game-not-found` |
+| trace id | `kbo_a14f471470094ad79b513a81a23bf337` |
 | tool 호출 순서 | `find_kbo_game` |
-| 전체 latency | 3679ms |
+| 전체 latency | 3729ms |
 | stop reason | `final_answer` |
 
 실패 처리:
@@ -158,16 +158,50 @@ Trace 정보:
 - 예상한 흐름: 일정 조회는 `find_kbo_game`만 호출하고, 좌석 추천은 경기 확정 후 구장 정보, 날씨, RAG 검색, 좌석 점수화 순서로 진행해야 한다.
 - 실제 흐름: 일정 조회, 좌석 추천, 실패 케이스 모두 예상 흐름과 일치했다.
 - 잘 동작한 부분: 단일턴 좌석 추천에서도 `find_kbo_game`으로 경기를 확정한 뒤 필요한 Tool을 순서대로 호출했다. 실패 케이스에서는 불필요한 후속 Tool 호출 없이 fallback 답변으로 종료했다.
-- 개선할 부분: 좌석 추천 trace의 전체 latency 27267ms 중 tool latency 합계보다 LLM reasoning 시간이 더 크므로, prompt 축약이나 deterministic pre-routing으로 지연을 줄일 수 있다.
+- 개선할 부분: 좌석 추천 trace의 전체 latency 23564ms 중 tool latency 합계보다 LLM reasoning 시간이 더 크므로, prompt 축약이나 deterministic pre-routing으로 지연을 줄일 수 있다.
 
 ## Metrics
 
 | 항목 | 정상 일정 조회 | 정상 좌석 추천 | 실패 케이스 |
 |------|----------------|----------------|-------------|
-| total latency | 5574ms | 27267ms | 3679ms |
+| total latency | 4624ms | 23564ms | 3729ms |
 | step count | 1 | 5 | 1 |
 | tool error count | 0 | 0 | 1 structured not_found |
 | stop reason | `final_answer` | `final_answer` | `final_answer` |
+
+## 실제 관측 로그 샘플
+
+LangSmith trace와 별도로, 리뷰어가 repository 안에서 바로 확인할 수 있도록 실제 `/chat` 실행 결과를 JSON 샘플로 저장했다.
+
+| 항목 | 파일 |
+|------|------|
+| 인덱싱 상태 | `docs/observability/examples/index_status.json` |
+| 정상 일정 조회 run | `docs/observability/examples/normal_schedule_run.json` |
+| 정상 일정 조회 Tool 호출 | `docs/observability/examples/normal_schedule_tool_calls.json` |
+| 정상 좌석 추천 run | `docs/observability/examples/normal_seat_recommendation_run.json` |
+| 정상 좌석 추천 Tool 호출 | `docs/observability/examples/normal_seat_recommendation_tool_calls.json` |
+| 실패 케이스 run | `docs/observability/examples/failure_game_not_found_run.json` |
+| 실패 케이스 Tool 호출 | `docs/observability/examples/failure_game_not_found_tool_calls.json` |
+| 실행 요약 | `docs/observability/examples/summary.md` |
+| 전체 흐름 다이어그램 | `docs/observability/examples/flow.mmd` |
+
+인덱싱 결과:
+
+```text
+FAISS index status: ready
+document count: 239
+stadium_seat: 213
+stadium_metadata: 9
+ticketing_guide: 10
+logistics_guide: 7
+embedding model: text-embedding-3-small
+```
+
+로컬 샘플 생성 명령:
+
+```bash
+.venv313/bin/python scripts/generate_observability_examples.py
+```
 
 ## 민감정보 처리
 

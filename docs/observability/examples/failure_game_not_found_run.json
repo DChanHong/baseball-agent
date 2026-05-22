@@ -1,0 +1,65 @@
+{
+  "case": "Failure game not found",
+  "input": {
+    "message": "2026년 2월 1일 롯데 좌석 추천해줘",
+    "session_id": "local-observability-failure-game-not-found"
+  },
+  "response": {
+    "answer": "2026년 2월 1일에는 KBO 롯데 경기가 없는 것으로 확인됩니다. KBO 리그는 보통 3월에서 11월 사이에 진행됩니다. 다른 날짜의 경기 좌석을 찾아드릴까요?",
+    "metadata": {
+      "trace_id": "kbo_a14f471470094ad79b513a81a23bf337",
+      "session_id": "local-observability-failure-game-not-found",
+      "started_at": "2026-05-22T01:08:31.438713+00:00",
+      "ended_at": "2026-05-22T01:08:35.168257+00:00",
+      "intent": "schedule_lookup",
+      "primary_intent": "schedule_lookup",
+      "resolved_intents": [
+        "schedule_lookup"
+      ],
+      "agent_mode": "langchain_agent_executor",
+      "observability": {
+        "provider": "langsmith",
+        "enabled": true,
+        "project": "kbo-game-day-agent",
+        "prompt_version": "kbo-game-day-agent-v1"
+      },
+      "model": {
+        "chat": "gemini-2.5-flash",
+        "embedding": "text-embedding-3-small"
+      },
+      "tools_used": [
+        "find_kbo_game"
+      ],
+      "observations": [
+        {
+          "step": 1,
+          "tool": "find_kbo_game",
+          "arguments": {
+            "date": "2026년 2월 1일",
+            "team_query": "롯데"
+          },
+          "result": {
+            "ok": false,
+            "status": "not_found",
+            "error": {
+              "code": "GAME_NOT_FOUND",
+              "message": "조건에 맞는 KBO 경기를 찾지 못했습니다."
+            }
+          },
+          "latency_ms": 12,
+          "result_summary": {
+            "ok": false,
+            "status": "not_found",
+            "error_code": "GAME_NOT_FOUND",
+            "candidate_count": 0
+          }
+        }
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 1,
+      "elapsed_ms": 3729,
+      "fallback_used": false,
+      "session_updates": {}
+    }
+  }
+}
