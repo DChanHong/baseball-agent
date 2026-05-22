@@ -1,9 +1,9 @@
-# 7주차 AI Agent 구현 프로젝트
+# AI Agent 구현 프로젝트
 
 ## 프로젝트 링크
 
 - Repository: https://github.com/DChanHong/baseball-agent
-- 6주차 설계 문서: https://github.com/DChanHong/baseball-agent/blob/main/docs/design/6week_origin_design.md
+- 설계 문서: https://github.com/DChanHong/baseball-agent/blob/main/docs/design/6week_origin_design.md
 
 ### 문서 구성
 
@@ -24,7 +24,7 @@
 - 해결하려는 문제: KBO 직관 초심자와 원정 팬이 경기 일정, 구장, 날씨, 좌석, 예매, 이동 동선을 따로 찾아야 하는 번거로움을 줄이고 상황에 맞는 직관 계획을 제공합니다.
 - 타깃 사용자: KBO 직관이 처음이거나 익숙하지 않은 구장으로 원정 관람을 계획하는 야구 팬
 
-## 6주차 설계와의 연결
+## 기존 설계와의 연결 ( 현재는 MVP용 )
 
 - 유지한 설계: 자연어 요청을 Agent가 해석하고, 경기 일정 조회 -> 구장/날씨 확인 -> 좌석 추천 또는 예매/동선 안내 Tool을 선택적으로 호출하는 구조를 유지했습니다. 사용자 입력이 부족하면 후보 경기 목록을 제시하고 후속 질문에서 세션 상태를 이어받는 흐름도 유지했습니다.
 - 변경한 설계: 관전 포인트, 선수 정보, 맛집 추천, 실시간 교통/예매 잔여석 조회는 현재 MVP에서 미구현 상태입니다. 예매와 원정 동선은 실시간 API 대신 FAISS RAG에 인덱싱한 정적 가이드 문서를 기반으로 안내합니다.
