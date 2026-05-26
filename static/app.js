@@ -39,6 +39,7 @@ function compactMetadata(metadata) {
     primary_intent: metadata.primary_intent,
     resolved_intents: metadata.resolved_intents || [],
     agent_mode: metadata.agent_mode,
+    trace_summary: metadata.trace_summary,
     usage: metadata.usage,
     tools_used: metadata.tools_used || [],
     observations: (metadata.observations || []).map((observation) => ({

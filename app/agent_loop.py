@@ -216,6 +216,17 @@ def _metadata(
     session_updates: dict[str, Any] | None = None,
     usage: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    current_observations = observations or []
+    current_tools_used = tools_used or []
+    current_usage = usage or _empty_usage_metadata()
+    elapsed_ms = int((time.perf_counter() - start_time) * 1000)
+    trace_summary = _build_trace_summary(
+        observations=current_observations,
+        usage=current_usage,
+        elapsed_ms=elapsed_ms,
+        stop_reason=stop_reason,
+        fallback_used=fallback_used,
+    )
     return {
         "trace_id": trace_id,
         "session_id": session_id,
@@ -235,12 +246,13 @@ def _metadata(
             "chat": _get_gemini_model(),
             "embedding": os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"),
         },
-        "usage": usage or _empty_usage_metadata(),
-        "tools_used": tools_used or [],
-        "observations": observations or [],
+        "usage": current_usage,
+        "trace_summary": trace_summary,
+        "tools_used": current_tools_used,
+        "observations": current_observations,
         "stop_reason": stop_reason,
-        "iterations": len(observations or []),
-        "elapsed_ms": int((time.perf_counter() - start_time) * 1000),
+        "iterations": len(current_observations),
+        "elapsed_ms": elapsed_ms,
         "fallback_used": fallback_used,
         "session_updates": session_updates or {},
     }
@@ -257,6 +269,46 @@ def _empty_usage_metadata() -> dict[str, Any]:
         "estimated_cost": 0.0,
         "currency": "USD",
         "pricing_source": DEFAULT_PRICING_SOURCE,
+    }
+
+
+def _build_trace_summary(
+    *,
+    observations: list[dict[str, Any]],
+    usage: dict[str, Any],
+    elapsed_ms: int,
+    stop_reason: str,
+    fallback_used: bool,
+) -> dict[str, Any]:
+    failed_tools = []
+    for observation in observations:
+        result = observation.get("result") or {}
+        if result.get("ok") is False or result.get("error"):
+            failed_tools.append(
+                {
+                    "step": observation.get("step"),
+                    "tool": observation.get("tool"),
+                    "status": result.get("status"),
+                    "error_code": ((result.get("error") or {}) if isinstance(result.get("error"), dict) else {}).get(
+                        "code"
+                    ),
+                }
+            )
+
+    return {
+        "total_latency_ms": elapsed_ms,
+        "tool_call_count": len(observations),
+        "tool_error_count": len(failed_tools),
+        "tools_sequence": [observation.get("tool", "unknown") for observation in observations],
+        "failed_tools": failed_tools,
+        "llm_call_count": usage.get("llm_call_count", 0),
+        "input_tokens": usage.get("input_tokens", 0),
+        "output_tokens": usage.get("output_tokens", 0),
+        "total_tokens": usage.get("total_tokens", 0),
+        "estimated_cost": usage.get("estimated_cost", 0.0),
+        "currency": usage.get("currency", "USD"),
+        "stop_reason": stop_reason,
+        "fallback_used": fallback_used,
     }
 
 
