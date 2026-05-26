@@ -88,7 +88,9 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 - prompt version: `kbo-game-day-agent-v1`
 - LangSmith run name: `kbo_game_day_agent`
 - LangSmith tags: `kbo-agent`, `week8-observability`, `prompt:kbo-game-day-agent-v1`
-- Tool span: LangChain Tool 실행은 LangSmith 하위 run으로 남기고, `/chat` 응답 metadata에도 tool별 `arguments`, `result`, `result_summary`, `latency_ms`를 함께 남깁니다.
+- Tool span: LangChain Tool 실행은 LangSmith 하위 run으로 남기고, `/chat` 응답 metadata에도 tool별 `arguments`, `result`, `result_summary`, `latency_ms`, `observation_excerpt`를 함께 남깁니다.
+- Usage summary: `/chat` 응답 metadata의 `usage`에 LLM input/output token 수와 요청별 estimated cost를 남깁니다.
+- Trace summary: `/chat` 응답 metadata의 `trace_summary`에 전체 latency, Tool 호출 수, 실패 Tool, token/cost 요약을 모아 둡니다.
 
 LangSmith 활성화 예시:
 
@@ -106,9 +108,11 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 | Request | 원문 사용자 요청, 전처리된 Agent 입력, session id, trace id |
 | Prompt | prompt version, LangChain prompt 실행 흐름 |
 | Model | Gemini chat model, OpenAI embedding model |
-| Tool | LangChain tool call, tool arguments, tool output/error |
+| Usage | LLM call count, input/output/total tokens, estimated cost |
+| Tool | LangChain tool call, tool arguments, tool output/error, sanitized observation excerpt |
 | Agent Step | AgentExecutor intermediate step, `/chat` 응답 metadata의 observation, step별 latency |
 | Output | 최종 답변, stop reason |
+| Summary | `trace_summary`의 Tool 순서, 실패 Tool, token/cost, fallback 여부 |
 | Latency | LangSmith run/span latency, `/chat` 응답의 전체 elapsed_ms |
 
 Tool별 관찰 기준:

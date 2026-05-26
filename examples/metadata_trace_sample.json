@@ -1,0 +1,89 @@
+{
+  "trace_id": "kbo_example_trace",
+  "session_id": "example-session",
+  "intent": "seat_recommendation",
+  "primary_intent": "seat_recommendation",
+  "resolved_intents": ["seat_recommendation"],
+  "agent_mode": "langchain_agent_executor",
+  "model": {
+    "chat": "gemini-2.5-flash",
+    "embedding": "text-embedding-3-small"
+  },
+  "usage": {
+    "available": true,
+    "chat_model": "gemini-2.5-flash",
+    "llm_call_count": 3,
+    "input_tokens": 3200,
+    "output_tokens": 780,
+    "total_tokens": 3980,
+    "estimated_cost": 0.00291,
+    "currency": "USD",
+    "pricing_source": "google_gemini_api_pricing_config"
+  },
+  "trace_summary": {
+    "total_latency_ms": 1840,
+    "tool_call_count": 2,
+    "tool_error_count": 0,
+    "tools_sequence": ["find_kbo_game", "search_baseball_knowledge"],
+    "failed_tools": [],
+    "llm_call_count": 3,
+    "input_tokens": 3200,
+    "output_tokens": 780,
+    "total_tokens": 3980,
+    "estimated_cost": 0.00291,
+    "currency": "USD",
+    "stop_reason": "final_answer",
+    "fallback_used": false
+  },
+  "tools_used": ["find_kbo_game", "search_baseball_knowledge"],
+  "observations": [
+    {
+      "step": 1,
+      "tool": "find_kbo_game",
+      "arguments": {
+        "date": "2026-05-16",
+        "team_query": "롯데"
+      },
+      "result": {
+        "ok": true,
+        "status": "found",
+        "error": null
+      },
+      "latency_ms": 74,
+      "result_summary": {
+        "ok": true,
+        "status": "found",
+        "game_id": "20260516-lt-lg",
+        "date": "2026-05-16",
+        "stadium_id": "jamsil"
+      },
+      "observation_excerpt": "{\"ok\":true,\"status\":\"found\",\"data\":{\"date\":\"2026-05-16\",\"home_team\":\"LG\",\"away_team\":\"롯데\",\"stadium_id\":\"jamsil\"}}"
+    },
+    {
+      "step": 2,
+      "tool": "search_baseball_knowledge",
+      "arguments": {
+        "query": "잠실야구장 롯데 원정 응원 좌석",
+        "purpose": "seat_recommendation"
+      },
+      "result": {
+        "ok": true,
+        "status": "found",
+        "error": null
+      },
+      "latency_ms": 2350,
+      "result_summary": {
+        "ok": true,
+        "status": "found",
+        "returned_count": 4,
+        "search_top_k": 4,
+        "source_types": ["seat_guide"]
+      },
+      "observation_excerpt": "{\"ok\":true,\"status\":\"found\",\"data\":{\"returned_count\":4,\"documents\":[{\"title\":\"잠실 원정 응원 좌석 가이드\"}]}}"
+    }
+  ],
+  "stop_reason": "final_answer",
+  "iterations": 2,
+  "elapsed_ms": 1840,
+  "fallback_used": false
+}

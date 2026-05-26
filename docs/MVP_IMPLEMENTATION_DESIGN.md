@@ -968,6 +968,31 @@ Tool 실패 횟수 기준:
     "chat": "gemini",
     "embedding": "openai"
   },
+  "usage": {
+    "available": true,
+    "chat_model": "gemini-2.5-flash",
+    "llm_call_count": 3,
+    "input_tokens": 3200,
+    "output_tokens": 780,
+    "total_tokens": 3980,
+    "estimated_cost": 0.00291,
+    "currency": "USD"
+  },
+  "trace_summary": {
+    "total_latency_ms": 1840,
+    "tool_call_count": 2,
+    "tool_error_count": 0,
+    "tools_sequence": ["find_kbo_game", "search_baseball_knowledge"],
+    "failed_tools": [],
+    "llm_call_count": 3,
+    "input_tokens": 3200,
+    "output_tokens": 780,
+    "total_tokens": 3980,
+    "estimated_cost": 0.00291,
+    "currency": "USD",
+    "stop_reason": "final_answer",
+    "fallback_used": false
+  },
   "tools_used": ["find_kbo_game", "search_baseball_knowledge"],
   "observations": [
     {
@@ -980,7 +1005,14 @@ Tool 실패 횟수 기준:
       "result": {
         "ok": true,
         "status": "found"
-      }
+      },
+      "latency_ms": 74,
+      "result_summary": {
+        "ok": true,
+        "status": "found",
+        "game_id": "20260516-lt-lg"
+      },
+      "observation_excerpt": "{\"ok\":true,\"status\":\"found\",\"data\":{\"date\":\"2026-05-16\",\"stadium_id\":\"jamsil\"}}"
     }
   ],
   "stop_reason": "final_answer",
@@ -994,6 +1026,8 @@ metadata 필수 필드:
 
 - `intent`
 - `agent_mode`
+- `usage`
+- `trace_summary`
 - `tools_used`
 - `observations`
 - `stop_reason`
@@ -1009,6 +1043,9 @@ Observation 필수 필드:
 - `result.ok`
 - `result.status`
 - `result.error.code`
+- `result_summary`
+- `latency_ms`
+- `observation_excerpt`
 
 파일 로그:
 

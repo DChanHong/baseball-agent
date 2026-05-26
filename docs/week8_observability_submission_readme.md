@@ -22,9 +22,11 @@
 | Request | 사용자 입력, session id, trace id, 시작/종료 시각 |
 | Prompt | prompt version, LangChain prompt 실행 흐름 |
 | Model | Gemini chat model, OpenAI embedding model |
-| Tool | tool name, arguments, result, error, result_summary |
+| Usage | LLM call count, input/output/total tokens, estimated cost |
+| Tool | tool name, arguments, result, error, result_summary, sanitized observation_excerpt |
 | Agent Step | step number, observation, step latency |
 | Output | final answer, stop reason |
+| Summary | trace_summary의 Tool 호출 수, 실패 Tool, Tool 순서, token/cost |
 | Latency | 전체 elapsed_ms, tool별 latency_ms |
 
 ## Agent 실행 흐름
