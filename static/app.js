@@ -45,6 +45,7 @@ function compactMetadata(metadata) {
       tool: observation.tool,
       arguments: compactValue(observation.arguments, 420),
       result: observation.result,
+      observation_excerpt: compactValue(observation.observation_excerpt, 900),
     })),
     stop_reason: metadata.stop_reason,
     iterations: metadata.iterations,

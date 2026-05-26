@@ -24,6 +24,7 @@ MAX_EXECUTION_TIME = 30
 DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
 UNAVAILABLE_GEMINI_MODELS = {"gemini-2.0-flash", "models/gemini-2.0-flash"}
 PROMPT_VERSION = "kbo-game-day-agent-v1"
+MAX_OBSERVATION_EXCERPT_CHARS = 1500
 
 
 class ToolTraceCallback(BaseCallbackHandler):
@@ -69,6 +70,7 @@ class ToolTraceCallback(BaseCallbackHandler):
         event["latency_ms"] = int((time.perf_counter() - started_at) * 1000) if started_at else None
         event["result"] = _parse_observation_result(output)
         event["result_summary"] = _summarize_tool_output(event.get("tool", "unknown"), output)
+        event["observation_excerpt"] = _build_observation_excerpt(output)
         self.events.append(event)
 
     def on_tool_error(
@@ -89,6 +91,7 @@ class ToolTraceCallback(BaseCallbackHandler):
             "error": {"code": type(error).__name__, "message": str(error)},
         }
         event["result_summary"] = {"error_type": type(error).__name__}
+        event["observation_excerpt"] = _build_observation_excerpt(event["result"])
         self.events.append(event)
 
 
@@ -247,6 +250,56 @@ def _mask_tool_arguments(value: Any) -> Any:
     return masked
 
 
+def _sanitize_observation_value(value: Any) -> Any:
+    if isinstance(value, str):
+        return value
+
+    if isinstance(value, list):
+        return [_sanitize_observation_value(item) for item in value[:10]]
+
+    if not isinstance(value, dict):
+        return value
+
+    sanitized: dict[str, Any] = {}
+    sensitive_keys = {
+        "api_key",
+        "apikey",
+        "authorization",
+        "cookie",
+        "email",
+        "password",
+        "payment_info",
+        "phone",
+        "secret",
+        "token",
+    }
+    for key, item in value.items():
+        normalized_key = str(key).lower().replace("-", "_")
+        if normalized_key in sensitive_keys or normalized_key.endswith("_token") or normalized_key.endswith("_key"):
+            sanitized[key] = "[excluded]"
+        elif normalized_key == "origin" and isinstance(item, str) and len(item) > 12:
+            sanitized[key] = item[:2] + "***"
+        else:
+            sanitized[key] = _sanitize_observation_value(item)
+    return sanitized
+
+
+def _build_observation_excerpt(observation: Any) -> str:
+    payload = _observation_as_dict(observation)
+    excerpt_value = _sanitize_observation_value(payload if payload else observation)
+    if isinstance(excerpt_value, str):
+        excerpt = excerpt_value
+    else:
+        try:
+            excerpt = json.dumps(excerpt_value, ensure_ascii=False, sort_keys=True)
+        except TypeError:
+            excerpt = str(excerpt_value)
+
+    if len(excerpt) > MAX_OBSERVATION_EXCERPT_CHARS:
+        return excerpt[:MAX_OBSERVATION_EXCERPT_CHARS] + "...[truncated]"
+    return excerpt
+
+
 def _summarize_tool_output(tool_name: str, output: Any) -> dict[str, Any]:
     payload = _observation_as_dict(output)
     if not payload:
@@ -368,6 +421,8 @@ def _format_intermediate_steps(
                 "latency_ms": event.get("latency_ms"),
                 "result_summary": event.get("result_summary")
                 or _summarize_tool_output(getattr(action, "tool", "unknown"), observation),
+                "observation_excerpt": event.get("observation_excerpt")
+                or _build_observation_excerpt(observation),
             }
         )
     return observations
@@ -555,6 +610,16 @@ def run_agent(
                                 "message": str(exc),
                             },
                         },
+                        "observation_excerpt": _build_observation_excerpt(
+                            {
+                                "ok": False,
+                                "status": "agent_failed",
+                                "error": {
+                                    "code": "AGENT_EXECUTION_FAILED",
+                                    "message": str(exc),
+                                },
+                            }
+                        ),
                     }
                 ],
                 stop_reason="tool_failure_limit_exceeded",

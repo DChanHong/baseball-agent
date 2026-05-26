@@ -22,6 +22,7 @@ class ToolObservation(BaseModel):
     result: dict[str, Any] = Field(default_factory=dict)
     latency_ms: int | None = None
     result_summary: dict[str, Any] = Field(default_factory=dict)
+    observation_excerpt: str | None = None
 
 
 class AgentMetadata(BaseModel):
