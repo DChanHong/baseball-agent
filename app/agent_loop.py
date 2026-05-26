@@ -25,6 +25,13 @@ DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
 UNAVAILABLE_GEMINI_MODELS = {"gemini-2.0-flash", "models/gemini-2.0-flash"}
 PROMPT_VERSION = "kbo-game-day-agent-v1"
 MAX_OBSERVATION_EXCERPT_CHARS = 1500
+DEFAULT_PRICING_SOURCE = "google_gemini_api_pricing_config"
+DEFAULT_GEMINI_PRICES_PER_1M_TOKENS = {
+    "gemini-2.5-flash": {
+        "input": 0.30,
+        "output": 2.50,
+    },
+}
 
 
 class ToolTraceCallback(BaseCallbackHandler):
@@ -95,6 +102,56 @@ class ToolTraceCallback(BaseCallbackHandler):
         self.events.append(event)
 
 
+class UsageTraceCallback(BaseCallbackHandler):
+    """Collect per-request LLM token usage for API metadata."""
+
+    def __init__(self, *, chat_model: str) -> None:
+        self.chat_model = chat_model
+        self.input_tokens = 0
+        self.output_tokens = 0
+        self.total_tokens = 0
+        self.llm_call_count = 0
+
+    def on_llm_end(
+        self,
+        response: Any,
+        *,
+        run_id: uuid.UUID,
+        parent_run_id: uuid.UUID | None = None,
+        tags: list[str] | None = None,
+        **kwargs: Any,
+    ) -> Any:
+        usage = _extract_usage_from_llm_result(response)
+        if not usage:
+            return
+
+        self.llm_call_count += 1
+        input_tokens = _coerce_int(usage.get("input_tokens"))
+        output_tokens = _coerce_int(usage.get("output_tokens"))
+        total_tokens = _coerce_int(usage.get("total_tokens"))
+        self.input_tokens += input_tokens
+        self.output_tokens += output_tokens
+        self.total_tokens += total_tokens or input_tokens + output_tokens
+
+    def to_metadata(self) -> dict[str, Any]:
+        estimated_cost = _estimate_llm_cost(
+            model=self.chat_model,
+            input_tokens=self.input_tokens,
+            output_tokens=self.output_tokens,
+        )
+        return {
+            "available": self.llm_call_count > 0,
+            "chat_model": self.chat_model,
+            "llm_call_count": self.llm_call_count,
+            "input_tokens": self.input_tokens,
+            "output_tokens": self.output_tokens,
+            "total_tokens": self.total_tokens,
+            "estimated_cost": estimated_cost,
+            "currency": "USD",
+            "pricing_source": DEFAULT_PRICING_SOURCE,
+        }
+
+
 def _get_gemini_model() -> str:
     configured_model = os.getenv("GEMINI_MODEL", DEFAULT_GEMINI_MODEL)
     if configured_model in UNAVAILABLE_GEMINI_MODELS:
@@ -157,6 +214,7 @@ def _metadata(
     stop_reason: str = "final_answer",
     fallback_used: bool = False,
     session_updates: dict[str, Any] | None = None,
+    usage: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     return {
         "trace_id": trace_id,
@@ -177,6 +235,7 @@ def _metadata(
             "chat": _get_gemini_model(),
             "embedding": os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"),
         },
+        "usage": usage or _empty_usage_metadata(),
         "tools_used": tools_used or [],
         "observations": observations or [],
         "stop_reason": stop_reason,
@@ -185,6 +244,127 @@ def _metadata(
         "fallback_used": fallback_used,
         "session_updates": session_updates or {},
     }
+
+
+def _empty_usage_metadata() -> dict[str, Any]:
+    return {
+        "available": False,
+        "chat_model": _get_gemini_model(),
+        "llm_call_count": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0,
+        "estimated_cost": 0.0,
+        "currency": "USD",
+        "pricing_source": DEFAULT_PRICING_SOURCE,
+    }
+
+
+def _coerce_int(value: Any) -> int:
+    if value is None:
+        return 0
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return 0
+
+
+def _find_first_number(mapping: dict[str, Any], keys: tuple[str, ...]) -> int:
+    for key in keys:
+        if key in mapping:
+            value = _coerce_int(mapping.get(key))
+            if value:
+                return value
+    return 0
+
+
+def _extract_usage_from_mapping(value: Any) -> dict[str, int]:
+    if not isinstance(value, dict):
+        return {}
+
+    nested_candidates = (
+        value.get("usage_metadata"),
+        value.get("token_usage"),
+        value.get("usage"),
+        value.get("usageInfo"),
+    )
+    for candidate in nested_candidates:
+        usage = _extract_usage_from_mapping(candidate)
+        if usage:
+            return usage
+
+    input_tokens = _find_first_number(
+        value,
+        (
+            "input_tokens",
+            "prompt_tokens",
+            "prompt_token_count",
+            "inputTokenCount",
+            "promptTokenCount",
+        ),
+    )
+    output_tokens = _find_first_number(
+        value,
+        (
+            "output_tokens",
+            "completion_tokens",
+            "candidates_token_count",
+            "outputTokenCount",
+            "candidatesTokenCount",
+        ),
+    )
+    total_tokens = _find_first_number(
+        value,
+        (
+            "total_tokens",
+            "total_token_count",
+            "totalTokenCount",
+        ),
+    )
+    if not any((input_tokens, output_tokens, total_tokens)):
+        return {}
+    return {
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "total_tokens": total_tokens or input_tokens + output_tokens,
+    }
+
+
+def _extract_usage_from_llm_result(response: Any) -> dict[str, int]:
+    usage = _extract_usage_from_mapping(getattr(response, "llm_output", None))
+    if usage:
+        return usage
+
+    for generation_group in getattr(response, "generations", []) or []:
+        for generation in generation_group or []:
+            message = getattr(generation, "message", None)
+            for candidate in (
+                getattr(message, "usage_metadata", None),
+                getattr(message, "response_metadata", None),
+                getattr(generation, "generation_info", None),
+            ):
+                usage = _extract_usage_from_mapping(candidate)
+                if usage:
+                    return usage
+    return {}
+
+
+def _model_pricing(model: str) -> dict[str, float]:
+    normalized_model = model.removeprefix("models/")
+    input_override = os.getenv("LLM_INPUT_PRICE_PER_1M_TOKENS")
+    output_override = os.getenv("LLM_OUTPUT_PRICE_PER_1M_TOKENS")
+    if input_override is not None and output_override is not None:
+        try:
+            return {"input": float(input_override), "output": float(output_override)}
+        except ValueError:
+            pass
+    return DEFAULT_GEMINI_PRICES_PER_1M_TOKENS.get(normalized_model, {"input": 0.0, "output": 0.0})
+
+
+def _estimate_llm_cost(*, model: str, input_tokens: int, output_tokens: int) -> float:
+    pricing = _model_pricing(model)
+    cost = (input_tokens / 1_000_000 * pricing["input"]) + (output_tokens / 1_000_000 * pricing["output"])
+    return round(cost, 6)
 
 
 def _parse_observation_result(observation: Any) -> dict[str, Any]:
@@ -548,6 +728,7 @@ def run_agent(
     started_at = datetime.now(timezone.utc).isoformat()
     trace_id = f"kbo_{uuid.uuid4().hex}"
     raw_message = original_message or message
+    usage_trace_callback = UsageTraceCallback(chat_model=_get_gemini_model())
 
     if not message.strip():
         resolved_intents = ["clarification"]
@@ -575,7 +756,7 @@ def run_agent(
             processed_message=message,
             user_context=user_context,
         )
-        run_config["callbacks"] = [tool_trace_callback]
+        run_config["callbacks"] = [tool_trace_callback, usage_trace_callback]
         result = executor.invoke(
             {
                 "input": message,
@@ -624,6 +805,7 @@ def run_agent(
                 ],
                 stop_reason="tool_failure_limit_exceeded",
                 fallback_used=True,
+                usage=usage_trace_callback.to_metadata(),
             ),
         }
 
@@ -658,5 +840,6 @@ def run_agent(
             stop_reason=stop_reason,
             fallback_used=False,
             session_updates=session_updates,
+            usage=usage_trace_callback.to_metadata(),
         ),
     }
