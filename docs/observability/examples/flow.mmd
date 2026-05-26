@@ -1,0 +1,16 @@
+flowchart TD
+  A[User /chat request] --> B[FastAPI chat endpoint]
+  B --> C[Session context attach]
+  C --> D[LangChain AgentExecutor]
+  D --> E[find_kbo_game]
+  E --> F{Game found?}
+  F -- ambiguous schedule --> G[Final answer: candidate games]
+  F -- found --> H[get_stadium_info]
+  H --> I[get_weather_context]
+  I --> J[search_baseball_knowledge]
+  J --> K[score_seat_candidates]
+  K --> L[Final answer: seat recommendation]
+  F -- not found --> M[Fallback answer]
+  G --> N[Response metadata: trace_id, stop_reason, elapsed_ms, observations]
+  L --> N
+  M --> N

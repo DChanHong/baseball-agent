@@ -1,0 +1,37 @@
+{
+  "case": "Failure game not found",
+  "input": {
+    "message": "2026년 2월 1일 롯데 좌석 추천해줘",
+    "session_id": "local-observability-failure-game-not-found"
+  },
+  "trace_id": "kbo_a14f471470094ad79b513a81a23bf337",
+  "session_id": "local-observability-failure-game-not-found",
+  "tools_used": [
+    "find_kbo_game"
+  ],
+  "observations": [
+    {
+      "step": 1,
+      "tool": "find_kbo_game",
+      "arguments": {
+        "date": "2026년 2월 1일",
+        "team_query": "롯데"
+      },
+      "result": {
+        "ok": false,
+        "status": "not_found",
+        "error": {
+          "code": "GAME_NOT_FOUND",
+          "message": "조건에 맞는 KBO 경기를 찾지 못했습니다."
+        }
+      },
+      "latency_ms": 12,
+      "result_summary": {
+        "ok": false,
+        "status": "not_found",
+        "error_code": "GAME_NOT_FOUND",
+        "candidate_count": 0
+      }
+    }
+  ]
+}

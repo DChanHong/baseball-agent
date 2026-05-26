@@ -1,19 +1,21 @@
-# 7주차 AI Agent 구현 프로젝트
+# AI Agent 구현 프로젝트
 
 ## 프로젝트 링크
 
 - Repository: https://github.com/DChanHong/baseball-agent
-- 6주차 설계 PR 또는 design.md: https://github.com/DChanHong/baseball-agent/blob/main/6weekOriginDesign.md
+- 설계 문서: https://github.com/DChanHong/baseball-agent/blob/main/docs/design/6week_origin_design.md
 
 ### 문서 구성
 
 | 문서 | 설명 |
 |------|------|
-| `README.md` | 7주차 과제 제출용 README입니다. 구현한 Agent, 실행 방법, Tool 목록, 예시 실행, 성공 판정 기준을 정리했습니다. |
-| `assignment.md` | 7주차 과제 안내와 제출 템플릿 원문을 보관한 문서입니다. |
-| `6weekOriginDesign.md` | 6주차에 작성한 원본 Agent 설계서입니다. |
-| `MVP_IMPLEMENTATION_DESIGN.md` | 6주차 설계를 실제 MVP로 구현하기 위한 개발 설계서입니다. 구현 범위, Tool 설계, 데이터 구조, 검증 기준을 정리했습니다. |
-| `ADD_POLICY.md` | MVP 구현 중 추가한 정책과 범위 조정 내용을 정리한 문서입니다. |
+| `README.md` | 프로젝트 실행 방법, Agent 구조, Tool 목록, 7주차/8주차 제출 내용을 함께 정리한 메인 문서입니다. |
+| `docs/design/6week_origin_design.md` | 6주차에 작성한 원본 Agent 설계서입니다. |
+| `docs/design/mvp_implementation_design.md` | 6주차 설계를 실제 MVP로 구현하기 위한 개발 설계서입니다. 구현 범위, Tool 설계, 데이터 구조, 검증 기준을 정리했습니다. |
+| `docs/assignments/week8_assignment.md` | 8주차 Observability 과제 안내와 제출 템플릿 원문입니다. |
+| `docs/week8_observability_submission_readme.md` | 8주차 최종 제출용 README 초안입니다. ai-agent-repo의 `week-8/{github-id}/README.md`에 복사할 기준 문서입니다. |
+| `docs/observability/examples/` | 실제 `/chat` 실행으로 생성한 run JSON, Tool 호출 JSON, 인덱싱 상태, 흐름 다이어그램입니다. |
+| `docs/tools/` | LangChain Tool별 입력, 출력, 실패 처리, trace 확인 기준을 정리한 계약 문서입니다. |
 | `docs/data_generation_notes.md` | KBO 일정, 구장 메타데이터, 좌석 데이터 등 수집/정규화 기준을 정리한 작업 노트입니다. |
 
 ## 구현한 Agent
@@ -22,7 +24,7 @@
 - 해결하려는 문제: KBO 직관 초심자와 원정 팬이 경기 일정, 구장, 날씨, 좌석, 예매, 이동 동선을 따로 찾아야 하는 번거로움을 줄이고 상황에 맞는 직관 계획을 제공합니다.
 - 타깃 사용자: KBO 직관이 처음이거나 익숙하지 않은 구장으로 원정 관람을 계획하는 야구 팬
 
-## 6주차 설계와의 연결
+## 기존 설계와의 연결 ( 현재는 MVP용 )
 
 - 유지한 설계: 자연어 요청을 Agent가 해석하고, 경기 일정 조회 -> 구장/날씨 확인 -> 좌석 추천 또는 예매/동선 안내 Tool을 선택적으로 호출하는 구조를 유지했습니다. 사용자 입력이 부족하면 후보 경기 목록을 제시하고 후속 질문에서 세션 상태를 이어받는 흐름도 유지했습니다.
 - 변경한 설계: 관전 포인트, 선수 정보, 맛집 추천, 실시간 교통/예매 잔여석 조회는 현재 MVP에서 미구현 상태입니다. 예매와 원정 동선은 실시간 API 대신 FAISS RAG에 인덱싱한 정적 가이드 문서를 기반으로 안내합니다.
@@ -140,9 +142,29 @@ Trace 실행 결과:
 
 | 케이스 | 입력 | session id | trace id | 주요 Tool 흐름 | 결과 | latency |
 |--------|------|------------|----------|----------------|------|---------|
-| 정상 일정 조회 | `다음주 롯데 경기 알려줘` | `codex-week8-normal-check` | `kbo_8f16708cde1346a0a742824b2dfb715a` | `find_kbo_game` | 2026-05-26~2026-05-31 롯데 후보 경기 6개를 제시하고 추가 선택을 요청 | 5574ms |
-| 정상 좌석 추천 | `2026년 5월 23일 롯데 경기 좌석 추천해줘. 가성비 좋고 응원하기 좋은 자리로 알려줘` | `codex-week8-seat-recheck` | `kbo_2749677030f342458c2eecf42d95d30e` | `find_kbo_game` -> `get_stadium_info` -> `get_weather_context` -> `search_baseball_knowledge` -> `score_seat_candidates` | 2026-05-23 사직 롯데 경기 기준 1루내야상단석 우선 추천 | 27267ms |
-| 실패/예외 | `2026년 2월 1일 롯데 좌석 추천해줘` | `codex-week8-failure-check` | `kbo_86b9b90aa04b4dac85a1043eb4411bd0` | `find_kbo_game` | `GAME_NOT_FOUND`를 확인하고 다른 날짜 입력을 요청 | 3679ms |
+| 정상 일정 조회 | `다음주 롯데 경기 알려줘` | `local-observability-normal-schedule` | `kbo_14a9f81fe6684825b3dfb9cdf9d0dae6` | `find_kbo_game` | 2026-05-26~2026-05-31 롯데 후보 경기 6개를 제시하고 추가 선택을 요청 | 4624ms |
+| 정상 좌석 추천 | `2026년 5월 23일 롯데 경기 좌석 추천해줘. 가성비 좋고 응원하기 좋은 자리로 알려줘` | `local-observability-normal-seat` | `kbo_7e76285988b8438ba8a72a82c15fbf09` | `find_kbo_game` -> `get_stadium_info` -> `get_weather_context` -> `search_baseball_knowledge` -> `score_seat_candidates` | 2026-05-23 사직 롯데 경기 기준 1루내야상단석 우선 추천 | 23564ms |
+| 실패/예외 | `2026년 2월 1일 롯데 좌석 추천해줘` | `local-observability-failure-game-not-found` | `kbo_a14f471470094ad79b513a81a23bf337` | `find_kbo_game` | `GAME_NOT_FOUND`를 확인하고 다른 날짜 입력을 요청 | 3729ms |
+
+실제 관측 로그 샘플:
+
+| 항목 | 파일 |
+|------|------|
+| 인덱싱 상태 | `docs/observability/examples/index_status.json` |
+| 정상 일정 조회 run | `docs/observability/examples/normal_schedule_run.json` |
+| 정상 일정 조회 Tool 호출 | `docs/observability/examples/normal_schedule_tool_calls.json` |
+| 정상 좌석 추천 run | `docs/observability/examples/normal_seat_recommendation_run.json` |
+| 정상 좌석 추천 Tool 호출 | `docs/observability/examples/normal_seat_recommendation_tool_calls.json` |
+| 실패 케이스 run | `docs/observability/examples/failure_game_not_found_run.json` |
+| 실패 케이스 Tool 호출 | `docs/observability/examples/failure_game_not_found_tool_calls.json` |
+| 실행 요약 | `docs/observability/examples/summary.md` |
+| 전체 흐름 다이어그램 | `docs/observability/examples/flow.mmd` |
+
+샘플 생성 명령:
+
+```bash
+.venv313/bin/python scripts/generate_observability_examples.py
+```
 
 Trace 분석:
 
@@ -150,7 +172,7 @@ Trace 분석:
 - 실제 흐름: 좌석 추천 trace에서 `find_kbo_game`으로 2026-05-23 사직 경기를 확정한 뒤 `get_stadium_info`, `get_weather_context`, `search_baseball_knowledge`, `score_seat_candidates`가 순서대로 호출됐습니다.
 - 잘 동작한 부분: 단일턴 좌석 추천 요청에서도 경기 확정, 구장 조회, 날씨 조회, RAG 검색, 좌석 점수화를 모두 수행했습니다.
 - 실패 처리: 2026-02-01 롯데 경기 조회는 `find_kbo_game`이 `ok=false`, `status=not_found`, `error.code=GAME_NOT_FOUND`를 반환했고, Agent는 다른 날짜를 요청하는 답변으로 종료했습니다.
-- 개선할 부분: 좌석 추천 trace의 전체 latency가 27267ms로 길어, prompt 축약이나 deterministic pre-routing으로 LLM reasoning 시간을 줄일 수 있습니다.
+- 개선할 부분: 좌석 추천 trace의 전체 latency가 23564ms로 길어, prompt 축약이나 deterministic pre-routing으로 LLM reasoning 시간을 줄일 수 있습니다.
 
 민감정보 처리:
 
@@ -206,8 +228,23 @@ Trace 분석:
 좌석 가격은 크롤링 시점 기준이며, 실시간 잔여석은 반영되지 않습니다.
 ```
 
-## 실행 로그 분석 
--> 생략
+## 실행 로그 분석
+
+실제 관측 로그는 `docs/observability/examples/`에 저장했습니다. 각 run JSON에는 사용자 입력, 최종 답변, trace id, session id, 전체 latency, stop reason, Tool observation이 포함되어 있고, Tool 호출만 따로 확인할 수 있도록 `*_tool_calls.json`도 함께 저장했습니다.
+
+| 케이스 | 실제 Tool 흐름 | latency | stop reason | 확인 결과 |
+|------|----------------|---------|-------------|-----------|
+| 정상 일정 조회 | `find_kbo_game` | 4624ms | `final_answer` | 후보 경기 6개를 반환하고 추가 선택을 요청했습니다. |
+| 정상 좌석 추천 | `find_kbo_game` -> `get_stadium_info` -> `get_weather_context` -> `search_baseball_knowledge` -> `score_seat_candidates` | 23564ms | `final_answer` | 경기 확정 후 구장, 날씨, RAG 좌석 검색, 좌석 점수화 순서로 실행됐습니다. |
+| 실패 경기 없음 | `find_kbo_game` | 3729ms | `final_answer` | `GAME_NOT_FOUND`를 반환한 뒤 후속 Tool 호출 없이 fallback 답변으로 종료했습니다. |
+
+분석 결과:
+
+- 일정 조회 요청은 RAG나 좌석 추천 Tool을 호출하지 않고, 구조화된 KBO 일정 JSON을 조회하는 `find_kbo_game`만 사용했습니다.
+- 좌석 추천 요청은 바로 RAG 검색으로 가지 않고, 먼저 `find_kbo_game`으로 실제 경기를 확정한 뒤 `get_stadium_info`, `get_weather_context`, `search_baseball_knowledge`, `score_seat_candidates`를 순서대로 호출했습니다.
+- 실패 케이스에서는 경기 조회 단계에서 `ok=false`, `status=not_found`, `error.code=GAME_NOT_FOUND`가 기록됐고, 구장/날씨/좌석 Tool을 불필요하게 호출하지 않았습니다.
+- 좌석 추천 trace에서 Tool latency 합계보다 전체 latency가 더 큽니다. 병목은 Tool 자체보다 LLM reasoning과 최종 답변 생성 쪽에 더 크게 분포하므로, 이후 prompt 축약이나 deterministic pre-routing으로 개선할 수 있습니다.
+- 최종 답변은 Tool observation의 경기, 날씨, 좌석 후보 결과를 벗어나지 않았고, 실시간 잔여석을 확정적으로 말하지 않도록 데이터 한계를 함께 안내했습니다.
 
 ## 성공 판정 기준 확인
 

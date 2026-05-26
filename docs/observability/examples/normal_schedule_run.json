@@ -1,0 +1,124 @@
+{
+  "case": "Normal schedule lookup",
+  "input": {
+    "message": "다음주 롯데 경기 알려줘",
+    "session_id": "local-observability-normal-schedule"
+  },
+  "response": {
+    "answer": "다음주 롯데 경기는 총 6건이 있습니다.\n\n*   5월 26일 화요일 18:30 사직 (vs LG)\n*   5월 27일 수요일 18:30 사직 (vs LG)\n*   5월 28일 목요일 18:30 사직 (vs LG)\n*   5월 29일 금요일 18:30 창원 (vs NC)\n*   5월 30일 토요일 17:00 창원 (vs NC)\n*   5월 31일 일요일 14:00 창원 (vs NC)\n\n이 중에서 어떤 경기에 대해 자세히 알려드릴까요?",
+    "metadata": {
+      "trace_id": "kbo_14a9f81fe6684825b3dfb9cdf9d0dae6",
+      "session_id": "local-observability-normal-schedule",
+      "started_at": "2026-05-22T01:08:03.245817+00:00",
+      "ended_at": "2026-05-22T01:08:07.870067+00:00",
+      "intent": "schedule_lookup",
+      "primary_intent": "schedule_lookup",
+      "resolved_intents": [
+        "schedule_lookup"
+      ],
+      "agent_mode": "langchain_agent_executor",
+      "observability": {
+        "provider": "langsmith",
+        "enabled": true,
+        "project": "kbo-game-day-agent",
+        "prompt_version": "kbo-game-day-agent-v1"
+      },
+      "model": {
+        "chat": "gemini-2.5-flash",
+        "embedding": "text-embedding-3-small"
+      },
+      "tools_used": [
+        "find_kbo_game"
+      ],
+      "observations": [
+        {
+          "step": 1,
+          "tool": "find_kbo_game",
+          "arguments": {
+            "team_query": "롯데",
+            "date": "다음주"
+          },
+          "result": {
+            "ok": true,
+            "status": "ambiguous_game",
+            "error": null
+          },
+          "latency_ms": 17,
+          "result_summary": {
+            "ok": true,
+            "status": "ambiguous_game",
+            "candidate_count": 6
+          }
+        }
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 1,
+      "elapsed_ms": 4624,
+      "fallback_used": false,
+      "session_updates": {
+        "candidate_games": [
+          {
+            "game_id": "2026-05-26-LG-롯데-사직",
+            "date": "2026-05-26",
+            "weekday": "화",
+            "time": "18:30",
+            "home_team": "롯데",
+            "away_team": "LG",
+            "stadium_id": "sajik",
+            "stadium_name": "부산 사직야구장"
+          },
+          {
+            "game_id": "2026-05-27-LG-롯데-사직",
+            "date": "2026-05-27",
+            "weekday": "수",
+            "time": "18:30",
+            "home_team": "롯데",
+            "away_team": "LG",
+            "stadium_id": "sajik",
+            "stadium_name": "부산 사직야구장"
+          },
+          {
+            "game_id": "2026-05-28-LG-롯데-사직",
+            "date": "2026-05-28",
+            "weekday": "목",
+            "time": "18:30",
+            "home_team": "롯데",
+            "away_team": "LG",
+            "stadium_id": "sajik",
+            "stadium_name": "부산 사직야구장"
+          },
+          {
+            "game_id": "2026-05-29-롯데-NC-창원",
+            "date": "2026-05-29",
+            "weekday": "금",
+            "time": "18:30",
+            "home_team": "NC",
+            "away_team": "롯데",
+            "stadium_id": "changwon",
+            "stadium_name": "창원 NC파크"
+          },
+          {
+            "game_id": "2026-05-30-롯데-NC-창원",
+            "date": "2026-05-30",
+            "weekday": "토",
+            "time": "17:00",
+            "home_team": "NC",
+            "away_team": "롯데",
+            "stadium_id": "changwon",
+            "stadium_name": "창원 NC파크"
+          },
+          {
+            "game_id": "2026-05-31-롯데-NC-창원",
+            "date": "2026-05-31",
+            "weekday": "일",
+            "time": "14:00",
+            "home_team": "NC",
+            "away_team": "롯데",
+            "stadium_id": "changwon",
+            "stadium_name": "창원 NC파크"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "status": "ready",
+  "data": {
+    "index_dir": "data/index/faiss",
+    "index_faiss_exists": true,
+    "index_pkl_exists": true,
+    "embedding_model": "text-embedding-3-small",
+    "corpus": {
+      "document_count": 239,
+      "counts_by_source_type": {
+        "stadium_seat": 213,
+        "stadium_metadata": 9,
+        "ticketing_guide": 10,
+        "logistics_guide": 7
+      }
+    }
+  },
+  "error": null
+}
