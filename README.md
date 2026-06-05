@@ -17,6 +17,7 @@
 | `docs/observability/examples/` | 실제 `/chat` 실행으로 생성한 run JSON, Tool 호출 JSON, 인덱싱 상태, 흐름 다이어그램입니다. |
 | `docs/tools/` | LangChain Tool별 입력, 출력, 실패 처리, trace 확인 기준을 정리한 계약 문서입니다. |
 | `docs/data_generation_notes.md` | KBO 일정, 구장 메타데이터, 좌석 데이터 등 수집/정규화 기준을 정리한 작업 노트입니다. |
+| `docs/security_promptfoo.md` | Promptfoo 기반 보안 거절 테스트 실행 방법과 확장 후보를 정리한 문서입니다. |
 
 ## 구현한 Agent
 
