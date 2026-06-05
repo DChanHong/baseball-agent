@@ -4,6 +4,7 @@
 
 - Repository: https://github.com/DChanHong/baseball-agent
 - 설계 문서: https://github.com/DChanHong/baseball-agent/blob/main/docs/design/6week_origin_design.md
+- 보안 개선 및 검증 문서 : https://github.com/DChanHong/baseball-agent/blob/main/SECURITY_ASSIGNMENT_SUBMISSION.md
 
 ### 문서 구성
 
