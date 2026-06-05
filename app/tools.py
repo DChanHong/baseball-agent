@@ -41,6 +41,13 @@ MAX_SEAT_DOCUMENTS_FOR_SCORING = 20
 MIN_SEAT_BUDGET_KRW = 0
 MAX_SEAT_BUDGET_KRW = 1_000_000
 GAME_TIME_PATTERN = re.compile(r"^\d{1,2}:\d{2}$")
+ALLOWED_RAG_PURPOSES = {
+    "general",
+    "seat_recommendation",
+    "ticketing",
+    "logistics",
+    "stadium_info",
+}
 
 if load_dotenv:
     load_dotenv(PROJECT_ROOT / ".env", override=True)
@@ -247,6 +254,18 @@ def _security_flags_for_tool_text(value: str | None) -> list[dict[str, str]]:
     if not value:
         return []
     return analyze_message(value)["security"]["flags"]
+
+
+def _dedupe_security_flags(flags: list[dict[str, str]]) -> list[dict[str, str]]:
+    deduped = []
+    seen = set()
+    for flag in flags:
+        key = (flag.get("code"), flag.get("severity"), flag.get("action"))
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(flag)
+    return deduped
 # Resolve the next matching weekday from a base date, optionally shifted by weeks.
 def _next_weekday(base_date: date, weekday: int, weeks_ahead: int = 0) -> date:
     days_until = (weekday - base_date.weekday()) % 7
@@ -1125,15 +1144,6 @@ def get_weather_context(
     )
 
 
-# Keep LLM-provided top_k values inside a small, predictable range.
-def _normalize_top_k(top_k: int | str | None, default: int = 4) -> int:
-    try:
-        value = int(top_k) if top_k is not None else default
-    except (TypeError, ValueError):
-        value = default
-    return max(1, min(value, 10))
-
-
 # Tool: search the indexed baseball knowledge base with optional team/stadium filtering.
 def search_baseball_knowledge(
     query: str,
@@ -1142,30 +1152,65 @@ def search_baseball_knowledge(
     team: str | None = None,
     top_k: int = 4,
 ) -> dict[str, Any]:
-    if not query.strip():
-        return _tool_error("missing_required_input", "MISSING_QUERY", "검색 query가 필요합니다.")
+    normalized_query, issue = _normalize_tool_text(
+        query,
+        field_name="query",
+        max_length=MAX_RAG_QUERY_LENGTH,
+        required=True,
+    )
+    if issue:
+        return _tool_input_error(issue)
 
-    enriched_query_parts = [query, purpose]
-    if stadium_id:
-        enriched_query_parts.append(stadium_id)
-    if team:
-        enriched_query_parts.append(team)
+    normalized_purpose, issue = _normalize_tool_text(purpose, field_name="purpose", max_length=60, required=False)
+    if issue:
+        return _tool_input_error(issue)
+    if normalized_purpose not in ALLOWED_RAG_PURPOSES:
+        normalized_purpose = "general"
 
-    requested_top_k = _normalize_top_k(top_k)
+    normalized_stadium_id, issue = _normalize_tool_text(stadium_id, field_name="stadium_id", max_length=60)
+    if issue:
+        return _tool_input_error(issue)
+
+    normalized_team, issue = _normalize_tool_text(team, field_name="team", max_length=40)
+    if issue:
+        return _tool_input_error(issue)
+
+    requested_top_k, issue = _validate_top_k(top_k)
+    if issue:
+        return _tool_input_error(issue)
+
+    security_flags = _dedupe_security_flags(
+        [
+            *_security_flags_for_tool_text(normalized_query),
+            *_security_flags_for_tool_text(normalized_purpose),
+            *_security_flags_for_tool_text(normalized_team),
+        ]
+    )
+
+    enriched_query_parts = [normalized_query, normalized_purpose]
+    if normalized_stadium_id:
+        enriched_query_parts.append(normalized_stadium_id)
+    if normalized_team:
+        enriched_query_parts.append(normalized_team)
+
     search_top_k = max(requested_top_k, min(max(requested_top_k * 3, 8), 12))
     result = search_faiss_documents(" ".join(enriched_query_parts), top_k=search_top_k)
     if not result["ok"]:
         return result
 
     documents = result["data"]["documents"]
-    if stadium_id or team:
-        normalized_team = (_normalize_team(team) or {}).get("team") if team else None
+    if normalized_stadium_id or normalized_team:
+        canonical_team = (_normalize_team(normalized_team) or {}).get("team") if normalized_team else None
         filtered = []
         for document in documents:
             metadata = document.get("metadata") or {}
-            if stadium_id and metadata.get("stadium_id") and metadata.get("stadium_id") != stadium_id:
+            if (
+                normalized_stadium_id
+                and metadata.get("stadium_id")
+                and metadata.get("stadium_id") != normalized_stadium_id
+            ):
                 continue
-            if normalized_team and metadata.get("team") and metadata.get("team") != normalized_team:
+            if canonical_team and metadata.get("team") and metadata.get("team") != canonical_team:
                 continue
             filtered.append(document)
         if filtered:
@@ -1176,10 +1221,12 @@ def search_baseball_knowledge(
     return _tool_success(
         "found",
         {
-            "query": query,
-            "purpose": purpose,
+            "query": normalized_query,
+            "purpose": normalized_purpose,
             "search_top_k": search_top_k,
+            "requested_top_k": requested_top_k,
             "returned_count": len(documents),
+            "security_flags": security_flags,
             "documents": documents,
         },
     )
