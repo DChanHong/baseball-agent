@@ -18,12 +18,34 @@ def _normalize_optional_text(value: str | None) -> str | None:
 class UserContext(BaseModel):
     favorite_team: str | None = Field(default=None, max_length=20)
     origin: str | None = None
-    preferences: list[str] = Field(default_factory=list)
+    preferences: list[str] = Field(default_factory=list, max_length=10)
 
     @field_validator("favorite_team", mode="before")
     @classmethod
     def normalize_favorite_team(cls, value: str | None) -> str | None:
         return _normalize_optional_text(value)
+
+    @field_validator("preferences", mode="before")
+    @classmethod
+    def normalize_preferences(cls, value: list[str] | None) -> list[str]:
+        if value is None:
+            return []
+        normalized_preferences = []
+        for item in value:
+            if not isinstance(item, str):
+                raise ValueError("preferences must contain only strings")
+            normalized = _normalize_optional_text(item)
+            if normalized is not None:
+                normalized_preferences.append(normalized)
+        return normalized_preferences
+
+    @field_validator("preferences")
+    @classmethod
+    def preferences_must_be_short(cls, value: list[str]) -> list[str]:
+        too_long = [item for item in value if len(item) > 80]
+        if too_long:
+            raise ValueError("each preference must be 80 characters or fewer")
+        return value
 
 
 class ChatRequest(BaseModel):
