@@ -231,6 +231,7 @@ def _langsmith_run_config(
             "security_checked": bool(security_info.get("checked")),
             "security_blocked": bool(security_info.get("blocked")),
             "security_flag_count": security_info.get("flag_count", 0),
+            "security_refusal_code": security_info.get("refusal_code"),
             "chat_model": _get_gemini_model(),
             "embedding_model": os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"),
         },

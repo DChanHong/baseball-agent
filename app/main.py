@@ -9,7 +9,7 @@ from fastapi.templating import Jinja2Templates
 
 from app.agent_loop import build_security_refusal_response, run_agent
 from app.schemas import ChatRequest, ChatResponse
-from app.security import REFUSAL_ANSWER, analyze_message
+from app.security import analyze_message, refusal_answer
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -94,7 +94,7 @@ def chat(request: ChatRequest) -> dict[str, Any]:
 
     if security.get("blocked"):
         return build_security_refusal_response(
-            answer=REFUSAL_ANSWER,
+            answer=refusal_answer(security.get("refusal_code")),
             session_id=session_id,
             security=security,
         )
