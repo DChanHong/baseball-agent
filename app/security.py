@@ -4,6 +4,7 @@ from typing import Any
 
 
 CONTROL_CHAR_PATTERN = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+EXTRACTION_ACTION_PATTERN = r"(출력|보여|공개|알려|요약|번역|설명|힌트|print|show|reveal|leak|dump|summarize|translate|describe|hint)"
 
 SAFE_REDIRECT = "경기 일정, 좌석, 예매, 동선 안내 범위에서 다시 질문해 주세요."
 DEFAULT_REFUSAL_ANSWER = (
@@ -46,31 +47,31 @@ SECURITY_PATTERNS = (
         code="SYSTEM_PROMPT_EXTRACTION",
         severity="high",
         block=True,
-        pattern=re.compile(r"(시스템\s*프롬프트|system\s*prompt).{0,30}(출력|보여|공개|알려|print|show)", re.IGNORECASE),
+        pattern=re.compile(rf"(시스템\s*프롬프트|system\s*prompt).{{0,40}}{EXTRACTION_ACTION_PATTERN}", re.IGNORECASE),
     ),
     SecurityPattern(
         code="DEVELOPER_INSTRUCTION_EXTRACTION",
         severity="high",
         block=True,
-        pattern=re.compile(r"(developer\s*instruction|개발자\s*(지침|명령)).{0,30}(출력|보여|공개|알려|print|show)", re.IGNORECASE),
+        pattern=re.compile(rf"(developer\s*instruction|개발자\s*(지침|명령)).{{0,40}}{EXTRACTION_ACTION_PATTERN}", re.IGNORECASE),
     ),
     SecurityPattern(
         code="HIDDEN_RULES_EXTRACTION",
         severity="high",
         block=True,
-        pattern=re.compile(r"(hidden\s*rules|숨겨진\s*(규칙|정책|지침)).{0,30}(출력|보여|공개|알려|print|show)", re.IGNORECASE),
+        pattern=re.compile(rf"(hidden\s*rules|숨겨진\s*(규칙|정책|지침)).{{0,40}}{EXTRACTION_ACTION_PATTERN}", re.IGNORECASE),
     ),
     SecurityPattern(
         code="SECRET_OR_KEY_REQUEST",
         severity="high",
         block=True,
-        pattern=re.compile(r"(api\s*key|토큰|token|secret|비밀키|인증키|환경변수|\.env).{0,30}(출력|보여|공개|알려|print|show)", re.IGNORECASE),
+        pattern=re.compile(rf"(api\s*key|토큰|token|secret|비밀키|인증키|환경변수|\.env).{{0,40}}{EXTRACTION_ACTION_PATTERN}", re.IGNORECASE),
     ),
     SecurityPattern(
         code="INTERNAL_LOG_REQUEST",
         severity="high",
         block=True,
-        pattern=re.compile(r"(내부\s*로그|internal\s*log|langsmith\s*trace).{0,30}(출력|보여|공개|알려|print|show)", re.IGNORECASE),
+        pattern=re.compile(rf"(내부\s*로그|internal\s*log|langsmith\s*trace).{{0,40}}{EXTRACTION_ACTION_PATTERN}", re.IGNORECASE),
     ),
     SecurityPattern(
         code="ADMIN_MODE_CLAIM",
