@@ -5,12 +5,25 @@ from pydantic import BaseModel, Field, field_validator
 
 
 SESSION_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]+$")
+CONTROL_CHAR_PATTERN = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+
+
+def _normalize_optional_text(value: str | None) -> str | None:
+    if value is None:
+        return None
+    normalized = CONTROL_CHAR_PATTERN.sub("", value).strip()
+    return normalized or None
 
 
 class UserContext(BaseModel):
-    favorite_team: str | None = None
+    favorite_team: str | None = Field(default=None, max_length=20)
     origin: str | None = None
     preferences: list[str] = Field(default_factory=list)
+
+    @field_validator("favorite_team", mode="before")
+    @classmethod
+    def normalize_favorite_team(cls, value: str | None) -> str | None:
+        return _normalize_optional_text(value)
 
 
 class ChatRequest(BaseModel):
