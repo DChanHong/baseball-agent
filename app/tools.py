@@ -1234,13 +1234,42 @@ def search_baseball_knowledge(
 def _extract_price_from_content(content: str) -> int | None:
     prices = [int(match.replace(",", "")) for match in re.findall(r"(\d[\d,]*)원", content)]
     return min(prices) if prices else None
-# Normalize user preference input into comparable tokens.
-def _preference_terms(preferences: list[str] | str | None) -> list[str]:
+# Validate and normalize LLM-provided seat preference input into comparable terms.
+def _validate_preference_terms(preferences: list[str] | str | None) -> tuple[list[str], ToolInputIssue | None]:
     if preferences is None:
-        return []
+        return [], None
     if isinstance(preferences, str):
-        return [item.strip() for item in re.split(r"[,/ ]+", preferences) if item.strip()]
-    return [str(item).strip() for item in preferences if str(item).strip()]
+        raw_preferences = re.split(r"[,/]+", preferences)
+    elif isinstance(preferences, list):
+        raw_preferences = preferences
+    else:
+        return [], ToolInputIssue(
+            "invalid_input",
+            "INVALID_PREFERENCES",
+            "preferences 값은 문자열 또는 문자열 목록이어야 합니다.",
+        )
+
+    normalized_preferences = []
+    for item in raw_preferences:
+        if not isinstance(item, str):
+            return [], ToolInputIssue(
+                "invalid_input",
+                "INVALID_PREFERENCES",
+                "preferences 항목은 문자열이어야 합니다.",
+            )
+        normalized, issue = _normalize_tool_text(item, field_name="preference", max_length=80)
+        if issue:
+            return [], issue
+        if normalized is not None:
+            normalized_preferences.append(normalized)
+
+    if len(normalized_preferences) > 10:
+        return [], ToolInputIssue(
+            "invalid_input",
+            "PREFERENCES_TOO_MANY",
+            "preferences 항목은 최대 10개까지 허용됩니다.",
+        )
+    return normalized_preferences, None
 
 
 # Tool: score RAG seat candidates using preferences, budget, weather risks, and source limits.
@@ -1252,14 +1281,37 @@ def score_seat_candidates(
     budget: int | None = None,
     cheering_team: str | None = None,
 ) -> dict[str, Any]:
+    if not isinstance(game, dict):
+        return _tool_error("invalid_input", "INVALID_GAME", "game 값은 객체여야 합니다.")
+    if not isinstance(weather_context, dict):
+        return _tool_error("invalid_input", "INVALID_WEATHER_CONTEXT", "weather_context 값은 객체여야 합니다.")
+    if not isinstance(seat_documents, list):
+        return _tool_error("invalid_input", "INVALID_SEAT_DOCUMENTS", "seat_documents 값은 목록이어야 합니다.")
     if not seat_documents:
         return _tool_error("no_candidates", "NO_SEAT_DOCUMENTS", "점수화할 좌석 후보가 없습니다.")
 
-    preference_values = _preference_terms(preferences)
-    risk_flags = set((weather_context or {}).get("risk_flags") or [])
-    recommendation_mode = (weather_context or {}).get("recommendation_mode", "preference_based")
-    normalized_cheering_team = _normalize_team(cheering_team) if cheering_team else None
     limitations: set[str] = set()
+    if len(seat_documents) > MAX_SEAT_DOCUMENTS_FOR_SCORING:
+        seat_documents = seat_documents[:MAX_SEAT_DOCUMENTS_FOR_SCORING]
+        limitations.add("SEAT_DOCUMENTS_TRUNCATED")
+    if any(not isinstance(document, dict) for document in seat_documents):
+        return _tool_error("invalid_input", "INVALID_SEAT_DOCUMENT", "seat_documents 항목은 객체여야 합니다.")
+
+    preference_values, issue = _validate_preference_terms(preferences)
+    if issue:
+        return _tool_input_error(issue)
+
+    normalized_budget, issue = _validate_budget_krw(budget)
+    if issue:
+        return _tool_input_error(issue)
+
+    normalized_cheering_team_text, issue = _normalize_tool_text(cheering_team, field_name="cheering_team", max_length=40)
+    if issue:
+        return _tool_input_error(issue)
+
+    risk_flags = set(weather_context.get("risk_flags") or [])
+    recommendation_mode = weather_context.get("recommendation_mode", "preference_based")
+    normalized_cheering_team = _normalize_team(normalized_cheering_team_text) if normalized_cheering_team_text else None
     scored: list[dict[str, Any]] = []
 
     for document in seat_documents:
@@ -1274,8 +1326,8 @@ def score_seat_candidates(
         seat_name = metadata.get("seat_name") or "좌석"
         price = _extract_price_from_content(content)
 
-        if budget and price:
-            if price <= budget:
+        if normalized_budget and price:
+            if price <= normalized_budget:
                 score += 12
                 reasons.append("예산 범위 안")
             else:
