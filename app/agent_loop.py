@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import time
 import uuid
 from datetime import datetime, timezone
@@ -25,6 +26,7 @@ DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
 UNAVAILABLE_GEMINI_MODELS = {"gemini-2.0-flash", "models/gemini-2.0-flash"}
 PROMPT_VERSION = "kbo-game-day-agent-v1"
 MAX_OBSERVATION_EXCERPT_CHARS = 1500
+LANGSMITH_MESSAGE_PREVIEW_CHARS = 120
 DEFAULT_PRICING_SOURCE = "google_gemini_api_pricing_config"
 DEFAULT_GEMINI_PRICES_PER_1M_TOKENS = {
     "gemini-2.5-flash": {
@@ -32,6 +34,33 @@ DEFAULT_GEMINI_PRICES_PER_1M_TOKENS = {
         "output": 2.50,
     },
 }
+SENSITIVE_KEYS = {
+    "access_token",
+    "address",
+    "api_key",
+    "apikey",
+    "authorization",
+    "bearer",
+    "client_secret",
+    "cookie",
+    "credential",
+    "email",
+    "id_token",
+    "password",
+    "payment_info",
+    "phone",
+    "refresh_token",
+    "secret",
+    "session",
+    "session_id",
+    "set_cookie",
+    "token",
+    "user_id",
+}
+EMAIL_PATTERN = re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")
+KOREAN_PHONE_PATTERN = re.compile(r"\b01[016789][-\s.]?\d{3,4}[-\s.]?\d{4}\b")
+BEARER_TOKEN_PATTERN = re.compile(r"\bBearer\s+[A-Za-z0-9._~+/=-]{12,}", re.IGNORECASE)
+LONG_SECRET_PATTERN = re.compile(r"\b(?=[A-Za-z0-9_./+=-]*[A-Za-z])(?=[A-Za-z0-9_./+=-]*\d)[A-Za-z0-9_./+=-]{32,}\b")
 
 
 class ToolTraceCallback(BaseCallbackHandler):
@@ -192,8 +221,10 @@ def _langsmith_run_config(
             "session_id": session_id,
             "agent_mode": "langchain_agent_executor",
             "prompt_version": PROMPT_VERSION,
-            "original_message": original_message,
-            "processed_message": processed_message,
+            "original_message_len": len(original_message),
+            "processed_message_len": len(processed_message),
+            "original_message_preview": _safe_text_preview(original_message),
+            "processed_message_preview": _safe_text_preview(processed_message),
             "selected_game_id": selected_game.get("game_id"),
             "selected_stadium_id": selected_game.get("stadium_id"),
             "candidate_game_count": len(candidate_games),
@@ -462,12 +493,42 @@ def _observation_as_dict(observation: Any) -> dict[str, Any]:
     return {}
 
 
+def _normalize_sensitive_key(key: Any) -> str:
+    return str(key).lower().replace("-", "_")
+
+
+def _is_sensitive_key(key: Any) -> bool:
+    normalized_key = _normalize_sensitive_key(key)
+    return (
+        normalized_key in SENSITIVE_KEYS
+        or normalized_key.endswith("_token")
+        or normalized_key.endswith("_key")
+        or normalized_key.endswith("_secret")
+        or "authorization" in normalized_key
+    )
+
+
+def _mask_sensitive_text(value: str) -> str:
+    masked = EMAIL_PATTERN.sub("[email]", value)
+    masked = KOREAN_PHONE_PATTERN.sub("[phone]", masked)
+    masked = BEARER_TOKEN_PATTERN.sub("Bearer [token]", masked)
+    masked = LONG_SECRET_PATTERN.sub("[secret]", masked)
+    return masked
+
+
+def _safe_text_preview(value: str, limit: int = LANGSMITH_MESSAGE_PREVIEW_CHARS) -> str:
+    preview = _mask_sensitive_text(value)
+    if len(preview) > limit:
+        return preview[:limit] + "...[truncated]"
+    return preview
+
+
 def _mask_tool_arguments(value: Any) -> Any:
     if isinstance(value, str):
         try:
             parsed = json.loads(value)
         except json.JSONDecodeError:
-            return value
+            return _mask_sensitive_text(value)
         return _mask_tool_arguments(parsed)
 
     if isinstance(value, list):
@@ -477,13 +538,12 @@ def _mask_tool_arguments(value: Any) -> Any:
         return value
 
     masked: dict[str, Any] = {}
-    sensitive_keys = {"api_key", "token", "password", "secret", "payment_info", "phone", "email", "address"}
     for key, item in value.items():
-        normalized_key = str(key).lower()
-        if normalized_key in sensitive_keys:
+        normalized_key = _normalize_sensitive_key(key)
+        if _is_sensitive_key(key):
             masked[key] = "[excluded]"
         elif normalized_key == "origin" and isinstance(item, str) and len(item) > 12:
-            masked[key] = item[:2] + "***"
+            masked[key] = _mask_sensitive_text(item[:2]) + "***"
         else:
             masked[key] = _mask_tool_arguments(item)
     return masked
@@ -491,7 +551,7 @@ def _mask_tool_arguments(value: Any) -> Any:
 
 def _sanitize_observation_value(value: Any) -> Any:
     if isinstance(value, str):
-        return value
+        return _mask_sensitive_text(value)
 
     if isinstance(value, list):
         return [_sanitize_observation_value(item) for item in value[:10]]
@@ -500,24 +560,12 @@ def _sanitize_observation_value(value: Any) -> Any:
         return value
 
     sanitized: dict[str, Any] = {}
-    sensitive_keys = {
-        "api_key",
-        "apikey",
-        "authorization",
-        "cookie",
-        "email",
-        "password",
-        "payment_info",
-        "phone",
-        "secret",
-        "token",
-    }
     for key, item in value.items():
-        normalized_key = str(key).lower().replace("-", "_")
-        if normalized_key in sensitive_keys or normalized_key.endswith("_token") or normalized_key.endswith("_key"):
+        normalized_key = _normalize_sensitive_key(key)
+        if _is_sensitive_key(key):
             sanitized[key] = "[excluded]"
         elif normalized_key == "origin" and isinstance(item, str) and len(item) > 12:
-            sanitized[key] = item[:2] + "***"
+            sanitized[key] = _mask_sensitive_text(item[:2]) + "***"
         else:
             sanitized[key] = _sanitize_observation_value(item)
     return sanitized
@@ -581,6 +629,7 @@ def _summarize_tool_output(tool_name: str, output: Any) -> dict[str, Any]:
         )
     elif tool_name == "search_baseball_knowledge":
         documents = data.get("documents") or []
+        source_summary = data.get("source_summary") or {}
         source_types = sorted(
             {
                 (document.get("metadata") or {}).get("source_type")
@@ -593,6 +642,8 @@ def _summarize_tool_output(tool_name: str, output: Any) -> dict[str, Any]:
                 "returned_count": data.get("returned_count", len(documents)),
                 "search_top_k": data.get("search_top_k"),
                 "source_types": source_types,
+                "trust_levels": source_summary.get("trust_levels") or [],
+                "security_flag_count": source_summary.get("security_flag_count", 0),
             }
         )
     elif tool_name == "score_seat_candidates":

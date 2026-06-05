@@ -48,6 +48,8 @@ ALLOWED_RAG_PURPOSES = {
     "logistics",
     "stadium_info",
 }
+TRUST_LEVEL_CRAWLED_PUBLIC = "crawled_public"
+TRUST_LEVEL_STATIC_SEED = "static_seed"
 
 if load_dotenv:
     load_dotenv(PROJECT_ROOT / ".env", override=True)
@@ -268,6 +270,83 @@ def _dedupe_security_flags(flags: list[dict[str, str]]) -> list[dict[str, str]]:
         seen.add(key)
         deduped.append(flag)
     return deduped
+
+
+def _rag_content_security_flags(content: str) -> list[dict[str, str]]:
+    return _dedupe_security_flags(_security_flags_for_tool_text(content))
+
+
+def _rag_metadata(
+    *,
+    content: str,
+    source_type: str,
+    source_file: str,
+    trust_level: str,
+    source_url: str | None = None,
+    collected_at: str | None = None,
+    updated_at: str | None = None,
+    data_limitations: str | None = None,
+    **kwargs: Any,
+) -> dict[str, Any]:
+    return _metadata(
+        source_type=source_type,
+        source_file=source_file,
+        source_url=source_url or "unknown",
+        collected_at=collected_at,
+        updated_at=updated_at,
+        trust_level=trust_level,
+        data_limitations=data_limitations or "데이터 한계가 명시되지 않았습니다.",
+        security_flags=_rag_content_security_flags(content),
+        **kwargs,
+    )
+
+
+def _summarize_rag_sources(
+    documents: list[dict[str, Any]],
+    *,
+    query_security_flags: list[dict[str, str]] | None = None,
+) -> dict[str, Any]:
+    source_types: set[str] = set()
+    source_files: set[str] = set()
+    source_urls: set[str] = set()
+    trust_levels: set[str] = set()
+    data_limitations: set[str] = set()
+    document_security_flags: list[dict[str, str]] = []
+
+    for document in documents:
+        if not isinstance(document, dict):
+            continue
+        metadata = document.get("metadata") or {}
+        if not isinstance(metadata, dict):
+            continue
+
+        for target, key in (
+            (source_types, "source_type"),
+            (source_files, "source_file"),
+            (source_urls, "source_url"),
+            (trust_levels, "trust_level"),
+            (data_limitations, "data_limitations"),
+        ):
+            value = metadata.get(key)
+            if value:
+                target.add(str(value))
+
+        flags = metadata.get("security_flags") or []
+        if isinstance(flags, list):
+            document_security_flags.extend(flag for flag in flags if isinstance(flag, dict))
+
+    deduped_document_flags = _dedupe_security_flags(document_security_flags)
+    deduped_query_flags = _dedupe_security_flags(query_security_flags or [])
+    return {
+        "source_types": sorted(source_types),
+        "source_files": sorted(source_files),
+        "source_urls": sorted(source_urls),
+        "trust_levels": sorted(trust_levels),
+        "data_limitations": sorted(data_limitations),
+        "query_security_flag_count": len(deduped_query_flags),
+        "document_security_flag_count": len(deduped_document_flags),
+        "security_flag_count": len(_dedupe_security_flags([*deduped_query_flags, *deduped_document_flags])),
+    }
 # Resolve the next matching weekday from a base date, optionally shifted by weeks.
 def _next_weekday(base_date: date, weekday: int, weeks_ahead: int = 0) -> date:
     days_until = (weekday - base_date.weekday()) % 7
@@ -519,10 +598,15 @@ def build_stadium_seat_documents(seat_dir: Path = STADIUM_SEAT_DIR) -> list[Docu
             documents.append(
                 Document(
                     page_content=content,
-                    metadata=_metadata(
+                    metadata=_rag_metadata(
+                        content=content,
                         source_type="stadium_seat",
                         source_file=str(path.relative_to(PROJECT_ROOT)),
                         source_url=source_url,
+                        collected_at=source.get("fetched_at") or source.get("collected_at"),
+                        updated_at=source.get("updated_at"),
+                        trust_level=TRUST_LEVEL_CRAWLED_PUBLIC,
+                        data_limitations="좌석/가격 데이터는 크롤링 시점 기준이며 실시간 잔여석을 반영하지 않는다.",
                         stadium_id=stadium_id,
                         stadium_name=stadium_name,
                         team=team,
@@ -531,7 +615,6 @@ def build_stadium_seat_documents(seat_dir: Path = STADIUM_SEAT_DIR) -> list[Docu
                         audience=zone.get("audience"),
                         document_unit="seat_zone",
                         document_index=index,
-                        data_limitations="좌석/가격 데이터는 크롤링 시점 기준이며 실시간 잔여석을 반영하지 않는다.",
                     ),
                 )
             )
@@ -540,6 +623,7 @@ def build_stadium_seat_documents(seat_dir: Path = STADIUM_SEAT_DIR) -> list[Docu
 # Convert each stadium metadata record into one RAG Document.
 def build_stadium_metadata_documents(path: Path = STATIC_DATA_DIR / "stadium_metadata.json") -> list[Document]:
     payload = _read_json(path)
+    source = payload.get("metadata") or {}
     stadiums = (payload.get("data") or {}).get("stadiums") or []
     documents: list[Document] = []
 
@@ -568,16 +652,20 @@ def build_stadium_metadata_documents(path: Path = STATIC_DATA_DIR / "stadium_met
         documents.append(
             Document(
                 page_content=content,
-                metadata=_metadata(
+                metadata=_rag_metadata(
+                    content=content,
                     source_type="stadium_metadata",
                     source_file=str(path.relative_to(PROJECT_ROOT)),
+                    source_url=source.get("source_url") or source.get("primary_reference"),
+                    updated_at=source.get("updated_at"),
+                    trust_level=TRUST_LEVEL_STATIC_SEED,
+                    data_limitations="정적 구장 seed 데이터이며 좌표와 grid는 운영 중 보정될 수 있다.",
                     stadium_id=stadium.get("id"),
                     stadium_name=stadium.get("name"),
                     city=stadium.get("city"),
                     home_teams=_as_text(stadium.get("home_teams"), default=""),
                     is_dome=stadium.get("is_dome"),
                     document_unit="stadium",
-                    data_limitations="정적 구장 seed 데이터이며 좌표와 grid는 운영 중 보정될 수 있다.",
                 ),
             )
         )
@@ -586,6 +674,7 @@ def build_stadium_metadata_documents(path: Path = STATIC_DATA_DIR / "stadium_met
 # Convert each ticketing guide record into one RAG Document.
 def build_ticketing_guide_documents(path: Path = STATIC_DATA_DIR / "ticketing_guides.json") -> list[Document]:
     payload = _read_json(path)
+    source = payload.get("metadata") or {}
     guides = (payload.get("data") or {}).get("guides") or []
     documents: list[Document] = []
 
@@ -609,17 +698,20 @@ def build_ticketing_guide_documents(path: Path = STATIC_DATA_DIR / "ticketing_gu
         documents.append(
             Document(
                 page_content=content,
-                metadata=_metadata(
+                metadata=_rag_metadata(
+                    content=content,
                     source_type="ticketing_guide",
                     source_file=str(path.relative_to(PROJECT_ROOT)),
                     source_url=guide.get("source_url") or guide.get("official_url"),
+                    updated_at=source.get("updated_at"),
+                    trust_level=TRUST_LEVEL_STATIC_SEED,
+                    data_limitations=guide.get("data_limitations") or source.get("data_limitations"),
                     stadium_id=guide.get("stadium_id"),
                     team=guide.get("team"),
                     schedule_name=guide.get("schedule_name"),
                     platform=guide.get("platform"),
                     difficulty=guide.get("difficulty"),
                     document_unit="team_ticketing_guide",
-                    data_limitations=guide.get("data_limitations"),
                 ),
             )
         )
@@ -628,6 +720,7 @@ def build_ticketing_guide_documents(path: Path = STATIC_DATA_DIR / "ticketing_gu
 # Convert each logistics scenario and generic fallback into RAG Documents.
 def build_logistics_guide_documents(path: Path = STATIC_DATA_DIR / "logistics_guides.json") -> list[Document]:
     payload = _read_json(path)
+    source = payload.get("metadata") or {}
     data = payload.get("data") or {}
     guides = data.get("guides") or []
     documents: list[Document] = []
@@ -656,15 +749,19 @@ def build_logistics_guide_documents(path: Path = STATIC_DATA_DIR / "logistics_gu
         documents.append(
             Document(
                 page_content=content,
-                metadata=_metadata(
+                metadata=_rag_metadata(
+                    content=content,
                     source_type="logistics_guide",
                     source_file=str(path.relative_to(PROJECT_ROOT)),
+                    source_url=guide.get("source_url") or source.get("source_url"),
+                    updated_at=source.get("updated_at"),
+                    trust_level=TRUST_LEVEL_STATIC_SEED,
+                    data_limitations=guide.get("data_limitations") or source.get("data_limitations"),
                     origin=guide.get("origin"),
                     stadium_id=guide.get("stadium_id"),
                     stadium_name=guide.get("stadium_name"),
                     same_day_possible=return_plan.get("same_day_possible"),
                     document_unit="origin_stadium_logistics",
-                    data_limitations=guide.get("data_limitations"),
                 ),
             )
         )
@@ -681,11 +778,15 @@ def build_logistics_guide_documents(path: Path = STATIC_DATA_DIR / "logistics_gu
         documents.append(
             Document(
                 page_content=content,
-                metadata=_metadata(
+                metadata=_rag_metadata(
+                    content=content,
                     source_type="logistics_guide",
                     source_file=str(path.relative_to(PROJECT_ROOT)),
+                    source_url=source.get("source_url"),
+                    updated_at=source.get("updated_at"),
+                    trust_level=TRUST_LEVEL_STATIC_SEED,
+                    data_limitations=source.get("data_limitations"),
                     document_unit="generic_logistics_fallback",
-                    data_limitations=(payload.get("metadata") or {}).get("data_limitations"),
                 ),
             )
         )
@@ -1241,6 +1342,7 @@ def search_baseball_knowledge(
             documents = filtered
 
     documents = documents[:requested_top_k]
+    source_summary = _summarize_rag_sources(documents, query_security_flags=security_flags)
 
     return _tool_success(
         "found",
@@ -1251,6 +1353,7 @@ def search_baseball_knowledge(
             "requested_top_k": requested_top_k,
             "returned_count": len(documents),
             "security_flags": security_flags,
+            "source_summary": source_summary,
             "documents": documents,
         },
     )
