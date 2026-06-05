@@ -8,6 +8,8 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from app.security import analyze_message
+
 try:
     from dotenv import load_dotenv
 except ImportError:
@@ -29,6 +31,16 @@ STATIC_DATA_DIR = DATA_DIR / "static"
 STADIUM_SEAT_DIR = RAW_DATA_DIR / "stadium_seats"
 FAISS_INDEX_DIR = DATA_DIR / "index" / "faiss"
 DEFAULT_OPENAI_EMBEDDING_MODEL = "text-embedding-3-small"
+TOOL_CONTROL_CHAR_PATTERN = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+SUPPORTED_KBO_DATE_START = date(2026, 3, 1)
+SUPPORTED_KBO_DATE_END = date(2026, 9, 30)
+DEFAULT_TOOL_TEXT_MAX_LENGTH = 120
+MAX_RAG_QUERY_LENGTH = 500
+MAX_TOOL_TOP_K = 10
+MAX_SEAT_DOCUMENTS_FOR_SCORING = 20
+MIN_SEAT_BUDGET_KRW = 0
+MAX_SEAT_BUDGET_KRW = 1_000_000
+GAME_TIME_PATTERN = re.compile(r"^\d{1,2}:\d{2}$")
 
 if load_dotenv:
     load_dotenv(PROJECT_ROOT / ".env", override=True)
@@ -97,6 +109,144 @@ def _tool_error(status: str, code: str, message: str) -> dict[str, Any]:
         "data": None,
         "error": {"code": code, "message": message},
     }
+
+
+@dataclass(frozen=True)
+class ToolInputIssue:
+    status: str
+    code: str
+    message: str
+
+
+def _tool_input_error(issue: ToolInputIssue) -> dict[str, Any]:
+    return _tool_error(issue.status, issue.code, issue.message)
+
+
+def _normalize_tool_text(
+    value: Any,
+    *,
+    field_name: str,
+    max_length: int = DEFAULT_TOOL_TEXT_MAX_LENGTH,
+    required: bool = False,
+) -> tuple[str | None, ToolInputIssue | None]:
+    if value is None:
+        if required:
+            return None, ToolInputIssue(
+                "missing_required_input",
+                f"MISSING_{field_name.upper()}",
+                f"{field_name} 값이 필요합니다.",
+            )
+        return None, None
+    if not isinstance(value, str):
+        return None, ToolInputIssue(
+            "invalid_input",
+            f"INVALID_{field_name.upper()}",
+            f"{field_name} 값은 문자열이어야 합니다.",
+        )
+
+    normalized = TOOL_CONTROL_CHAR_PATTERN.sub("", value).strip()
+    if not normalized:
+        if required:
+            return None, ToolInputIssue(
+                "missing_required_input",
+                f"MISSING_{field_name.upper()}",
+                f"{field_name} 값이 필요합니다.",
+            )
+        return None, None
+    if len(normalized) > max_length:
+        return None, ToolInputIssue(
+            "invalid_input",
+            f"{field_name.upper()}_TOO_LONG",
+            f"{field_name} 값은 {max_length}자 이하여야 합니다.",
+        )
+    return normalized, None
+
+
+def _validate_top_k(
+    top_k: int | str | None,
+    *,
+    default: int = 4,
+    min_value: int = 1,
+    max_value: int = MAX_TOOL_TOP_K,
+) -> tuple[int, ToolInputIssue | None]:
+    try:
+        value = int(top_k) if top_k is not None else default
+    except (TypeError, ValueError):
+        return default, ToolInputIssue(
+            "invalid_input",
+            "INVALID_TOP_K",
+            "top_k 값은 정수여야 합니다.",
+        )
+    if value < min_value or value > max_value:
+        return default, ToolInputIssue(
+            "invalid_input",
+            "TOP_K_OUT_OF_RANGE",
+            f"top_k 값은 {min_value} 이상 {max_value} 이하여야 합니다.",
+        )
+    return value, None
+
+
+def _validate_budget_krw(budget: int | str | None) -> tuple[int | None, ToolInputIssue | None]:
+    if budget is None:
+        return None, None
+    try:
+        value = int(budget)
+    except (TypeError, ValueError):
+        return None, ToolInputIssue("invalid_input", "INVALID_BUDGET", "예산은 정수 원화 금액이어야 합니다.")
+    if value < MIN_SEAT_BUDGET_KRW or value > MAX_SEAT_BUDGET_KRW:
+        return None, ToolInputIssue(
+            "invalid_input",
+            "BUDGET_OUT_OF_RANGE",
+            f"예산은 {MIN_SEAT_BUDGET_KRW}원 이상 {MAX_SEAT_BUDGET_KRW}원 이하여야 합니다.",
+        )
+    return value, None
+
+
+def _validate_supported_game_date(
+    value: str | None,
+    *,
+    field_name: str = "game_date",
+) -> tuple[str | None, ToolInputIssue | None]:
+    parsed_date = _parse_date(value)
+    if not parsed_date:
+        return None, ToolInputIssue(
+            "missing_required_input",
+            f"MISSING_{field_name.upper()}",
+            f"{field_name} 값이 필요합니다.",
+        )
+    try:
+        target_date = date.fromisoformat(parsed_date)
+    except ValueError:
+        return None, ToolInputIssue(
+            "invalid_input",
+            f"INVALID_{field_name.upper()}",
+            "경기 날짜 형식이 올바르지 않습니다.",
+        )
+    if not (SUPPORTED_KBO_DATE_START <= target_date <= SUPPORTED_KBO_DATE_END):
+        return None, ToolInputIssue(
+            "invalid_input",
+            "DATE_OUT_OF_SUPPORTED_RANGE",
+            "지원하는 2026 KBO 일정 범위의 날짜만 처리할 수 있습니다.",
+        )
+    return parsed_date, None
+
+
+def _validate_game_time(value: str | None) -> tuple[str | None, ToolInputIssue | None]:
+    normalized, issue = _normalize_tool_text(value, field_name="game_time", max_length=5, required=True)
+    if issue:
+        return None, issue
+    if not normalized or not GAME_TIME_PATTERN.fullmatch(normalized):
+        return None, ToolInputIssue("invalid_input", "INVALID_GAME_TIME", "경기 시간은 HH:MM 형식이어야 합니다.")
+    hour, minute = (int(part) for part in normalized.split(":"))
+    if hour > 23 or minute > 59:
+        return None, ToolInputIssue("invalid_input", "INVALID_GAME_TIME", "경기 시간은 유효한 24시간 HH:MM 형식이어야 합니다.")
+    return normalized, None
+
+
+def _security_flags_for_tool_text(value: str | None) -> list[dict[str, str]]:
+    if not value:
+        return []
+    return analyze_message(value)["security"]["flags"]
 # Resolve the next matching weekday from a base date, optionally shifted by weeks.
 def _next_weekday(base_date: date, weekday: int, weeks_ahead: int = 0) -> date:
     days_until = (weekday - base_date.weekday()) % 7
