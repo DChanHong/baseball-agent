@@ -1,6 +1,10 @@
+import re
 from typing import Any
 
 from pydantic import BaseModel, Field, field_validator
+
+
+SESSION_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]+$")
 
 
 class UserContext(BaseModel):
@@ -12,13 +16,22 @@ class UserContext(BaseModel):
 class ChatRequest(BaseModel):
     message: str = Field(min_length=1, max_length=2000)
     user_context: UserContext | None = None
-    session_id: str | None = None
+    session_id: str | None = Field(default=None, min_length=1, max_length=80)
 
     @field_validator("message")
     @classmethod
     def message_must_not_be_blank(cls, value: str) -> str:
         if not value.strip():
             raise ValueError("message must not be blank")
+        return value
+
+    @field_validator("session_id")
+    @classmethod
+    def session_id_must_be_safe_identifier(cls, value: str | None) -> str | None:
+        if value is None:
+            return value
+        if not SESSION_ID_PATTERN.fullmatch(value):
+            raise ValueError("session_id may contain only letters, numbers, underscores, and hyphens")
         return value
 
 
