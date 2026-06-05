@@ -21,9 +21,18 @@ templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 SESSION_HISTORY_LIMIT = 8
+SESSION_USER_MESSAGE_LIMIT = 500
+SESSION_ASSISTANT_MESSAGE_LIMIT = 1000
+TRUNCATED_SUFFIX = "...[truncated]"
 SERVER_SESSION_ID = f"server-{uuid4().hex}"
 SESSION_HISTORY: dict[str, list[dict[str, str]]] = {}
 SESSION_STATE: dict[str, dict[str, Any]] = {}
+
+
+def _truncate_for_history(value: str, limit: int) -> str:
+    if len(value) <= limit:
+        return value
+    return value[: limit - len(TRUNCATED_SUFFIX)] + TRUNCATED_SUFFIX
 
 
 def _attach_session_context(user_context: dict[str, Any], session_state: dict[str, Any]) -> None:
@@ -115,8 +124,13 @@ def chat(request: ChatRequest) -> dict[str, Any]:
 
     _apply_session_updates(session_state, result)
     history = SESSION_HISTORY.setdefault(session_id, [])
-    history.append({"role": "user", "content": processed_message})
-    history.append({"role": "assistant", "content": result.get("answer", "")})
+    history.append({"role": "user", "content": _truncate_for_history(processed_message, SESSION_USER_MESSAGE_LIMIT)})
+    history.append(
+        {
+            "role": "assistant",
+            "content": _truncate_for_history(result.get("answer", ""), SESSION_ASSISTANT_MESSAGE_LIMIT),
+        }
+    )
     SESSION_HISTORY[session_id] = history[-SESSION_HISTORY_LIMIT:]
     SESSION_STATE[session_id] = session_state
 
