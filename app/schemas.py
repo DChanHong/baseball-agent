@@ -1,6 +1,6 @@
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class UserContext(BaseModel):
@@ -10,9 +10,16 @@ class UserContext(BaseModel):
 
 
 class ChatRequest(BaseModel):
-    message: str
+    message: str = Field(min_length=1, max_length=2000)
     user_context: UserContext | None = None
     session_id: str | None = None
+
+    @field_validator("message")
+    @classmethod
+    def message_must_not_be_blank(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("message must not be blank")
+        return value
 
 
 class ToolObservation(BaseModel):
@@ -45,6 +52,7 @@ class AgentMetadata(BaseModel):
     elapsed_ms: int = 0
     fallback_used: bool = False
     session_updates: dict[str, Any] = Field(default_factory=dict)
+    security: dict[str, Any] = Field(default_factory=dict)
 
 
 class ChatResponse(BaseModel):

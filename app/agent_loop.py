@@ -174,10 +174,12 @@ def _langsmith_run_config(
     original_message: str,
     processed_message: str,
     user_context: dict[str, Any] | None,
+    security: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     context = user_context or {}
     selected_game = context.get("selected_game") or {}
     candidate_games = context.get("candidate_games") or []
+    security_info = security or {}
     return {
         "run_name": "kbo_game_day_agent",
         "tags": [
@@ -195,6 +197,9 @@ def _langsmith_run_config(
             "selected_game_id": selected_game.get("game_id"),
             "selected_stadium_id": selected_game.get("stadium_id"),
             "candidate_game_count": len(candidate_games),
+            "security_checked": bool(security_info.get("checked")),
+            "security_blocked": bool(security_info.get("blocked")),
+            "security_flag_count": security_info.get("flag_count", 0),
             "chat_model": _get_gemini_model(),
             "embedding_model": os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"),
         },
@@ -215,6 +220,7 @@ def _metadata(
     fallback_used: bool = False,
     session_updates: dict[str, Any] | None = None,
     usage: dict[str, Any] | None = None,
+    security: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     current_observations = observations or []
     current_tools_used = tools_used or []
@@ -255,6 +261,7 @@ def _metadata(
         "elapsed_ms": elapsed_ms,
         "fallback_used": fallback_used,
         "session_updates": session_updates or {},
+        "security": security or {"checked": False, "blocked": False, "flags": [], "flag_count": 0},
     }
 
 
@@ -775,6 +782,7 @@ def run_agent(
     session_id: str | None = None,
     original_message: str | None = None,
     pre_observations: list[dict[str, Any]] | None = None,
+    security: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     start_time = time.perf_counter()
     started_at = datetime.now(timezone.utc).isoformat()
@@ -795,6 +803,7 @@ def run_agent(
                 resolved_intents=resolved_intents,
                 stop_reason="missing_required_input",
                 fallback_used=True,
+                security=security,
             ),
         }
 
@@ -807,6 +816,7 @@ def run_agent(
             original_message=raw_message,
             processed_message=message,
             user_context=user_context,
+            security=security,
         )
         run_config["callbacks"] = [tool_trace_callback, usage_trace_callback]
         result = executor.invoke(
@@ -858,6 +868,7 @@ def run_agent(
                 stop_reason="tool_failure_limit_exceeded",
                 fallback_used=True,
                 usage=usage_trace_callback.to_metadata(),
+                security=security,
             ),
         }
 
@@ -893,5 +904,32 @@ def run_agent(
             fallback_used=False,
             session_updates=session_updates,
             usage=usage_trace_callback.to_metadata(),
+            security=security,
+        ),
+    }
+
+
+def build_security_refusal_response(
+    *,
+    answer: str,
+    session_id: str | None = None,
+    security: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    start_time = time.perf_counter()
+    started_at = datetime.now(timezone.utc).isoformat()
+    trace_id = f"kbo_{uuid.uuid4().hex}"
+    resolved_intents = ["security_refusal"]
+    return {
+        "answer": answer,
+        "metadata": _metadata(
+            trace_id=trace_id,
+            session_id=session_id,
+            start_time=start_time,
+            started_at=started_at,
+            primary_intent=resolved_intents[0],
+            resolved_intents=resolved_intents,
+            stop_reason="security_refusal",
+            fallback_used=True,
+            security=security,
         ),
     }

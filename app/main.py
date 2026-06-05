@@ -7,8 +7,9 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from app.agent_loop import run_agent
+from app.agent_loop import build_security_refusal_response, run_agent
 from app.schemas import ChatRequest, ChatResponse
+from app.security import REFUSAL_ANSWER, analyze_message
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -78,6 +79,26 @@ def index(request: Request) -> HTMLResponse:
 def chat(request: ChatRequest) -> dict[str, Any]:
     user_context = request.user_context.model_dump() if request.user_context else {}
     session_id = request.session_id or SERVER_SESSION_ID
+    security_analysis = analyze_message(request.message)
+    processed_message = security_analysis["processed_message"]
+    security = security_analysis["security"]
+
+    if security.get("blocked"):
+        return build_security_refusal_response(
+            answer=REFUSAL_ANSWER,
+            session_id=session_id,
+            security=security,
+        )
+
+    if not processed_message.strip():
+        return run_agent(
+            processed_message,
+            user_context=None,
+            session_id=session_id,
+            original_message=request.message,
+            security=security,
+        )
+
     session_state = SESSION_STATE.setdefault(session_id, {})
 
     history = SESSION_HISTORY.get(session_id, [])
@@ -85,15 +106,16 @@ def chat(request: ChatRequest) -> dict[str, Any]:
     _attach_session_context(user_context, session_state)
 
     result = run_agent(
-        request.message,
+        processed_message,
         user_context=user_context or None,
         session_id=session_id,
         original_message=request.message,
+        security=security,
     )
 
     _apply_session_updates(session_state, result)
     history = SESSION_HISTORY.setdefault(session_id, [])
-    history.append({"role": "user", "content": request.message})
+    history.append({"role": "user", "content": processed_message})
     history.append({"role": "assistant", "content": result.get("answer", "")})
     SESSION_HISTORY[session_id] = history[-SESSION_HISTORY_LIMIT:]
     SESSION_STATE[session_id] = session_state
