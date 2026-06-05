@@ -241,6 +241,8 @@ def _validate_supported_game_date(
 def _validate_game_time(value: str | None) -> tuple[str | None, ToolInputIssue | None]:
     normalized, issue = _normalize_tool_text(value, field_name="game_time", max_length=5, required=True)
     if issue:
+        if issue.code == "MISSING_GAME_TIME":
+            return None, ToolInputIssue("missing_required_input", "MISSING_TIME", "경기 시간이 필요합니다.")
         return None, issue
     if not normalized or not GAME_TIME_PATTERN.fullmatch(normalized):
         return None, ToolInputIssue("invalid_input", "INVALID_GAME_TIME", "경기 시간은 HH:MM 형식이어야 합니다.")
@@ -747,7 +749,7 @@ def build_faiss_index(index_dir: Path = FAISS_INDEX_DIR) -> dict[str, Any]:
             "data": None,
             "error": {
                 "code": "FAISS_INDEX_BUILD_FAILED",
-                "message": str(exc),
+                "message": "FAISS 인덱스 생성 중 오류가 발생했습니다.",
             },
         }
 
@@ -776,7 +778,7 @@ def load_faiss_index(index_dir: Path = FAISS_INDEX_DIR):
             "data": None,
             "error": {
                 "code": "FAISS_INDEX_NOT_FOUND",
-                "message": f"FAISS 인덱스가 없습니다. 먼저 build_faiss_index()를 실행하세요: {index_dir}",
+                "message": "FAISS 인덱스가 없습니다. 먼저 build_faiss_index()를 실행하세요.",
             },
         }
 
@@ -817,7 +819,7 @@ def load_faiss_index(index_dir: Path = FAISS_INDEX_DIR):
             "data": None,
             "error": {
                 "code": "FAISS_INDEX_LOAD_FAILED",
-                "message": str(exc),
+                "message": "FAISS 인덱스 로드 중 오류가 발생했습니다.",
             },
         }
 
@@ -864,7 +866,7 @@ def search_faiss_documents(
             "data": None,
             "error": {
                 "code": "FAISS_SEARCH_FAILED",
-                "message": str(exc),
+                "message": "FAISS 검색 중 오류가 발생했습니다.",
             },
         }
 
@@ -1007,10 +1009,22 @@ def get_stadium_info(
     stadium_name: str | None = None,
     home_team: str | None = None,
 ) -> dict[str, Any]:
-    stadium = _normalize_stadium(stadium_id=stadium_id, stadium_name=stadium_name)
-    if not stadium and home_team:
-        normalized_team = _normalize_team(home_team)
-        team_name = normalized_team.get("team") if normalized_team else home_team
+    normalized_stadium_id, issue = _normalize_tool_text(stadium_id, field_name="stadium_id", max_length=60)
+    if issue:
+        return _tool_input_error(issue)
+    normalized_stadium_name, issue = _normalize_tool_text(stadium_name, field_name="stadium_name", max_length=80)
+    if issue:
+        return _tool_input_error(issue)
+    normalized_home_team, issue = _normalize_tool_text(home_team, field_name="home_team", max_length=40)
+    if issue:
+        return _tool_input_error(issue)
+    if not any((normalized_stadium_id, normalized_stadium_name, normalized_home_team)):
+        return _tool_error("missing_required_input", "MISSING_STADIUM", "구장 정보 조회에는 구장 ID, 구장명, 홈팀 중 하나가 필요합니다.")
+
+    stadium = _normalize_stadium(stadium_id=normalized_stadium_id, stadium_name=normalized_stadium_name)
+    if not stadium and normalized_home_team:
+        normalized_team = _normalize_team(normalized_home_team)
+        team_name = normalized_team.get("team") if normalized_team else normalized_home_team
         for candidate in _load_stadiums():
             if team_name in (candidate.get("home_teams") or []):
                 stadium = candidate
@@ -1045,19 +1059,29 @@ def get_weather_context(
     is_dome: bool = False,
     weather_grid: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    parsed_date = _parse_date(game_date)
-    if not parsed_date:
-        return _tool_error("missing_required_input", "MISSING_DATE", "경기 날짜가 필요합니다.")
+    parsed_date, issue = _validate_supported_game_date(game_date, field_name="date")
+    if issue:
+        return _tool_input_error(issue)
 
-    try:
-        target_date = date.fromisoformat(parsed_date)
-    except ValueError:
-        return _tool_error("missing_required_input", "INVALID_DATE", "경기 날짜 형식이 올바르지 않습니다.")
+    normalized_game_time = None
+    if game_time is not None:
+        normalized_game_time, issue = _validate_game_time(game_time)
+        if issue:
+            return _tool_input_error(issue)
 
+    normalized_stadium_id, issue = _normalize_tool_text(stadium_id, field_name="stadium_id", max_length=60)
+    if issue:
+        return _tool_input_error(issue)
+    if not isinstance(is_dome, bool):
+        return _tool_error("invalid_input", "INVALID_IS_DOME", "is_dome 값은 boolean이어야 합니다.")
+    if weather_grid is not None and not isinstance(weather_grid, dict):
+        return _tool_error("invalid_input", "INVALID_WEATHER_GRID", "weather_grid 값은 객체여야 합니다.")
+
+    target_date = date.fromisoformat(parsed_date)
     days_until = (target_date - date.today()).days
     hour = 18
-    if game_time:
-        time_match = re.search(r"(\d{1,2}):(\d{2})", game_time)
+    if normalized_game_time:
+        time_match = re.search(r"(\d{1,2}):(\d{2})", normalized_game_time)
         if time_match:
             hour = int(time_match.group(1))
 
@@ -1084,7 +1108,7 @@ def get_weather_context(
     forecast = None
     weather_provider_error = None
     if not is_dome and 0 <= days_until <= 10:
-        stadium = _normalize_stadium(stadium_id=stadium_id) if stadium_id else None
+        stadium = _normalize_stadium(stadium_id=normalized_stadium_id) if normalized_stadium_id else None
         coordinates = (stadium or {}).get("coordinates") or {}
         try:
             if coordinates.get("lat") is None or coordinates.get("lng") is None:
@@ -1095,8 +1119,8 @@ def get_weather_context(
                 target_date=parsed_date,
                 game_hour=hour,
             )
-        except Exception as exc:
-            weather_provider_error = str(exc)
+        except Exception:
+            weather_provider_error = "날씨 제공자 조회에 실패했습니다."
 
     if forecast:
         temp = forecast.get("temperature_c")
@@ -1128,9 +1152,9 @@ def get_weather_context(
     return _tool_success(
         status,
         {
-            "stadium_id": stadium_id,
+            "stadium_id": normalized_stadium_id,
             "game_date": parsed_date,
-            "game_time": game_time,
+            "game_time": normalized_game_time,
             "recommendation_mode": recommendation_mode,
             "forecast_level": forecast_level,
             "forecast_reliability": forecast_reliability,
@@ -1403,12 +1427,34 @@ def get_ticketing_guide(
     opponent: str | None = None,
     popularity_hint: str | None = None,
 ) -> dict[str, Any]:
-    if not team and not stadium_id:
+    normalized_team_text, issue = _normalize_tool_text(team, field_name="team", max_length=40)
+    if issue:
+        return _tool_input_error(issue)
+    normalized_stadium_id, issue = _normalize_tool_text(stadium_id, field_name="stadium_id", max_length=60)
+    if issue:
+        return _tool_input_error(issue)
+    normalized_game_date = None
+    if game_date is not None:
+        normalized_game_date, issue = _validate_supported_game_date(game_date, field_name="date")
+        if issue:
+            return _tool_input_error(issue)
+    normalized_opponent, issue = _normalize_tool_text(opponent, field_name="opponent", max_length=40)
+    if issue:
+        return _tool_input_error(issue)
+    normalized_popularity_hint, issue = _normalize_tool_text(
+        popularity_hint,
+        field_name="popularity_hint",
+        max_length=80,
+    )
+    if issue:
+        return _tool_input_error(issue)
+
+    if not normalized_team_text and not normalized_stadium_id:
         return _tool_error("missing_required_input", "MISSING_TEAM", "예매 가이드를 찾으려면 팀 또는 구장 정보가 필요합니다.")
 
-    normalized_team = _normalize_team(team) if team else None
-    normalized_stadium = _normalize_stadium(stadium_id=stadium_id) if stadium_id else None
-    effective_stadium_id = (normalized_stadium or {}).get("id") or stadium_id
+    normalized_team = _normalize_team(normalized_team_text) if normalized_team_text else None
+    normalized_stadium = _normalize_stadium(stadium_id=normalized_stadium_id) if normalized_stadium_id else None
+    effective_stadium_id = (normalized_stadium or {}).get("id") or normalized_stadium_id
     guides = (_read_json(STATIC_DATA_DIR / "ticketing_guides.json").get("data") or {}).get("guides") or []
 
     matched_guide = None
@@ -1438,9 +1484,9 @@ def get_ticketing_guide(
         )
         stadium_matches = bool(effective_stadium_id and guide.get("stadium_id") == effective_stadium_id)
         matched = dict(guide)
-        matched["game_date"] = game_date
-        matched["opponent"] = opponent
-        matched["popularity_hint"] = popularity_hint
+        matched["game_date"] = normalized_game_date
+        matched["opponent"] = normalized_opponent
+        matched["popularity_hint"] = normalized_popularity_hint
         matched["lookup_mode"] = "static_direct"
         matched["match_basis"] = "team" if team_matches else "stadium"
         return _tool_success(
@@ -1449,15 +1495,21 @@ def get_ticketing_guide(
                 "guide": matched,
                 "team": matched.get("team"),
                 "stadium_id": matched.get("stadium_id"),
-                "game_date": game_date,
-                "opponent": opponent,
-                "popularity_hint": popularity_hint,
+                "game_date": normalized_game_date,
+                "opponent": normalized_opponent,
+                "popularity_hint": normalized_popularity_hint,
                 "lookup_mode": "static_direct",
                 "match_basis": "team" if team_matches else "stadium",
                 "rag_recommended": True,
                 "rag_query_hint": " ".join(
                     str(part)
-                    for part in ["예매 가이드", matched.get("team"), matched.get("stadium_id"), opponent, game_date]
+                    for part in [
+                        "예매 가이드",
+                        matched.get("team"),
+                        matched.get("stadium_id"),
+                        normalized_opponent,
+                        normalized_game_date,
+                    ]
                     if part
                 ),
                 "data_limitations": matched.get("data_limitations")
@@ -1480,39 +1532,57 @@ def get_logistics_guide(
     preferred_transport: str | None = None,
     return_same_day: bool | None = None,
 ) -> dict[str, Any]:
-    if not origin:
-        return _tool_error("missing_required_input", "MISSING_ORIGIN", "원정 동선을 계산하려면 출발지가 필요합니다.")
-    if not game_date:
-        return _tool_error("missing_required_input", "MISSING_DATE", "원정 동선을 계산하려면 경기 날짜가 필요합니다.")
-    if not game_time:
-        return _tool_error("missing_required_input", "MISSING_TIME", "원정 동선을 계산하려면 경기 시간이 필요합니다.")
+    normalized_origin, issue = _normalize_tool_text(origin, field_name="origin", max_length=120, required=True)
+    if issue:
+        return _tool_input_error(issue)
+    normalized_stadium_id, issue = _normalize_tool_text(stadium_id, field_name="stadium_id", max_length=60)
+    if issue:
+        return _tool_input_error(issue)
+    normalized_stadium_name, issue = _normalize_tool_text(stadium_name, field_name="stadium_name", max_length=80)
+    if issue:
+        return _tool_input_error(issue)
+    normalized_game_date, issue = _validate_supported_game_date(game_date, field_name="date")
+    if issue:
+        return _tool_input_error(issue)
+    normalized_game_time, issue = _validate_game_time(game_time)
+    if issue:
+        return _tool_input_error(issue)
+    normalized_preferred_transport, issue = _normalize_tool_text(
+        preferred_transport,
+        field_name="preferred_transport",
+        max_length=40,
+    )
+    if issue:
+        return _tool_input_error(issue)
+    if return_same_day is not None and not isinstance(return_same_day, bool):
+        return _tool_error("invalid_input", "INVALID_RETURN_SAME_DAY", "return_same_day 값은 boolean이어야 합니다.")
 
-    stadium = _normalize_stadium(stadium_id=stadium_id, stadium_name=stadium_name)
+    stadium = _normalize_stadium(stadium_id=normalized_stadium_id, stadium_name=normalized_stadium_name)
     if not stadium:
         return _tool_error("missing_required_input", "MISSING_STADIUM", "원정 동선을 계산하려면 구장 정보가 필요합니다.")
 
     payload = _read_json(STATIC_DATA_DIR / "logistics_guides.json")
     data = payload.get("data") or {}
     guides = data.get("guides") or []
-    normalized_origin = origin.replace(" ", "").lower()
+    normalized_origin_key = normalized_origin.replace(" ", "").lower()
     for guide in guides:
         guide_origin = str(guide.get("origin") or "").replace(" ", "").lower()
-        if guide_origin == normalized_origin and guide.get("stadium_id") == stadium.get("id"):
+        if guide_origin == normalized_origin_key and guide.get("stadium_id") == stadium.get("id"):
             matched = dict(guide)
-            matched["game_date"] = _parse_date(game_date) or game_date
-            matched["game_time"] = game_time
-            matched["preferred_transport"] = preferred_transport
+            matched["game_date"] = normalized_game_date
+            matched["game_time"] = normalized_game_time
+            matched["preferred_transport"] = normalized_preferred_transport
             matched["return_same_day_requested"] = return_same_day
             matched["lookup_mode"] = "static_direct"
             return _tool_success(
                 "planned",
                 {
-                    "origin": origin,
+                    "origin": normalized_origin,
                     "stadium_id": stadium.get("id"),
                     "stadium_name": stadium.get("name"),
-                    "game_date": _parse_date(game_date) or game_date,
-                    "game_time": game_time,
-                    "preferred_transport": preferred_transport,
+                    "game_date": normalized_game_date,
+                    "game_time": normalized_game_time,
+                    "preferred_transport": normalized_preferred_transport,
                     "return_same_day_requested": return_same_day,
                     "guide": matched,
                     "recommended_routes": matched.get("recommended_routes") or [],
@@ -1524,12 +1594,12 @@ def get_logistics_guide(
                         str(part)
                         for part in [
                             "원정 동선",
-                            origin,
+                            normalized_origin,
                             stadium.get("name"),
                             stadium.get("id"),
-                            game_date,
-                            game_time,
-                            preferred_transport,
+                            normalized_game_date,
+                            normalized_game_time,
+                            normalized_preferred_transport,
                             "당일 복귀" if return_same_day else None,
                         ]
                         if part
@@ -1543,11 +1613,11 @@ def get_logistics_guide(
     return _tool_success(
         "fallback_planned",
         {
-            "origin": origin,
+            "origin": normalized_origin,
             "stadium_id": stadium.get("id"),
             "stadium_name": stadium.get("name"),
-            "game_date": _parse_date(game_date) or game_date,
-            "game_time": game_time,
+            "game_date": normalized_game_date,
+            "game_time": normalized_game_time,
             "recommended_routes": [],
             "return_plan": {
                 "same_day_possible": "unknown",
@@ -1558,7 +1628,14 @@ def get_logistics_guide(
             "rag_recommended": True,
             "rag_query_hint": " ".join(
                 str(part)
-                for part in ["원정 동선", origin, stadium.get("name"), stadium.get("id"), game_date, game_time]
+                for part in [
+                    "원정 동선",
+                    normalized_origin,
+                    stadium.get("name"),
+                    stadium.get("id"),
+                    normalized_game_date,
+                    normalized_game_time,
+                ]
                 if part
             ),
             "data_limitations": "실시간 교통 API를 조회하지 않습니다.",
@@ -1631,7 +1708,7 @@ def get_rag_document_build_result() -> dict[str, Any]:
             "data": None,
             "error": {
                 "code": "RAG_SOURCE_FILE_NOT_FOUND",
-                "message": str(exc),
+                "message": "RAG 원본 파일을 찾지 못했습니다.",
             },
         }
     except Exception as exc:
@@ -1641,7 +1718,7 @@ def get_rag_document_build_result() -> dict[str, Any]:
             "data": None,
             "error": {
                 "code": "RAG_DOCUMENT_BUILD_FAILED",
-                "message": str(exc),
+                "message": "RAG 문서 생성 중 오류가 발생했습니다.",
             },
         }
 
