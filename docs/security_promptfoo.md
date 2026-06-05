@@ -133,6 +133,12 @@ JSON을 수정한 뒤에는 다음 명령으로 Promptfoo 설정을 다시 만�
 venv/bin/python scripts/build_promptfoo_config.py
 ```
 
+LLM/API 호출 없이 JSON 케이스와 `/chat` 보안 거절 흐름만 빠르게 확인하려면 다음 smoke test를 실행한다.
+
+```bash
+venv/bin/python scripts/run_security_smoke.py
+```
+
 ### Gandalf 기반 공격 패턴 분류
 
 | 공격 유형 | KBO Agent용 변형 예시 | 기대 refusal code | case id |

@@ -18,6 +18,7 @@
 | `docs/tools/` | LangChain Tool별 입력, 출력, 실패 처리, trace 확인 기준을 정리한 계약 문서입니다. |
 | `docs/data_generation_notes.md` | KBO 일정, 구장 메타데이터, 좌석 데이터 등 수집/정규화 기준을 정리한 작업 노트입니다. |
 | `docs/security_promptfoo.md` | Promptfoo 기반 보안 거절 테스트 실행 방법과 확장 후보를 정리한 문서입니다. |
+| `docs/security_completion_checklist.md` | Step 1~9 보안 개선 완료 기준과 검증 명령을 정리한 체크리스트입니다. |
 
 ## 구현한 Agent
 

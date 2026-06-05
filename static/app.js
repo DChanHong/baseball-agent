@@ -42,6 +42,7 @@ function compactMetadata(metadata) {
     trace_summary: metadata.trace_summary,
     usage: metadata.usage,
     tools_used: metadata.tools_used || [],
+    security: metadata.security,
     observations: (metadata.observations || []).map((observation) => ({
       step: observation.step,
       tool: observation.tool,
