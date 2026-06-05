@@ -1,7 +1,7 @@
 import re
 from typing import Any
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 SESSION_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]+$")
@@ -16,6 +16,8 @@ def _normalize_optional_text(value: str | None) -> str | None:
 
 
 class UserContext(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     favorite_team: str | None = Field(default=None, max_length=20)
     origin: str | None = None
     preferences: list[str] = Field(default_factory=list, max_length=10)
@@ -49,6 +51,8 @@ class UserContext(BaseModel):
 
 
 class ChatRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     message: str = Field(min_length=1, max_length=2000)
     user_context: UserContext | None = None
     session_id: str | None = Field(default=None, min_length=1, max_length=80)
