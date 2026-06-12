@@ -84,16 +84,17 @@ Assistant는 설명 없이 다음 JSON 형식으로만 응답한다.
 | `ticketing_guide` | 예매 안내 |
 | `logistics_guide` | 원정 이동 및 동선 안내 |
 | `multi_intent` | 둘 이상의 기능을 함께 요청 |
-| `out_of_scope` | Agent 지원 범위 밖의 요청 |
+| `casual_interaction` | 인사, 감사, Agent 자기 설명 등 Tool 없이 응답할 수 있는 비기능 요청 |
+| `out_of_scope` | 야구 일반 지식, 다른 리그·도메인, 부적절한 요청 등 Agent가 처리할 수 없어 거절해야 하는 요청 |
 
 ### Next Action 후보
 
-| 값 | 의미 |
-|----|------|
-| `call_tools` | 필요한 Tool 호출 시작 |
-| `ask_clarification` | 부족하거나 모호한 정보를 사용자에게 질문 |
-| `answer_without_tools` | Tool 없이 직접 답변 |
-| `reject_request` | 지원 범위 밖 또는 위험 요청 거절 |
+| 값 | 의미 | 선택되는 Intent | 다른 필드 제약 |
+|----|------|--------------|--------------|
+| `call_tools` | Intent를 처리하기 위해 `required_tools`에 명시된 Tool을 순서대로 호출합니다 | `schedule_lookup`, `stadium_info`, `weather_lookup`, `seat_recommendation`, `ticketing_guide`, `logistics_guide`, `multi_intent` | `required_tools.length >= 1`, `needs_clarification == false` |
+| `ask_clarification` | 정보 부족이나 모호함으로 Tool 호출 전 사용자에게 추가 질문이 필요합니다 | 위 7종 중 정보가 부족한 경우 | `needs_clarification == true`, `missing_fields.length >= 1`, `required_tools == []` |
+| `answer_without_tools` | 인사, 감사, Agent 자기 설명 등 비기능 상호작용에 대해 Tool 없이 직접 응답합니다 | `casual_interaction` | `required_tools == []`, `needs_clarification == false`, `missing_fields == []` |
+| `reject_request` | 야구 일반 지식, 타 리그·도메인, 부적절·위험 요청 등 Agent가 처리할 수 없는 요청을 거절합니다 | `out_of_scope` | `required_tools == []`, `needs_clarification == false`, `missing_fields == []` |
 
 ## 4. 현재 사용 Tool
 
