@@ -1,0 +1,306 @@
+[
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 2026년 5월 23일 롯데 경기 일정 알려줘\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"schedule_lookup\",\"required_tools\":[\"find_kbo_game\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 다음 주말 한화 경기 있어?\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"schedule_lookup\",\"required_tools\":[\"find_kbo_game\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 사직야구장은 어디에 있고 돔구장이야?\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"stadium_info\",\"required_tools\":[\"get_stadium_info\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 2026년 5월 23일 롯데 경기에서 응원하기 좋은 좌석 추천해줘\n세션 정보: {\"favorite_team\":\"롯데\",\"preferences\":[\"응원\"]}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 이 경기 가성비 좋은 자리 추천해줘\n세션 정보: {\"selected_game\":{\"game_id\":\"2026-05-16-롯데-한화-대전\",\"date\":\"2026-05-16\",\"time\":\"17:00\",\"away_team\":\"롯데\",\"home_team\":\"한화\",\"stadium_id\":\"daejeon\"},\"preferences\":[\"가성비\"]}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 롯데 경기 좌석 추천해줘\n세션 정보: {\"favorite_team\":\"롯데\",\"preferences\":[\"응원\",\"가성비\"]}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[],\"needs_clarification\":true,\"missing_fields\":[\"game_date\"],\"next_action\":\"ask_clarification\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 그 경기 좌석 추천해줘\n세션 정보: {\"candidate_games\":[{\"game_id\":\"2026-05-23-삼성-롯데-사직\",\"date\":\"2026-05-23\",\"time\":\"17:00\",\"away_team\":\"삼성\",\"home_team\":\"롯데\",\"stadium_id\":\"sajik\"},{\"game_id\":\"2026-05-24-삼성-롯데-사직\",\"date\":\"2026-05-24\",\"time\":\"14:00\",\"away_team\":\"삼성\",\"home_team\":\"롯데\",\"stadium_id\":\"sajik\"}]}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[],\"needs_clarification\":true,\"missing_fields\":[\"selected_game\"],\"next_action\":\"ask_clarification\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 2026년 7월 4일 잠실 두산 경기 날씨 어때?\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"weather_lookup\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 날씨는 어때?\n세션 정보: {\"selected_game\":{\"game_id\":\"2026-06-13-KIA-LG-잠실\",\"date\":\"2026-06-13\",\"time\":\"17:00\",\"away_team\":\"KIA\",\"home_team\":\"LG\",\"stadium_id\":\"jamsil_lg\"}}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"weather_lookup\",\"required_tools\":[\"get_stadium_info\",\"get_weather_context\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 롯데 홈경기 예매는 어디서 해?\n세션 정보: {\"favorite_team\":\"롯데\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 이 경기 티켓팅 방법 알려줘\n세션 정보: {\"selected_game\":{\"game_id\":\"2026-05-23-삼성-롯데-사직\",\"date\":\"2026-05-23\",\"time\":\"17:00\",\"away_team\":\"삼성\",\"home_team\":\"롯데\",\"stadium_id\":\"sajik\"}}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 부산에서 2026년 5월 16일 대전 한화 원정 가는데 동선 알려줘\n세션 정보: {\"origin\":\"부산\",\"preferences\":[\"당일치기\",\"KTX\"]}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"logistics_guide\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_logistics_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 이 경기 원정 동선 알려줘\n세션 정보: {\"selected_game\":{\"game_id\":\"2026-05-16-롯데-한화-대전\",\"date\":\"2026-05-16\",\"time\":\"17:00\",\"away_team\":\"롯데\",\"home_team\":\"한화\",\"stadium_id\":\"daejeon\"}}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"logistics_guide\",\"required_tools\":[],\"needs_clarification\":true,\"missing_fields\":[\"origin_location\"],\"next_action\":\"ask_clarification\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 2026년 5월 23일 롯데 경기 좌석 추천하고 예매 방법도 알려줘\n세션 정보: {\"favorite_team\":\"롯데\",\"preferences\":[\"응원\",\"가성비\"]}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\",\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 안녕하세요, 어떤 걸 도와줄 수 있어?\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"casual_interaction\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"answer_without_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 야구에서 스트라이크와 볼 판정 기준을 자세히 알려줘\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"out_of_scope\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"reject_request\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 일요일 오후 2시 경기로 할게. 응원하기 좋은 좌석 추천해줘\n세션 정보: {\"candidate_games\":[{\"game_id\":\"2026-05-23-삼성-롯데-사직\",\"date\":\"2026-05-23\",\"time\":\"17:00\",\"away_team\":\"삼성\",\"home_team\":\"롯데\",\"stadium_id\":\"sajik\"},{\"game_id\":\"2026-05-24-삼성-롯데-사직\",\"date\":\"2026-05-24\",\"time\":\"14:00\",\"away_team\":\"삼성\",\"home_team\":\"롯데\",\"stadium_id\":\"sajik\"}],\"preferences\":[\"응원\"]}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 롯데 홈경기 예매처랑 티켓팅 성공 전략, 주의사항까지 알려줘\n세션 정보: {\"favorite_team\":\"롯데\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\",\"search_baseball_knowledge\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 부산에서 2026년 5월 16일 대전 한화 원정 갈 건데 좌석 추천하고 예매 방법이랑 당일치기 동선도 알려줘\n세션 정보: {\"origin\":\"부산\",\"favorite_team\":\"한화\",\"preferences\":[\"응원\",\"가성비\",\"당일치기\",\"KTX\"]}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\",\"get_ticketing_guide\",\"get_logistics_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  }
+]
