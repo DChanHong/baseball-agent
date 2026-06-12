@@ -222,14 +222,16 @@ Assistant는 설명 없이 다음 JSON 형식으로만 응답한다.
 
 | 구분 | 최소 개수 |
 |------|-----------|
-| 경기 일정 조회 | 2 |
-| 좌석 추천 | 3 |
-| 날씨 확인 | 2 |
-| 예매 안내 | 2 |
-| 원정 동선 | 2 |
-| 복합 Intent | 1 |
-| 정보 부족 및 모호한 요청 | 3 |
-| 합계 | 15 |
+| `schedule_lookup` | 2 |
+| `seat_recommendation` | 3 |
+| `weather_lookup` | 2 |
+| `ticketing_guide` | 2 |
+| `logistics_guide` | 2 |
+| `multi_intent` | 1 |
+| `casual_interaction` | 1 |
+| `out_of_scope` | 1 |
+| 정보 부족 및 모호한 요청 (`needs_clarification == true`) | 3 |
+| 합계 | 17 |
 
 Dataset row 기본 형식:
 
