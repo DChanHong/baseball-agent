@@ -15,23 +15,33 @@
 
 ### 작업 이름
 
-KBO 직관 가이드 Agent의 요청·세션 기반 실행 경로 결정
+KBO 직관 가이드 Agent 다음 행동 판단
 
 ### 개선하려는 행동
 
-사용자 요청과 현재 세션 상태를 함께 해석하여, 실행할 Tool 순서 또는 추가 질문 여부를 불필요한 재조회 없이 일관된 JSON으로 결정한다.
+사용자 요청과 현재 세션 정보를 입력으로 받았을 때, KBO 직관 가이드 Agent가 다음 행동을 일관된 JSON으로 결정하도록 개선하기 위한 목적입니다.
+
+- 사용자 의도를 사전 정의된 카테고리 중 하나로 일관되게 분류하기 위함입니다.
+- 필요한 Tool을 누락 없이, 불필요한 Tool 호출 없이, 올바른 실행 순서대로 결정하기 위함입니다.
+- Tool 호출 전에 사용자에게 추가 질문이 필요한지 일관된 기준으로 판단하기 위함입니다.
+- 정보가 부족할 때 어떤 필드가 부족한지 사전 정의된 이름으로 정확히 식별하기 위함입니다.
+- 세션 상태(`selected_game`, `candidate_games` 등)에 따라 Tool 호출을 생략하거나 재해석하는 판단을 일관되게 내리기 위함입니다.
 
 ### Fine-tuning이 필요한 이유
 
-현재 Agent의 실행 경로는 LLM이 자연어 요청과 `selected_game`, `candidate_games` 등의 세션 상태를 해석해 결정한다. 따라서 의미가 같은 요청도 표현 방식이나 세션 정보 유무에 따라 필수 Tool 누락, 불필요한 재조회, 성급한 실행처럼 서로 다른 판단으로 이어질 수 있다.
+현재 Agent는 Gemini가 시스템 프롬프트의 Tool 설명만 참고하여 자연어 요청을 그때그때 해석해 Tool을 선택합니다. 이 구조는 다음 세 가지 일관성 문제를 가집니다.
 
-Fine-tuning용 dataset으로 요청·세션 조건별 정답 실행 경로를 반복 학습시키면, Tool 선택 순서와 추가 질문 판단을 더 일관되게 만들고 같은 기준으로 성능을 평가할 수 있다.
+- **표현 의존 가변성**: 같은 의도라도 표현이 달라지면("좌석 추천해줘" vs "어디 앉아야 좋아?" vs "1루쪽 어때?") 필수 Tool을 누락하거나 불필요한 Tool을 호출할 가능성이 있습니다.
+- **세션 의존 판단 누락**: 입력 문장이 동일해도 세션 상태(`selected_game`, `candidate_games` 유무)에 따라 정답 Tool 순서가 달라지는데, 이 분기를 프롬프트 규칙만으로 안정적으로 따르기 어렵습니다.
+- **출력 형식 파괴 위험**: 모델이 JSON 외 설명 텍스트를 덧붙이거나 필드 이름·타입을 미묘하게 바꾸면 다운스트림 파서가 실패합니다. 프롬프트 지시만으로는 형식 안정성을 보장하기 어렵습니다.
+
+이러한 문제는 새로운 지식이 필요한 작업이 아니라 유한한 카테고리 안에서의 반복 분류·라우팅 판단이므로, 사람이 검수한 정답 예시를 dataset으로 정의하여 학습 가능한 형태로 만드는 것이 적절한 해결책입니다.
 
 ### RAG나 Prompt Engineering이 먼저가 아닌 이유
 
-이 작업은 최신 KBO 지식이나 외부 문서를 검색하는 문제가 아니라, 주어진 요청과 세션 상태에서 다음 실행 경로를 결정하는 반복 판단 문제이므로 RAG의 대상이 아니다.
+현재 작업은 외부 문서를 검색해 답변을 생성하는 문제가 아니라, 사용자 입력과 세션 상태를 바탕으로 intent, required_tools, next_action을 일관되게 판단하는 라우팅 문제입니다. 필요한 기준은 외부 지식이 아니라 이미 정의된 tool, intent, session 규칙이므로, RAG를 구축하기보다 정답 예시를 체계적으로 수집·정리하여 Fine-tuning 및 평가에 사용할 수 있는 dataset을 만드는 것을 우선합니다.
 
-Prompt Engineering은 이미 시스템 프롬프트의 Tool 선택 규칙으로 적용되어 있다. Fine-tuning은 그 기준선을 대체하기보다, 다양한 표현과 세션 상태에서도 규칙 준수 결과가 흔들리는 사례를 정답 dataset으로 보완하기 위한 후속 개선 후보이다.
+Prompt Engineering은 기본적인 지시와 형식 제어에는 효과적이지만, 다양한 사용자 표현과 세션 상태에 따른 라우팅 판단을 항상 일관되게 보장하기는 어렵습니다. 또한 정답 dataset이 없으면 프롬프트를 수정해도 실제로 성능이 개선되었는지, 기존 케이스에 회귀가 생겼는지 측정하기 어렵습니다. 따라서 프롬프트를 계속 보완하기 전에 정답 예시를 dataset으로 정리해 판단 기준을 명확히 하고, 이를 Fine-tuning과 향후 프롬프트 개선 평가의 공통 기준으로 활용하고자 합니다.
 
 ## 3. 출력 Schema 초안
 
@@ -74,16 +84,17 @@ Assistant는 설명 없이 다음 JSON 형식으로만 응답한다.
 | `ticketing_guide` | 예매 안내 |
 | `logistics_guide` | 원정 이동 및 동선 안내 |
 | `multi_intent` | 둘 이상의 기능을 함께 요청 |
-| `out_of_scope` | Agent 지원 범위 밖의 요청 |
+| `casual_interaction` | 인사, 감사, Agent 자기 설명 등 Tool 없이 응답할 수 있는 비기능 요청 |
+| `out_of_scope` | 야구 일반 지식, 다른 리그·도메인, 부적절한 요청 등 Agent가 처리할 수 없어 거절해야 하는 요청 |
 
 ### Next Action 후보
 
-| 값 | 의미 |
-|----|------|
-| `call_tools` | 필요한 Tool 호출 시작 |
-| `ask_clarification` | 부족하거나 모호한 정보를 사용자에게 질문 |
-| `answer_without_tools` | Tool 없이 직접 답변 |
-| `reject_request` | 지원 범위 밖 또는 위험 요청 거절 |
+| 값 | 의미 | 선택되는 Intent | 다른 필드 제약 |
+|----|------|--------------|--------------|
+| `call_tools` | Intent를 처리하기 위해 `required_tools`에 명시된 Tool을 순서대로 호출합니다 | `schedule_lookup`, `stadium_info`, `weather_lookup`, `seat_recommendation`, `ticketing_guide`, `logistics_guide`, `multi_intent` | `required_tools.length >= 1`, `needs_clarification == false` |
+| `ask_clarification` | 정보 부족이나 모호함으로 Tool 호출 전 사용자에게 추가 질문이 필요합니다 | 위 7종 중 정보가 부족한 경우 | `needs_clarification == true`, `missing_fields.length >= 1`, `required_tools == []` |
+| `answer_without_tools` | 인사, 감사, Agent 자기 설명 등 비기능 상호작용에 대해 Tool 없이 직접 응답합니다 | `casual_interaction` | `required_tools == []`, `needs_clarification == false`, `missing_fields == []` |
+| `reject_request` | 야구 일반 지식, 타 리그·도메인, 부적절·위험 요청 등 Agent가 처리할 수 없는 요청을 거절합니다 | `out_of_scope` | `required_tools == []`, `needs_clarification == false`, `missing_fields == []` |
 
 ## 4. 현재 사용 Tool
 
@@ -120,6 +131,7 @@ Assistant는 설명 없이 다음 JSON 형식으로만 응답한다.
 - [ ] 세션에 `candidate_games`가 있을 때 경기 선택 판단 규칙을 정의한다.
 - [ ] 정보 부족 또는 모호한 요청의 추가 질문 규칙을 정의한다.
 - [ ] 여러 Intent가 함께 있는 요청의 Tool 실행 순서를 정의한다.
+- [ ] `casual_interaction`과 `out_of_scope` 요청의 응답 처리 규칙을 정의한다.
 
 기본 판단 규칙:
 
@@ -132,6 +144,10 @@ Assistant는 설명 없이 다음 JSON 형식으로만 응답한다.
 | 예매 안내 | 팀 또는 구장 확인 후 `get_ticketing_guide` 호출 |
 | 원정 동선 안내 | 출발지, 구장, 경기 날짜와 시간 확인 |
 | 여러 후보 경기가 존재 | 특정 경기 선택을 사용자에게 질문 |
+| 구장 정보 단독 조회 | `get_stadium_info` 호출 |
+| 경기 날씨 단독 조회 | `find_kbo_game` → `get_stadium_info` → `get_weather_context` 순서 호출. 세션에 `selected_game`이 있으면 `find_kbo_game` 생략 |
+| 인사·감사·Agent 자기 설명 요청 | Tool을 호출하지 않고 `next_action: answer_without_tools`로 응답 |
+| 야구 일반 지식·타 리그·부적절 요청 | Tool을 호출하지 않고 `next_action: reject_request`로 거절 |
 
 완료 기준:
 
@@ -144,8 +160,19 @@ Assistant는 설명 없이 다음 JSON 형식으로만 응답한다.
 - [ ] 허용 가능한 Intent 값을 확정한다.
 - [ ] 허용 가능한 Tool 이름을 확정한다.
 - [ ] 허용 가능한 `next_action` 값을 확정한다.
+- [ ] 허용 가능한 `missing_fields` 값을 확정한다.
 - [ ] `required_tools`가 실행 순서를 의미한다는 규칙을 명시한다.
 - [ ] 추가 질문이 필요한 경우 `required_tools`를 어떻게 기록할지 확정한다.
+
+권장 `missing_fields` 값:
+
+| 값 | 의미 |
+|----|------|
+| `game_date` | 경기 날짜 |
+| `team` | 팀명 (홈팀 또는 양 팀) |
+| `selected_game` | 후보 경기 중 특정 경기 선택 |
+| `origin_location` | 원정 출발지 |
+| `stadium` | 구장명 |
 
 권장 규칙:
 
@@ -153,6 +180,7 @@ Assistant는 설명 없이 다음 JSON 형식으로만 응답한다.
 - `needs_clarification`이 `true`이면 `next_action`은 `ask_clarification`이다.
 - `missing_fields`에는 사전에 정의한 필드 이름만 사용한다.
 - Tool 이름은 실제 등록된 이름만 사용한다.
+- `next_action`별 다른 필드의 강제 제약은 3절 "Next Action 후보" 표의 "다른 필드 제약" 컬럼을 따른다.
 
 완료 기준:
 
@@ -194,14 +222,16 @@ Assistant는 설명 없이 다음 JSON 형식으로만 응답한다.
 
 | 구분 | 최소 개수 |
 |------|-----------|
-| 경기 일정 조회 | 2 |
-| 좌석 추천 | 3 |
-| 날씨 확인 | 2 |
-| 예매 안내 | 2 |
-| 원정 동선 | 2 |
-| 복합 Intent | 1 |
-| 정보 부족 및 모호한 요청 | 3 |
-| 합계 | 15 |
+| `schedule_lookup` | 2 |
+| `seat_recommendation` | 3 |
+| `weather_lookup` | 2 |
+| `ticketing_guide` | 2 |
+| `logistics_guide` | 2 |
+| `multi_intent` | 1 |
+| `casual_interaction` | 1 |
+| `out_of_scope` | 1 |
+| 정보 부족 및 모호한 요청 (`needs_clarification == true`) | 3 |
+| 합계 | 17 |
 
 Dataset row 기본 형식:
 
@@ -233,7 +263,7 @@ Dataset row 기본 형식:
 - [ ] 날짜가 없는 좌석 추천 요청을 포함한다.
 - [ ] 여러 후보 경기 중 어떤 경기인지 불명확한 요청을 포함한다.
 - [ ] `selected_game`이 있는 짧은 후속 요청을 포함한다.
-- [ ] 필요하면 복합 Intent 또는 지원 범위 밖 요청도 추가한다.
+- [ ] `casual_interaction`과 `out_of_scope` 요청을 각각 최소 1개 포함한다.
 
 권장 엣지케이스:
 
@@ -244,6 +274,8 @@ Dataset row 기본 형식:
 | 3 | `selected_game`이 있는 상태에서 `날씨는 어때?` | 일정 재검색 없이 구장·날씨 Tool 호출 |
 | 4 | `서울에서 원정 가고 싶어` | 경기와 목적 구장 정보 추가 질문 |
 | 5 | 좌석 추천과 예매 방법을 함께 요청 | 좌석 추천 후 예매 Tool까지 호출 |
+| 6 | `안녕하세요` 또는 `너 뭐 할 수 있어?` | Tool 호출 없이 `next_action: answer_without_tools`로 응답 |
+| 7 | `야구 스트라이크 룰 알려줘` 또는 `MLB 일정 알려줘` | Tool 호출 없이 `next_action: reject_request`로 거절 |
 
 완료 기준:
 
