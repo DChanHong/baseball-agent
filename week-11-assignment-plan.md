@@ -131,6 +131,7 @@ Assistant는 설명 없이 다음 JSON 형식으로만 응답한다.
 - [ ] 세션에 `candidate_games`가 있을 때 경기 선택 판단 규칙을 정의한다.
 - [ ] 정보 부족 또는 모호한 요청의 추가 질문 규칙을 정의한다.
 - [ ] 여러 Intent가 함께 있는 요청의 Tool 실행 순서를 정의한다.
+- [ ] `casual_interaction`과 `out_of_scope` 요청의 응답 처리 규칙을 정의한다.
 
 기본 판단 규칙:
 
@@ -143,6 +144,10 @@ Assistant는 설명 없이 다음 JSON 형식으로만 응답한다.
 | 예매 안내 | 팀 또는 구장 확인 후 `get_ticketing_guide` 호출 |
 | 원정 동선 안내 | 출발지, 구장, 경기 날짜와 시간 확인 |
 | 여러 후보 경기가 존재 | 특정 경기 선택을 사용자에게 질문 |
+| 구장 정보 단독 조회 | `get_stadium_info` 호출 |
+| 경기 날씨 단독 조회 | `find_kbo_game` → `get_stadium_info` → `get_weather_context` 순서 호출. 세션에 `selected_game`이 있으면 `find_kbo_game` 생략 |
+| 인사·감사·Agent 자기 설명 요청 | Tool을 호출하지 않고 `next_action: answer_without_tools`로 응답 |
+| 야구 일반 지식·타 리그·부적절 요청 | Tool을 호출하지 않고 `next_action: reject_request`로 거절 |
 
 완료 기준:
 
@@ -155,8 +160,19 @@ Assistant는 설명 없이 다음 JSON 형식으로만 응답한다.
 - [ ] 허용 가능한 Intent 값을 확정한다.
 - [ ] 허용 가능한 Tool 이름을 확정한다.
 - [ ] 허용 가능한 `next_action` 값을 확정한다.
+- [ ] 허용 가능한 `missing_fields` 값을 확정한다.
 - [ ] `required_tools`가 실행 순서를 의미한다는 규칙을 명시한다.
 - [ ] 추가 질문이 필요한 경우 `required_tools`를 어떻게 기록할지 확정한다.
+
+권장 `missing_fields` 값:
+
+| 값 | 의미 |
+|----|------|
+| `game_date` | 경기 날짜 |
+| `team` | 팀명 (홈팀 또는 양 팀) |
+| `selected_game` | 후보 경기 중 특정 경기 선택 |
+| `origin_location` | 원정 출발지 |
+| `stadium` | 구장명 |
 
 권장 규칙:
 
@@ -164,6 +180,7 @@ Assistant는 설명 없이 다음 JSON 형식으로만 응답한다.
 - `needs_clarification`이 `true`이면 `next_action`은 `ask_clarification`이다.
 - `missing_fields`에는 사전에 정의한 필드 이름만 사용한다.
 - Tool 이름은 실제 등록된 이름만 사용한다.
+- `next_action`별 다른 필드의 강제 제약은 3절 "Next Action 후보" 표의 "다른 필드 제약" 컬럼을 따른다.
 
 완료 기준:
 
