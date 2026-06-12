@@ -13,7 +13,7 @@
 - Dataset 경로: [`dataset.jsonl`](dataset.jsonl)
 - 검수용 Pretty JSON 경로: [`dataset.pretty.json`](dataset.pretty.json)
 - 원본 링크: 별도 외부 원본 없음
-- 라이선스: 직접 작성한 합성데이터로 외부 저작물 라이선스 위험이 낮습니다.
+- 라이선스: 직접 작성한 합성데이터로 외부 저작물 라이선스 위험이 없습니다.
 - 최종 row 수: 19개
 - 출력 형식: `messages` 기반 JSONL이며, `assistant.content`는 다음 행동 판단 JSON 문자열입니다.
 
