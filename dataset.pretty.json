@@ -1310,5 +1310,165 @@
         "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\",\"search_baseball_knowledge\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
       }
     ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 오늘 LG 경기 응원하기 좋은 자리 추천해줘\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 5월 30일 한화 경기 가성비 좌석 알려줘\n세션 정보: {\"favorite_team\": \"한화\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 2026년 6월 5일 KIA 홈경기에서 응원하기 좋고 비 안 맞는 자리 추천해줘\n세션 정보: {\"favorite_team\": \"KIA\", \"preferences\": [\"응원\"]}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 내일 두산 경기 응원석 어디가 좋아?\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 가성비 좋은 자리 알려줘\n세션 정보: {\"selected_game\": {\"game_id\": \"2026-06-13-KIA-LG-잠실\", \"date\": \"2026-06-13\", \"time\": \"17:00\", \"away_team\": \"KIA\", \"home_team\": \"LG\", \"stadium\": \"잠실\"}}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 응원석 추천 좀\n세션 정보: {\"selected_game\": {\"game_id\": \"2026-07-04-NC-두산-잠실\", \"date\": \"2026-07-04\", \"time\": \"18:30\", \"away_team\": \"NC\", \"home_team\": \"두산\", \"stadium\": \"잠실\"}}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 좌석 추천 부탁해\n세션 정보: {\"selected_game\": {\"game_id\": \"2026-08-02-KT-한화-대전\", \"date\": \"2026-08-02\", \"time\": \"17:00\", \"away_team\": \"KT\", \"home_team\": \"한화\", \"stadium\": \"대전\"}}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 두산 경기 좌석 추천해줘\n세션 정보: {\"favorite_team\": \"두산\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[],\"needs_clarification\":true,\"missing_fields\":[\"game_date\"],\"next_action\":\"ask_clarification\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 한화 자리 어디가 좋아?\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[],\"needs_clarification\":true,\"missing_fields\":[\"game_date\"],\"next_action\":\"ask_clarification\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 그 경기 좌석 추천해줘\n세션 정보: {\"candidate_games\": [{\"game_id\": \"2026-06-13-KIA-LG-잠실\", \"date\": \"2026-06-13\", \"time\": \"17:00\", \"away_team\": \"KIA\", \"home_team\": \"LG\", \"stadium\": \"잠실\"}, {\"game_id\": \"2026-06-14-KIA-LG-잠실\", \"date\": \"2026-06-14\", \"time\": \"14:00\", \"away_team\": \"KIA\", \"home_team\": \"LG\", \"stadium\": \"잠실\"}]}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[],\"needs_clarification\":true,\"missing_fields\":[\"selected_game\"],\"next_action\":\"ask_clarification\"}"
+      }
+    ]
   }
 ]
