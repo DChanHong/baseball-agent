@@ -558,5 +558,117 @@
         "content": "{\"intent\":\"stadium_info\",\"required_tools\":[\"get_stadium_info\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
       }
     ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 안녕!\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"casual_interaction\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"answer_without_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 고마워\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"casual_interaction\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"answer_without_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 너 누구야?\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"casual_interaction\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"answer_without_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 뭐 할 수 있어?\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"casual_interaction\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"answer_without_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 감사합니다\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"casual_interaction\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"answer_without_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 하이~\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"casual_interaction\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"answer_without_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 도움 받아서 좋았어, 고마워\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"casual_interaction\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"answer_without_tools\"}"
+      }
+    ]
   }
 ]
