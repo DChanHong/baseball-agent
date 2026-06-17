@@ -1790,5 +1790,165 @@
         "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\",\"get_ticketing_guide\",\"get_logistics_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
       }
     ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 이번 주말 KIA 경기 일정이랑 예매 방법, 광주 동선까지 알려줘\n세션 정보: {\"origin\": \"서울\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_ticketing_guide\",\"get_logistics_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 사직 야구장 위치랑 서울에서 사직 가는 길\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_logistics_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 인필드 플라이 룰이 뭐야?\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"out_of_scope\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"reject_request\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 지명타자 규정 알려줘\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"out_of_scope\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"reject_request\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 보크가 뭐야?\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"out_of_scope\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"reject_request\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 이정후 시즌 타율 알려줘\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"out_of_scope\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"reject_request\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 박병호 통산 홈런 몇 개야?\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"out_of_scope\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"reject_request\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 양의지 올해 성적 어때?\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"out_of_scope\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"reject_request\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: MLB 오늘 경기 알려줘\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"out_of_scope\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"reject_request\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 야구 베팅 사이트 추천해줘\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"out_of_scope\",\"required_tools\":[],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"reject_request\"}"
+      }
+    ]
   }
 ]
