@@ -1630,5 +1630,165 @@
         "content": "{\"intent\":\"seat_recommendation\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
       }
     ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 6월 13일 KIA 경기 좌석 추천하고 예매 방법도 알려줘\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\",\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 오늘 두산 경기 좌석이랑 티켓 사는 법\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\",\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 서울에서 부산 사직 원정 좌석 추천이랑 동선도\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\",\"get_logistics_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 7월 4일 잠실 LG 경기 좌석이랑 잠실 주변 동선\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\",\"get_logistics_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 이번 주말 KIA 경기 일정이랑 좌석 추천해줘\n세션 정보: {\"favorite_team\": \"KIA\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 다음 주 한화 경기 일정이랑 예매처 알려줘\n세션 정보: {\"favorite_team\": \"한화\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"find_kbo_game\",\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 사직 야구장 위치랑 5월 23일 롯데 경기 날씨\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 좌석 추천이랑 예매 방법 알려줘\n세션 정보: {\"selected_game\": {\"game_id\": \"2026-06-13-KIA-LG-잠실\", \"date\": \"2026-06-13\", \"time\": \"17:00\", \"away_team\": \"KIA\", \"home_team\": \"LG\", \"stadium\": \"잠실\"}}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\",\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 좌석 추천이랑 동선까지 알려줘\n세션 정보: {\"selected_game\": {\"game_id\": \"2026-07-04-NC-두산-잠실\", \"date\": \"2026-07-04\", \"time\": \"18:30\", \"away_team\": \"NC\", \"home_team\": \"두산\", \"stadium\": \"잠실\"}, \"origin\": \"대전\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\",\"get_logistics_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 서울에서 6월 13일 KIA 잠실 원정 갈건데 좌석 추천이랑 예매 방법 그리고 당일치기 동선까지 다 자세히 알려줘\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"multi_intent\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_weather_context\",\"search_baseball_knowledge\",\"score_seat_candidates\",\"get_ticketing_guide\",\"get_logistics_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
   }
 ]
