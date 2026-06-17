@@ -1150,5 +1150,165 @@
         "content": "{\"intent\":\"logistics_guide\",\"required_tools\":[\"find_kbo_game\",\"get_stadium_info\",\"get_logistics_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
       }
     ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 두산 예매 어디서 해?\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 삼성 티켓팅 방법\n세션 정보: {\"favorite_team\": \"삼성\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: KIA 예매처 알려줘\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 한화 홈경기 티켓 어떻게 사?\n세션 정보: {\"favorite_team\": \"한화\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: NC파크 티켓 사는 법\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 예매 방법 알려줘\n세션 정보: {\"selected_game\": {\"game_id\": \"2026-05-23-삼성-롯데-사직\", \"date\": \"2026-05-23\", \"time\": \"17:00\", \"away_team\": \"삼성\", \"home_team\": \"롯데\", \"stadium\": \"사직\"}}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 티켓팅 어떻게 해?\n세션 정보: {\"selected_game\": {\"game_id\": \"2026-06-13-KIA-LG-잠실\", \"date\": \"2026-06-13\", \"time\": \"17:00\", \"away_team\": \"KIA\", \"home_team\": \"LG\", \"stadium\": \"잠실\"}}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 삼성 티켓팅 성공률 높이는 팁 알려줘\n세션 정보: {\"favorite_team\": \"삼성\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\",\"search_baseball_knowledge\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 롯데 어린이날 경기 티켓팅 전략 좀\n세션 정보: {\"favorite_team\": \"롯데\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\",\"search_baseball_knowledge\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "사용자 요청과 세션 정보를 분석하여 intent, required_tools, needs_clarification, missing_fields, next_action을 가진 JSON으로만 답변하라."
+      },
+      {
+        "role": "user",
+        "content": "사용자 요청: 2026년 6월 13일 KIA vs LG 잠실 경기 티켓팅 어떻게 하고 좌석 잘 잡는 팁까지 자세히 알려줘\n세션 정보: {}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"intent\":\"ticketing_guide\",\"required_tools\":[\"get_ticketing_guide\",\"search_baseball_knowledge\"],\"needs_clarification\":false,\"missing_fields\":[],\"next_action\":\"call_tools\"}"
+      }
+    ]
   }
 ]
